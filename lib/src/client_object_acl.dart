@@ -40,9 +40,11 @@ extension ClientObjectAcl on Client {
 
     // Create and deserialize the result
     var result = PutObjectAclResult();
-    await Serde.deserializeOutput(result, output, customDeserializers: [
-      SerdeObjectAcl.deserializePutObjectAcl,
-    ]);
+    await Serde.deserializeOutput(
+      result,
+      output,
+      customDeserializers: [SerdeObjectAcl.deserializePutObjectAcl],
+    );
 
     return result;
   }
@@ -78,9 +80,11 @@ extension ClientObjectAcl on Client {
 
     // Create and deserialize the result
     var result = GetObjectAclResult();
-    await Serde.deserializeOutput(result, output, customDeserializers: [
-      SerdeObjectAcl.deserializeGetObjectAcl,
-    ]);
+    await Serde.deserializeOutput(
+      result,
+      output,
+      customDeserializers: [SerdeObjectAcl.deserializeGetObjectAcl],
+    );
 
     return result;
   }

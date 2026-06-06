@@ -36,9 +36,11 @@ extension ClientRegion on Client {
 
     // Create and deserialize the result
     var result = DescribeRegionsResult();
-    await Serde.deserializeOutput(result, output, customDeserializers: [
-      SerdeRegion.deserializeDescribeRegions,
-    ]);
+    await Serde.deserializeOutput(
+      result,
+      output,
+      customDeserializers: [SerdeRegion.deserializeDescribeRegions],
+    );
 
     return result;
   }

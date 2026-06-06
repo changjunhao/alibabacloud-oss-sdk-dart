@@ -108,8 +108,8 @@ class SignerV4 implements Signer {
         .map((header) => '${header['key']}:${header['value']}\n')
         .join('');
 
-    final canonicalAdditionalHeaders = (additionalHeaders.toList()
-      ..sort()).join(';');
+    final canonicalAdditionalHeaders = (additionalHeaders.toList()..sort())
+        .join(';');
 
     final hashedPayLoad = headers['x-oss-content-sha256'] ?? 'UNSIGNED-PAYLOAD';
 

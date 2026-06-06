@@ -1,11 +1,14 @@
 # Alibaba Cloud OSS SDK for Dart
 
+[![pub package](https://img.shields.io/pub/v/alibabacloud_oss_sdk_dart.svg)](https://pub.dev/packages/alibabacloud_oss_sdk_dart)
+[![license](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
+
 alibabacloud-oss-sdk-dart is the Developer Preview for the OSS SDK for the Dart programming language.
 
 ## [简体中文](README-CN.md)
 
 ## About
-> - This Dart SDK is based on the official APIs of [Alibaba Cloud OSS](http://www.aliyun.com/product/oss/).
+> - This Dart SDK is based on the official APIs of [Alibaba Cloud OSS](https://www.aliyun.com/product/oss/).
 > - Alibaba Cloud Object Storage Service (OSS) is a cloud storage service provided by Alibaba Cloud, featuring massive capacity, security, a low cost, and high reliability.
 > - The OSS can store any type of files and therefore applies to various websites, development enterprises and developers.
 > - With this SDK, you can upload, download and manage data on any app anytime and anywhere conveniently.

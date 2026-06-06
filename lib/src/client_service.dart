@@ -32,9 +32,11 @@ extension ClientService on Client {
 
     // Create and deserialize the result
     var result = ListBucketsResult();
-    await Serde.deserializeOutput(result, output, customDeserializers: [
-      SerdeService.deserializeListBuckets,
-    ]);
+    await Serde.deserializeOutput(
+      result,
+      output,
+      customDeserializers: [SerdeService.deserializeListBuckets],
+    );
 
     return result;
   }

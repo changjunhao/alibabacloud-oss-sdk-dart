@@ -38,9 +38,11 @@ extension ClientBucketBasic on Client {
 
     // Create and deserialize the result
     var result = GetBucketStatResult();
-    await Serde.deserializeOutput(result, output, customDeserializers: [
-      SerdeBucketBasic.deserializeGetBucketStat,
-    ]);
+    await Serde.deserializeOutput(
+      result,
+      output,
+      customDeserializers: [SerdeBucketBasic.deserializeGetBucketStat],
+    );
 
     return result;
   }
@@ -75,9 +77,11 @@ extension ClientBucketBasic on Client {
 
     // Create and deserialize the result
     var result = PutBucketResult();
-    await Serde.deserializeOutput(result, output, customDeserializers: [
-      SerdeBucketBasic.deserializePutBucket,
-    ]);
+    await Serde.deserializeOutput(
+      result,
+      output,
+      customDeserializers: [SerdeBucketBasic.deserializePutBucket],
+    );
 
     return result;
   }
@@ -112,9 +116,11 @@ extension ClientBucketBasic on Client {
 
     // Create and deserialize the result
     var result = DeleteBucketResult();
-    await Serde.deserializeOutput(result, output, customDeserializers: [
-      SerdeBucketBasic.deserializeDeleteBucket,
-    ]);
+    await Serde.deserializeOutput(
+      result,
+      output,
+      customDeserializers: [SerdeBucketBasic.deserializeDeleteBucket],
+    );
 
     return result;
   }
@@ -149,9 +155,11 @@ extension ClientBucketBasic on Client {
 
     // Create and deserialize the result
     var result = ListObjectsResult();
-    await Serde.deserializeOutput(result, output, customDeserializers: [
-      SerdeBucketBasic.deserializeListObjects,
-    ]);
+    await Serde.deserializeOutput(
+      result,
+      output,
+      customDeserializers: [SerdeBucketBasic.deserializeListObjects],
+    );
 
     return result;
   }
@@ -186,9 +194,11 @@ extension ClientBucketBasic on Client {
 
     // Create and deserialize the result
     var result = ListObjectsV2Result();
-    await Serde.deserializeOutput(result, output, customDeserializers: [
-      SerdeBucketBasic.deserializeListObjectsV2,
-    ]);
+    await Serde.deserializeOutput(
+      result,
+      output,
+      customDeserializers: [SerdeBucketBasic.deserializeListObjectsV2],
+    );
 
     return result;
   }
@@ -223,9 +233,11 @@ extension ClientBucketBasic on Client {
 
     // Create and deserialize the result
     var result = GetBucketInfoResult();
-    await Serde.deserializeOutput(result, output, customDeserializers: [
-      SerdeBucketBasic.deserializeGetBucketInfo,
-    ]);
+    await Serde.deserializeOutput(
+      result,
+      output,
+      customDeserializers: [SerdeBucketBasic.deserializeGetBucketInfo],
+    );
 
     return result;
   }
@@ -260,9 +272,11 @@ extension ClientBucketBasic on Client {
 
     // Create and deserialize the result
     var result = GetBucketLocationResult();
-    await Serde.deserializeOutput(result, output, customDeserializers: [
-      SerdeBucketBasic.deserializeGetBucketLocation,
-    ]);
+    await Serde.deserializeOutput(
+      result,
+      output,
+      customDeserializers: [SerdeBucketBasic.deserializeGetBucketLocation],
+    );
 
     return result;
   }

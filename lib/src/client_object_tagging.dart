@@ -40,9 +40,11 @@ extension ClientObjectTagging on Client {
 
     // Create and deserialize the result
     var result = PutObjectTaggingResult();
-    await Serde.deserializeOutput(result, output, customDeserializers: [
-      SerdeObjectTagging.deserializePutObjectTagging,
-    ]);
+    await Serde.deserializeOutput(
+      result,
+      output,
+      customDeserializers: [SerdeObjectTagging.deserializePutObjectTagging],
+    );
 
     return result;
   }
@@ -78,9 +80,11 @@ extension ClientObjectTagging on Client {
 
     // Create and deserialize the result
     var result = GetObjectTaggingResult();
-    await Serde.deserializeOutput(result, output, customDeserializers: [
-      SerdeObjectTagging.deserializeGetObjectTagging,
-    ]);
+    await Serde.deserializeOutput(
+      result,
+      output,
+      customDeserializers: [SerdeObjectTagging.deserializeGetObjectTagging],
+    );
 
     return result;
   }
@@ -117,9 +121,11 @@ extension ClientObjectTagging on Client {
 
     // Create and deserialize the result
     var result = DeleteObjectTaggingResult();
-    await Serde.deserializeOutput(result, output, customDeserializers: [
-      SerdeObjectTagging.deserializeDeleteObjectTagging,
-    ]);
+    await Serde.deserializeOutput(
+      result,
+      output,
+      customDeserializers: [SerdeObjectTagging.deserializeDeleteObjectTagging],
+    );
 
     return result;
   }

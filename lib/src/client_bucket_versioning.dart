@@ -44,9 +44,13 @@ extension ClientBucketVersioning on Client {
 
     // Create and deserialize the result
     var result = PutBucketVersioningResult();
-    await Serde.deserializeOutput(result, output, customDeserializers: [
-      SerdeBucketVersioning.deserializePutBucketVersioning,
-    ]);
+    await Serde.deserializeOutput(
+      result,
+      output,
+      customDeserializers: [
+        SerdeBucketVersioning.deserializePutBucketVersioning,
+      ],
+    );
 
     return result;
   }
@@ -81,9 +85,13 @@ extension ClientBucketVersioning on Client {
 
     // Create and deserialize the result
     var result = GetBucketVersioningResult();
-    await Serde.deserializeOutput(result, output, customDeserializers: [
-      SerdeBucketVersioning.deserializeGetBucketVersioning,
-    ]);
+    await Serde.deserializeOutput(
+      result,
+      output,
+      customDeserializers: [
+        SerdeBucketVersioning.deserializeGetBucketVersioning,
+      ],
+    );
 
     return result;
   }
@@ -118,9 +126,13 @@ extension ClientBucketVersioning on Client {
 
     // Create and deserialize the result
     var result = ListObjectVersionsResult();
-    await Serde.deserializeOutput(result, output, customDeserializers: [
-      SerdeBucketVersioning.deserializeListObjectVersions,
-    ]);
+    await Serde.deserializeOutput(
+      result,
+      output,
+      customDeserializers: [
+        SerdeBucketVersioning.deserializeListObjectVersions,
+      ],
+    );
 
     return result;
   }

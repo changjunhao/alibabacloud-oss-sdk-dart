@@ -39,9 +39,11 @@ extension ClientBucketAcl on Client {
 
     // Create and deserialize the result
     var result = PutBucketAclResponse();
-    await Serde.deserializeOutput(result, output, customDeserializers: [
-      SerdeBucketAcl.deserializePutBucketAcl,
-    ]);
+    await Serde.deserializeOutput(
+      result,
+      output,
+      customDeserializers: [SerdeBucketAcl.deserializePutBucketAcl],
+    );
 
     return result;
   }
@@ -76,9 +78,11 @@ extension ClientBucketAcl on Client {
 
     // Create and deserialize the result
     var result = GetBucketAclResponse();
-    await Serde.deserializeOutput(result, output, customDeserializers: [
-      SerdeBucketAcl.deserializeGetBucketAcl,
-    ]);
+    await Serde.deserializeOutput(
+      result,
+      output,
+      customDeserializers: [SerdeBucketAcl.deserializeGetBucketAcl],
+    );
 
     return result;
   }
