@@ -1,0 +1,12 @@
+name: alibabacloud_oss_sdk_dart_examples
+description: Examples for Alibaba Cloud OSS SDK for Dart
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  alibabacloud_oss_sdk_dart:
+    path: ../
+  args: ^2.7.0
