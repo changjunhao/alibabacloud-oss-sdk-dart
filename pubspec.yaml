@@ -2,7 +2,7 @@ name: alibabacloud_oss_sdk_dart
 description: >-
   Alibaba Cloud Object Storage Service (OSS) SDK for Dart,
   providing comprehensive APIs for bucket and object operations.
-version: 1.0.1
+version: 1.0.2
 repository: https://github.com/changjunhao/alibabacloud-oss-sdk-dart
 issue_tracker: https://github.com/changjunhao/alibabacloud-oss-sdk-dart/issues
 topics:

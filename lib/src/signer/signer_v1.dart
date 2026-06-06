@@ -179,8 +179,8 @@ class SignerV1 implements Signer {
     List<String>? subResource,
   ) {
     final method = request.method;
-    final contentMD5 = request.headers['Content-MD5'] ?? '';
-    final contentType = request.headers['Content-Type'] ?? '';
+    final contentMD5 = request.headers['content-md5'] ?? '';
+    final contentType = request.headers['content-type'] ?? '';
     final canonicalizedOSSHeadersStr = canonicalizedOSSHeaders(headers);
 
     final queryItems = request.requestUri.queryItems;
@@ -219,17 +219,17 @@ class SignerV1 implements Signer {
       lowercaseHeaders[entry.key.toLowerCase()] = entry.value;
     }
 
-    final canonicalizedOSSHeaders =
+    final ossHeaders =
         lowercaseHeaders.entries
             .where((entry) => entry.key.startsWith('x-oss-'))
             .toList()
           ..sort((a, b) => a.key.compareTo(b.key));
 
-    final headerStrings = canonicalizedOSSHeaders
+    final headerStrings = ossHeaders
         .map((entry) => '${entry.key}:${entry.value}')
         .join('\n');
 
-    return lowercaseHeaders.isNotEmpty ? '$headerStrings\n' : headerStrings;
+    return ossHeaders.isNotEmpty ? '$headerStrings\n' : headerStrings;
   }
 
   /// Build canonicalized resource string for signature

@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.2
+
+### Bug Fixes
+
+- **SignerV1**: Fixed `Content-MD5` / `Content-Type` header lookup to use lowercase keys (`content-md5` / `content-type`), matching the lowercased header map produced by `ClientImpl`. Previously these headers were never found, causing them to always be empty in the StringToSign, which could result in `SignatureDoesNotMatch` errors from the server.
+- **SignerV1**: Fixed `canonicalizedOSSHeaders` to check `x-oss-*` header count instead of total header count when deciding whether to append a trailing `\n`. Previously, when no `x-oss-*` headers were present but other headers existed (e.g. `Date`), an extra empty line was incorrectly added to the StringToSign, causing signature mismatches.
+
 ## 1.0.1
 
 ### Improvements

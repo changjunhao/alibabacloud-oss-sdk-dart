@@ -54,8 +54,8 @@ void main() {
       // case 1
       var uri = Uri.parse('http://examplebucket.oss-cn-hangzhou.aliyuncs.com');
       var request = RequestMessage(method: 'PUT', requestUri: uri);
-      request.headers['Content-MD5'] = 'eB5eJF1ptWaXm4bijSPyxw==';
-      request.headers['Content-Type'] = 'text/html';
+      request.headers['content-md5'] = 'eB5eJF1ptWaXm4bijSPyxw==';
+      request.headers['content-type'] = 'text/html';
       request.headers['x-oss-meta-author'] = 'alice';
       request.headers['x-oss-meta-magic'] = 'abracadabra';
       request.headers['x-oss-date'] = 'Wed, 28 Dec 2022 10:27:41 GMT';
@@ -68,8 +68,8 @@ void main() {
       // With Signed Parameter
       uri = Uri.parse('http://examplebucket.oss-cn-hangzhou.aliyuncs.com?acl');
       request = RequestMessage(method: 'PUT', requestUri: uri);
-      request.headers['Content-MD5'] = 'eB5eJF1ptWaXm4bijSPyxw==';
-      request.headers['Content-Type'] = 'text/html';
+      request.headers['content-md5'] = 'eB5eJF1ptWaXm4bijSPyxw==';
+      request.headers['content-type'] = 'text/html';
       request.headers['x-oss-meta-author'] = 'alice';
       request.headers['x-oss-meta-magic'] = 'abracadabra';
       request.headers['x-oss-date'] = 'Wed, 28 Dec 2022 10:27:41 GMT';
@@ -84,16 +84,46 @@ void main() {
         'http://examplebucket.oss-cn-hangzhou.aliyuncs.com?acl&non-resousce=123',
       );
       request = RequestMessage(method: 'PUT', requestUri: uri);
-      request.headers['Content-MD5'] = 'eB5eJF1ptWaXm4bijSPyxw==';
-      request.headers['Content-Type'] = 'text/html';
+      request.headers['content-md5'] = 'eB5eJF1ptWaXm4bijSPyxw==';
+      request.headers['content-type'] = 'text/html';
       request.headers['x-oss-meta-author'] = 'alice';
       request.headers['x-oss-meta-magic'] = 'abracadabra';
       request.headers['x-oss-date'] = 'Wed, 28 Dec 2022 10:27:41 GMT';
-      request.headers['User-Agent'] = 'test';
+      request.headers['user-agent'] = 'test';
       request = await signer.sign(request, signingContext);
       expect(
         request.headers['Authorization'],
         equals('OSS ak:/afkugFbmWDQ967j1vr6zygBLQk='),
+      );
+
+      // No x-oss-* headers, with content-md5 and content-type
+      signingContext = SigningContext(
+        bucket: 'examplebucket',
+        signTime: signTime,
+        credentials: credentials,
+      );
+      uri = Uri.parse('http://examplebucket.oss-cn-hangzhou.aliyuncs.com');
+      request = RequestMessage(method: 'GET', requestUri: uri);
+      request.headers['content-md5'] = 'eB5eJF1ptWaXm4bijSPyxw==';
+      request.headers['content-type'] = 'text/html';
+      request = await signer.sign(request, signingContext);
+      expect(
+        request.headers['Authorization'],
+        equals('OSS ak:5j7Zlb7Y41i+YhXU80V5MUpdluk='),
+      );
+
+      // No x-oss-* headers, no content-md5, no content-type
+      signingContext = SigningContext(
+        bucket: 'examplebucket',
+        signTime: signTime,
+        credentials: credentials,
+      );
+      uri = Uri.parse('http://examplebucket.oss-cn-hangzhou.aliyuncs.com');
+      request = RequestMessage(method: 'GET', requestUri: uri);
+      request = await signer.sign(request, signingContext);
+      expect(
+        request.headers['Authorization'],
+        equals('OSS ak:sBtBCZz4kHYnmKTlKyAFVLwQRMw='),
       );
 
       // With sub-resource
