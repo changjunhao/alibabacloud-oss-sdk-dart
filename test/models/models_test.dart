@@ -5,27 +5,25 @@ import 'package:alibabacloud_oss_sdk_dart/src/transform/serde_extensions.dart';
 class SubRequest extends RequestModel {
   @override
   RequestModelProp commonProp = RequestModelProp();
-  
+
   String? bucket;
   String? key;
   String? acl;
   Map<String, String>? metadata;
-  
-  SubRequest({
-    this.bucket,
-    this.key,
-    this.acl,
-    this.metadata,
-  });
+
+  SubRequest({this.bucket, this.key, this.acl, this.metadata});
 }
 
 class SubResult extends ResultModel {
   @override
   ResultModelProp commonProp = ResultModelProp();
-  
-  String? get headerStr => commonProp.headers?.getCaseInsensitive('x-oss-header-str');
-  int? get headerInt => commonProp.headers?.getCaseInsensitive('x-oss-header-int')?.toInt();
-  bool? get headerBool => commonProp.headers?.getCaseInsensitive('x-oss-header-bool')?.toBool();
+
+  String? get headerStr =>
+      commonProp.headers?.getCaseInsensitive('x-oss-header-str');
+  int? get headerInt =>
+      commonProp.headers?.getCaseInsensitive('x-oss-header-int')?.toInt();
+  bool? get headerBool =>
+      commonProp.headers?.getCaseInsensitive('x-oss-header-bool')?.toBool();
 }
 
 void main() {

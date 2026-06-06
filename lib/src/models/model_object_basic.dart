@@ -11,6 +11,7 @@ class JobParameters {
   /// * Bulk: The object is restored within 5 to 12 hours.
   String? tier;
 
+  /// Creates a JobParameters instance.
   JobParameters({this.tier});
 
   /// Creates a JobParameters instance from a JSON map
@@ -32,6 +33,7 @@ class RestoreRequest {
   /// The container that stores the restoration priority configuration. This configuration takes effect only when the request is sent to restore Cold Archive objects. If you do not specify the JobParameters parameter, the default restoration priority Standard is used.
   JobParameters? jobParameters;
 
+  /// Creates a RestoreRequest instance.
   RestoreRequest({this.days, this.jobParameters});
 
   /// Creates a RestoreRequest instance from a JSON map
@@ -52,6 +54,7 @@ class RestoreRequest {
   }
 }
 
+/// The `DeleteObject` delete object.
 class DeleteObject {
   /// The name of the object that you want to delete.
   String? key;
@@ -59,6 +62,7 @@ class DeleteObject {
   /// The version ID of the object that you want to delete.
   String? versionId;
 
+  /// Creates a DeleteObject instance.
   DeleteObject({this.key, this.versionId});
 
   /// Creates a DeleteObject instance from a JSON map
@@ -75,6 +79,7 @@ class DeleteObject {
   }
 }
 
+/// The `DeletedInfo` deleted info.
 class DeletedInfo {
   /// The name of the deleted object.
   String? key;
@@ -88,6 +93,7 @@ class DeletedInfo {
   /// The version ID of the delete marker.
   String? deleteMarkerVersionId;
 
+  /// Creates a DeletedInfo instance.
   DeletedInfo({
     this.key,
     this.versionId,
@@ -119,6 +125,7 @@ class DeletedInfo {
 /// The request for the PutObject operation.
 class PutObjectRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
@@ -194,6 +201,7 @@ class PutObjectRequest extends RequestModel {
   /// Progress delegate for tracking upload progress.
   ProgressDelegate? progress;
 
+  /// Creates a PutObjectRequest instance.
   PutObjectRequest({
     this.bucket,
     this.key,
@@ -277,6 +285,7 @@ class PutObjectRequest extends RequestModel {
 /// The result for the PutObject operation.
 class PutObjectResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
   /// The 64-bit CRC value of the object. This value is calculated based on the ECMA-182 standard.
@@ -300,6 +309,7 @@ class PutObjectResult extends ResultModel {
   /// It is valid only when the callback is set.
   String? callbackResult;
 
+  /// Creates a PutObjectResult instance.
   PutObjectResult({this.callbackResult, ResultModelProp? commonProp})
     : commonProp = commonProp ?? ResultModelProp();
 
@@ -317,6 +327,7 @@ class PutObjectResult extends ResultModel {
 /// The request for the GetObject operation.
 class GetObjectRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
@@ -382,6 +393,7 @@ class GetObjectRequest extends RequestModel {
   /// Progress delegate for tracking download progress.
   ProgressDelegate? progress;
 
+  /// Creates a GetObjectRequest instance.
   GetObjectRequest({
     this.bucket,
     this.key,
@@ -459,6 +471,7 @@ class GetObjectRequest extends RequestModel {
 /// The request for the CopyObject operation.
 class CopyObjectRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
@@ -541,6 +554,7 @@ class CopyObjectRequest extends RequestModel {
   /// Custom metadata for the object.
   Map<String, String>? metadata;
 
+  /// Creates a CopyObjectRequest instance.
   CopyObjectRequest({
     this.bucket,
     this.key,
@@ -639,6 +653,7 @@ class CopyObjectRequest extends RequestModel {
 /// The result for the GetObject operation.
 class GetObjectResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
   /// The Md5 hash for the uploaded object.
@@ -742,6 +757,7 @@ class GetObjectResult extends ResultModel {
   /// The body of the response.
   ByteStream? body;
 
+  /// Creates a GetObjectResult instance.
   GetObjectResult({this.body, ResultModelProp? commonProp})
     : commonProp = commonProp ?? ResultModelProp();
 
@@ -763,6 +779,7 @@ class GetObjectResult extends ResultModel {
 /// The result for the CopyObject operation.
 class CopyObjectResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
   /// The version ID of the source object.
@@ -799,6 +816,7 @@ class CopyObjectResult extends ResultModel {
   /// The time when the destination object was last modified.
   String? lastModified;
 
+  /// Creates a CopyObjectResult instance.
   CopyObjectResult({this.etag, this.lastModified, ResultModelProp? commonProp})
     : commonProp = commonProp ?? ResultModelProp();
 
@@ -819,6 +837,7 @@ class CopyObjectResult extends ResultModel {
 /// The request for the AppendObject operation.
 class AppendObjectRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
@@ -874,6 +893,7 @@ class AppendObjectRequest extends RequestModel {
   /// Progress delegate for tracking upload progress.
   ProgressDelegate? progress;
 
+  /// Creates a AppendObjectRequest instance.
   AppendObjectRequest({
     this.bucket,
     this.key,
@@ -945,6 +965,7 @@ class AppendObjectRequest extends RequestModel {
 /// The result for the AppendObject operation.
 class AppendObjectResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
   /// The position that must be provided in the next request, which is the current length of the object.
@@ -982,6 +1003,7 @@ class AppendObjectResult extends ResultModel {
   /// The ETag value of the destination object.
   String? etag;
 
+  /// Creates a AppendObjectResult instance.
   AppendObjectResult({this.etag, ResultModelProp? commonProp})
     : commonProp = commonProp ?? ResultModelProp();
 
@@ -999,6 +1021,7 @@ class AppendObjectResult extends ResultModel {
 /// The request for the DeleteObject operation.
 class DeleteObjectRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
@@ -1010,6 +1033,7 @@ class DeleteObjectRequest extends RequestModel {
   /// The version ID of the object.
   String? versionId;
 
+  /// Creates a DeleteObjectRequest instance.
   DeleteObjectRequest({
     this.bucket,
     this.key,
@@ -1035,6 +1059,7 @@ class DeleteObjectRequest extends RequestModel {
 /// The result for the DeleteObject operation.
 class DeleteObjectResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
   /// Indicates whether the deleted version is a delete marker.
@@ -1047,6 +1072,7 @@ class DeleteObjectResult extends ResultModel {
   String? get versionId =>
       commonProp.headers?.getCaseInsensitive('x-oss-version-id');
 
+  /// Creates a DeleteObjectResult instance.
   DeleteObjectResult({ResultModelProp? commonProp})
     : commonProp = commonProp ?? ResultModelProp();
 
@@ -1064,6 +1090,7 @@ class DeleteObjectResult extends ResultModel {
 /// The request for the HeadObject operation.
 class HeadObjectRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
@@ -1087,6 +1114,7 @@ class HeadObjectRequest extends RequestModel {
   /// The version ID of the object for which you want to query metadata.
   String? versionId;
 
+  /// Creates a HeadObjectRequest instance.
   HeadObjectRequest({
     this.bucket,
     this.key,
@@ -1128,6 +1156,7 @@ class HeadObjectRequest extends RequestModel {
 /// The result for the HeadObject operation.
 class HeadObjectResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
   /// The lifecycle information about the object.
@@ -1246,6 +1275,7 @@ class HeadObjectResult extends ResultModel {
   String? get versionId =>
       commonProp.headers?.getCaseInsensitive('x-oss-version-id');
 
+  /// Creates a HeadObjectResult instance.
   HeadObjectResult({ResultModelProp? commonProp})
     : commonProp = commonProp ?? ResultModelProp();
 
@@ -1263,6 +1293,7 @@ class HeadObjectResult extends ResultModel {
 /// The request for the GetObjectMeta operation.
 class GetObjectMetaRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
@@ -1274,6 +1305,7 @@ class GetObjectMetaRequest extends RequestModel {
   /// The versionID of the object.
   String? versionId;
 
+  /// Creates a GetObjectMetaRequest instance.
   GetObjectMetaRequest({
     this.bucket,
     this.key,
@@ -1299,6 +1331,7 @@ class GetObjectMetaRequest extends RequestModel {
 /// The result for the GetObjectMeta operation.
 class GetObjectMetaResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
   /// Version of the object.
@@ -1326,6 +1359,7 @@ class GetObjectMetaResult extends ResultModel {
   String? get transitionTime =>
       commonProp.headers?.getCaseInsensitive('x-oss-transition-time');
 
+  /// Creates a GetObjectMetaResult instance.
   GetObjectMetaResult({ResultModelProp? commonProp})
     : commonProp = commonProp ?? ResultModelProp();
 
@@ -1343,6 +1377,7 @@ class GetObjectMetaResult extends ResultModel {
 /// The request for the RestoreObject operation.
 class RestoreObjectRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
@@ -1357,6 +1392,7 @@ class RestoreObjectRequest extends RequestModel {
   /// The request body schema.
   RestoreRequest? restoreRequest;
 
+  /// Creates a RestoreObjectRequest instance.
   RestoreObjectRequest({
     this.bucket,
     this.key,
@@ -1393,6 +1429,7 @@ class RestoreObjectRequest extends RequestModel {
 /// The result for the RestoreObject operation.
 class RestoreObjectResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
   /// Version of the object.
@@ -1403,6 +1440,7 @@ class RestoreObjectResult extends ResultModel {
   String? get objectRestorePriority =>
       commonProp.headers?.getCaseInsensitive('x-oss-object-restore-priority');
 
+  /// Creates a RestoreObjectResult instance.
   RestoreObjectResult({ResultModelProp? commonProp})
     : commonProp = commonProp ?? ResultModelProp();
 
@@ -1420,6 +1458,7 @@ class RestoreObjectResult extends ResultModel {
 /// The request for the DeleteMultipleObjects operation.
 class DeleteMultipleObjectsRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket
@@ -1436,6 +1475,7 @@ class DeleteMultipleObjectsRequest extends RequestModel {
   /// The container that stores information about you want to delete objects.
   List<DeleteObject>? objects;
 
+  /// Creates a DeleteMultipleObjectsRequest instance.
   DeleteMultipleObjectsRequest({
     this.bucket,
     this.objects,
@@ -1472,6 +1512,7 @@ class DeleteMultipleObjectsRequest extends RequestModel {
 /// The result for the DeleteMultipleObjects operation.
 class DeleteMultipleObjectsResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
   /// The container that stores information about you want to delete objects.
@@ -1481,6 +1522,7 @@ class DeleteMultipleObjectsResult extends ResultModel {
   /// Sees EncodingType for supported values.
   String? encodingType;
 
+  /// Creates a DeleteMultipleObjectsResult instance.
   DeleteMultipleObjectsResult({
     this.deletedObjects,
     this.encodingType,
@@ -1511,6 +1553,7 @@ class DeleteMultipleObjectsResult extends ResultModel {
 /// The request for the CleanRestoredObject operation.
 class CleanRestoredObjectRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket
@@ -1519,6 +1562,7 @@ class CleanRestoredObjectRequest extends RequestModel {
   /// The name of the object.
   String? key;
 
+  /// Creates a CleanRestoredObjectRequest instance.
   CleanRestoredObjectRequest({
     this.bucket,
     this.key,
@@ -1542,8 +1586,10 @@ class CleanRestoredObjectRequest extends RequestModel {
 /// The result for the CleanRestoredObject operation.
 class CleanRestoredObjectResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
+  /// Creates a CleanRestoredObjectResult instance.
   CleanRestoredObjectResult({ResultModelProp? commonProp})
     : commonProp = commonProp ?? ResultModelProp();
 

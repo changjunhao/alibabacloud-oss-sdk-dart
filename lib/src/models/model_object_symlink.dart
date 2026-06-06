@@ -4,6 +4,7 @@ import '../transform/serde_extensions.dart';
 /// The request for the PutSymlink operation.
 class PutSymlinkRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
@@ -35,6 +36,7 @@ class PutSymlinkRequest extends RequestModel {
   /// If you specify the **x-oss-forbid-overwrite** request header, the queries per second (QPS) performance of OSS is degraded. If you want to use the **x-oss-forbid-overwrite** request header to perform a large number of operations (QPS greater than 1,000), contact technical support.  The **x-oss-forbid-overwrite** request header is invalid when versioning is enabled or suspended for the destination bucket. In this case, the object with the same name can be overwritten.
   bool? forbidOverwrite;
 
+  /// Creates a PutSymlinkRequest instance.
   PutSymlinkRequest({
     this.bucket,
     this.key,
@@ -73,12 +75,14 @@ class PutSymlinkRequest extends RequestModel {
 /// The result for the PutSymlink operation.
 class PutSymlinkResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
   /// Version ID of the object.
   String? get versionId =>
       commonProp.headers?.getCaseInsensitive('x-oss-version-id');
 
+  /// Creates a PutSymlinkResult instance.
   PutSymlinkResult({ResultModelProp? commonProp})
     : commonProp = commonProp ?? ResultModelProp();
 
@@ -96,6 +100,7 @@ class PutSymlinkResult extends ResultModel {
 /// The request for the GetSymlink operation.
 class GetSymlinkRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
@@ -107,6 +112,7 @@ class GetSymlinkRequest extends RequestModel {
   /// The version of the object to which the symbolic link points.
   String? versionId;
 
+  /// Creates a GetSymlinkRequest instance.
   GetSymlinkRequest({
     this.bucket,
     this.key,
@@ -132,6 +138,7 @@ class GetSymlinkRequest extends RequestModel {
 /// The result for the GetSymlink operation.
 class GetSymlinkResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
   /// The target object to which the symbolic link points.
@@ -142,6 +149,7 @@ class GetSymlinkResult extends ResultModel {
   String? get versionId =>
       commonProp.headers?.getCaseInsensitive('x-oss-version-id');
 
+  /// Creates a GetSymlinkResult instance.
   GetSymlinkResult({ResultModelProp? commonProp})
     : commonProp = commonProp ?? ResultModelProp();
 

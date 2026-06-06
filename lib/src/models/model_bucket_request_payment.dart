@@ -5,6 +5,7 @@ class RequestPaymentConfiguration {
   /// Indicates who pays the download and request fees.
   String? payer;
 
+  /// Creates a RequestPaymentConfiguration instance.
   RequestPaymentConfiguration({this.payer});
 
   /// Creates a RequestPaymentConfiguration instance from a JSON map
@@ -21,6 +22,7 @@ class RequestPaymentConfiguration {
 /// The request for the PutBucketRequestPayment operation.
 class PutBucketRequestPaymentRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
@@ -29,6 +31,7 @@ class PutBucketRequestPaymentRequest extends RequestModel {
   /// The request body schema.
   RequestPaymentConfiguration? requestPaymentConfiguration;
 
+  /// Creates a PutBucketRequestPaymentRequest instance.
   PutBucketRequestPaymentRequest({
     this.bucket,
     this.requestPaymentConfiguration,
@@ -59,8 +62,10 @@ class PutBucketRequestPaymentRequest extends RequestModel {
 /// The result for the PutBucketRequestPayment operation.
 class PutBucketRequestPaymentResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
+  /// Creates a PutBucketRequestPaymentResult instance.
   PutBucketRequestPaymentResult({ResultModelProp? commonProp})
     : commonProp = commonProp ?? ResultModelProp();
 
@@ -78,11 +83,13 @@ class PutBucketRequestPaymentResult extends ResultModel {
 /// The request for the GetBucketRequestPayment operation.
 class GetBucketRequestPaymentRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
   String? bucket;
 
+  /// Creates a GetBucketRequestPaymentRequest instance.
   GetBucketRequestPaymentRequest({this.bucket, RequestModelProp? commonProp})
     : commonProp = commonProp ?? RequestModelProp();
 
@@ -100,11 +107,13 @@ class GetBucketRequestPaymentRequest extends RequestModel {
 /// The result for the GetBucketRequestPayment operation.
 class GetBucketRequestPaymentResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
   /// Indicates the container for the payer.
   RequestPaymentConfiguration? requestPaymentConfiguration;
 
+  /// Creates a GetBucketRequestPaymentResult instance.
   GetBucketRequestPaymentResult({
     this.requestPaymentConfiguration,
     ResultModelProp? commonProp,

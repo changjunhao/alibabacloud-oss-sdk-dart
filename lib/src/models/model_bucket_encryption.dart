@@ -11,6 +11,7 @@ class ApplyServerSideEncryptionByDefault {
   /// The algorithm that is used to encrypt objects. If this parameter is not specified, objects are encrypted by using AES256. This parameter is valid only when SSEAlgorithm is set to KMS. Valid value: SM4.
   String? kmsDataEncryption;
 
+  /// Creates a ApplyServerSideEncryptionByDefault instance.
   ApplyServerSideEncryptionByDefault({
     this.sseAlgorithm,
     this.kmsMasterKeyId,
@@ -43,6 +44,7 @@ class ServerSideEncryptionRule {
   /// The container that stores the default server-side encryption method.
   ApplyServerSideEncryptionByDefault? applyServerSideEncryptionByDefault;
 
+  /// Creates a ServerSideEncryptionRule instance.
   ServerSideEncryptionRule({this.applyServerSideEncryptionByDefault});
 
   /// Creates an instance from a JSON map
@@ -70,6 +72,7 @@ class ServerSideEncryptionRule {
 /// The request for the PutBucketEncryption operation.
 class PutBucketEncryptionRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
@@ -78,6 +81,7 @@ class PutBucketEncryptionRequest extends RequestModel {
   /// The request body schema.
   ServerSideEncryptionRule? serverSideEncryptionRule;
 
+  /// Creates a PutBucketEncryptionRequest instance.
   PutBucketEncryptionRequest({
     this.bucket,
     this.serverSideEncryptionRule,
@@ -108,8 +112,10 @@ class PutBucketEncryptionRequest extends RequestModel {
 /// The result for the PutBucketEncryption operation.
 class PutBucketEncryptionResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
+  /// Creates a PutBucketEncryptionResult instance.
   PutBucketEncryptionResult({ResultModelProp? commonProp})
     : commonProp = commonProp ?? ResultModelProp();
 
@@ -127,11 +133,13 @@ class PutBucketEncryptionResult extends ResultModel {
 /// The request for the GetBucketEncryption operation.
 class GetBucketEncryptionRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
   String? bucket;
 
+  /// Creates a GetBucketEncryptionRequest instance.
   GetBucketEncryptionRequest({this.bucket, RequestModelProp? commonProp})
     : commonProp = commonProp ?? RequestModelProp();
 
@@ -149,11 +157,13 @@ class GetBucketEncryptionRequest extends RequestModel {
 /// The result for the GetBucketEncryption operation.
 class GetBucketEncryptionResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
   /// The container that stores server-side encryption rules.
   ServerSideEncryptionRule? serverSideEncryptionRule;
 
+  /// Creates a GetBucketEncryptionResult instance.
   GetBucketEncryptionResult({
     this.serverSideEncryptionRule,
     ResultModelProp? commonProp,
@@ -179,11 +189,13 @@ class GetBucketEncryptionResult extends ResultModel {
 /// The request for the DeleteBucketEncryption operation.
 class DeleteBucketEncryptionRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
   String? bucket;
 
+  /// Creates a DeleteBucketEncryptionRequest instance.
   DeleteBucketEncryptionRequest({this.bucket, RequestModelProp? commonProp})
     : commonProp = commonProp ?? RequestModelProp();
 
@@ -201,8 +213,10 @@ class DeleteBucketEncryptionRequest extends RequestModel {
 /// The result for the DeleteBucketEncryption operation.
 class DeleteBucketEncryptionResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
+  /// Creates a DeleteBucketEncryptionResult instance.
   DeleteBucketEncryptionResult({ResultModelProp? commonProp})
     : commonProp = commonProp ?? ResultModelProp();
 

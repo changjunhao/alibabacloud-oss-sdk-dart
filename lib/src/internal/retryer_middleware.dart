@@ -9,6 +9,9 @@ import 'execute_middleware.dart';
 
 /// Handler interface for retry operations
 abstract class RetryHandler {
+  /// Creates a RetryHandler instance.
+  const RetryHandler();
+
   /// Called when a retry is about to be performed
   ///
   /// Parameters:

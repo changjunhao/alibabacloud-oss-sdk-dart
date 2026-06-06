@@ -470,6 +470,7 @@ class Configuration {
   }
 
   @override
+  /// Returns the `hashCode` value.
   int get hashCode {
     return Object.hashAll([
       endpoint,

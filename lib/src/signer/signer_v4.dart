@@ -7,9 +7,12 @@ import '../utils/oss_utils.dart';
 
 /// SignerV4 implementation for OSS request signing
 class SignerV4 implements Signer {
+  /// The `rfc822Datetime` value.
   static final DateFormat rfc822Datetime = _createDateFormatter(
     "EEE, dd MMM yyyy HH:mm:ss 'GMT'",
   );
+
+  /// The `iso8601Datetime` value.
   static final DateFormat iso8601Datetime = _createDateFormatter(
     "yyyyMMdd'T'HHmmss'Z'",
   );
@@ -58,6 +61,7 @@ class SignerV4 implements Signer {
 
     final canonicalUri = resourcePath.urlEncodeWithoutSeparator() ?? '';
 
+    /// The `canonicalQueries` value.
     final String canonicalQueries;
     final queryParameters = request.requestUri.queryParameters;
     if (queryParameters.isNotEmpty) {

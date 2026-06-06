@@ -3,6 +3,9 @@ import 'signing_context.dart';
 
 /// Interface for signing OSS requests
 abstract class Signer {
+  /// Creates a Signer instance.
+  const Signer();
+
   /// Signs the given request with the provided signing context
   ///
   /// Parameters:
@@ -20,6 +23,9 @@ abstract class Signer {
 
 /// Interface for custom signature delegation
 abstract class SignatureDelegate {
+  /// Creates a SignatureDelegate instance.
+  const SignatureDelegate();
+
   /// Generates signature information based on the provided info
   ///
   /// Parameters:

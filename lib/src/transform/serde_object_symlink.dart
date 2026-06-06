@@ -5,6 +5,9 @@ import 'serde_extensions.dart';
 
 /// Serialization and deserialization for object symlink operations
 class SerdeObjectSymlink {
+  /// Creates a SerdeObjectSymlink instance.
+  SerdeObjectSymlink();
+
   // MARK: - PutSymlink
 
   /// Serialize PutSymlink request

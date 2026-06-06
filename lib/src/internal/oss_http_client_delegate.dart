@@ -4,7 +4,10 @@ import 'package:dio/io.dart';
 
 /// HTTP client delegate for handling SSL/TLS verification and redirects
 class OSSHttpClientDelegate {
+  /// The `enableTLSVerify` value.
   final bool enableTLSVerify;
+
+  /// The `enableFollowRedirect` value.
   final bool enableFollowRedirect;
 
   /// Creates an HTTP client delegate with the specified configuration
@@ -118,6 +121,7 @@ class OSSHttpClientDelegate {
   }
 
   @override
+  /// Returns the `hashCode` value.
   int get hashCode => Object.hash(enableTLSVerify, enableFollowRedirect);
 }
 

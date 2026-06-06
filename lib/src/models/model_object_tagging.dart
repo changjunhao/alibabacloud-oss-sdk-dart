@@ -16,6 +16,7 @@ class Tag {
   /// * The tag value can be left empty.
   String? value;
 
+  /// Creates a Tag instance.
   Tag({this.key, this.value});
 
   /// Creates a Tag instance from a JSON map
@@ -34,6 +35,7 @@ class TagSet {
   /// The tags.
   List<Tag>? tags;
 
+  /// Creates a TagSet instance.
   TagSet({this.tags});
 
   /// Creates a TagSet instance from a JSON map
@@ -58,6 +60,7 @@ class Tagging {
   /// The tag set of the target object.
   TagSet? tagSet;
 
+  /// Creates a Tagging instance.
   Tagging({this.tagSet});
 
   /// Creates a Tagging instance from a JSON map
@@ -78,6 +81,7 @@ class Tagging {
 /// The request for the PutObjectTagging operation.
 class PutObjectTaggingRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
@@ -92,6 +96,7 @@ class PutObjectTaggingRequest extends RequestModel {
   /// The request body schema.
   Tagging? tagging;
 
+  /// Creates a PutObjectTaggingRequest instance.
   PutObjectTaggingRequest({
     this.bucket,
     this.key,
@@ -126,12 +131,14 @@ class PutObjectTaggingRequest extends RequestModel {
 /// The result for the PutObjectTagging operation.
 class PutObjectTaggingResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
   /// Version ID of the object.
   String? get versionId =>
       commonProp.headers?.getCaseInsensitive('x-oss-version-id');
 
+  /// Creates a PutObjectTaggingResult instance.
   PutObjectTaggingResult({ResultModelProp? commonProp})
     : commonProp = commonProp ?? ResultModelProp();
 
@@ -149,6 +156,7 @@ class PutObjectTaggingResult extends ResultModel {
 /// The request for the GetObjectTagging operation.
 class GetObjectTaggingRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
@@ -160,6 +168,7 @@ class GetObjectTaggingRequest extends RequestModel {
   /// The versionID of the object that you want to query.
   String? versionId;
 
+  /// Creates a GetObjectTaggingRequest instance.
   GetObjectTaggingRequest({
     this.bucket,
     this.key,
@@ -185,11 +194,13 @@ class GetObjectTaggingRequest extends RequestModel {
 /// The result for the GetObjectTagging operation.
 class GetObjectTaggingResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
   /// The container that stores the returned tag of the bucket.
   Tagging? tagging;
 
+  /// Creates a GetObjectTaggingResult instance.
   GetObjectTaggingResult({this.tagging, ResultModelProp? commonProp})
     : commonProp = commonProp ?? ResultModelProp();
 
@@ -211,6 +222,7 @@ class GetObjectTaggingResult extends ResultModel {
 /// The request for the DeleteObjectTagging operation.
 class DeleteObjectTaggingRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
@@ -222,6 +234,7 @@ class DeleteObjectTaggingRequest extends RequestModel {
   /// The version ID of the object that you want to delete.
   String? versionId;
 
+  /// Creates a DeleteObjectTaggingRequest instance.
   DeleteObjectTaggingRequest({
     this.bucket,
     this.key,
@@ -247,8 +260,10 @@ class DeleteObjectTaggingRequest extends RequestModel {
 /// The result for the DeleteObjectTagging operation.
 class DeleteObjectTaggingResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
+  /// Creates a DeleteObjectTaggingResult instance.
   DeleteObjectTaggingResult({ResultModelProp? commonProp})
     : commonProp = commonProp ?? ResultModelProp();
 

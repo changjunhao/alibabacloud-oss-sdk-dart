@@ -6,6 +6,9 @@ import 'package:alibabacloud_oss_sdk_dart/src/enums.dart';
 
 /// OSS utility functions
 class OSSUtils {
+  /// Creates an OSS utility container.
+  const OSSUtils();
+
   /// Convert region to endpoint based on endpoint type
   static String regionToEndpoint(String region, EndpointType type) {
     switch (type) {
@@ -196,8 +199,10 @@ extension Uint8ListOSSExtensions on Uint8List {
 
 /// Case insensitive string implementation
 class CaseInsensitiveString {
+  /// The original string value used for case-insensitive comparison.
   final String value;
 
+  /// Creates a case-insensitive string wrapper.
   const CaseInsensitiveString(this.value);
 
   @override
@@ -208,6 +213,7 @@ class CaseInsensitiveString {
   }
 
   @override
+  /// Returns the `hashCode` value.
   int get hashCode => value.toLowerCase().hashCode;
 
   @override

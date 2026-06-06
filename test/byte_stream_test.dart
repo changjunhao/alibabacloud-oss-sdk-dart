@@ -46,7 +46,7 @@ void main() {
       final tempDir = Directory.systemTemp;
       final uniqueId = DateTime.now().millisecondsSinceEpoch.toString();
       final url = File(path.join(tempDir.path, 'test_$uniqueId.txt'));
-      
+
       // not exist
       b = ByteStream.fromFile(url);
       try {
@@ -64,7 +64,7 @@ void main() {
 
       // exist
       await url.writeAsBytes(data);
-      
+
       try {
         b = ByteStream.fromFile(url);
         got = await b.readData();
@@ -85,7 +85,10 @@ void main() {
         got = await b.readData();
         fail('should not reach here');
       } catch (error) {
-        expect(error.toString(), contains('Stream for body not supported read'));
+        expect(
+          error.toString(),
+          contains('Stream for body not supported read'),
+        );
       }
     });
 
@@ -109,7 +112,7 @@ void main() {
       final uniqueId = DateTime.now().millisecondsSinceEpoch.toString();
       final url = File(path.join(tempDir.path, 'test_crc_$uniqueId.txt'));
       await url.writeAsBytes(Uint8List.fromList('123456789'.codeUnits));
-      
+
       try {
         final file = ByteStream.fromFile(url);
         final fileHash = await file.hashCrc64ecma();
@@ -122,7 +125,9 @@ void main() {
       }
 
       // stream
-      final stream = ByteStream.fromStream(Stream.fromIterable([Uint8List.fromList('123456789'.codeUnits)]));
+      final stream = ByteStream.fromStream(
+        Stream.fromIterable([Uint8List.fromList('123456789'.codeUnits)]),
+      );
       final streamHash = await stream.hashCrc64ecma();
       expect(streamHash, isNull);
     });

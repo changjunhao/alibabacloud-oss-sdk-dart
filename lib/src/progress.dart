@@ -2,6 +2,9 @@ import 'types/attributes.dart';
 
 /// Progress delegate interface for tracking upload/download progress
 abstract class ProgressDelegate {
+  /// Creates a ProgressDelegate instance.
+  const ProgressDelegate();
+
   /// Called when progress is made
   void onProgress(
     int bytesIncrement,
@@ -59,7 +62,10 @@ class ProgressWithRetry implements ProgressDelegate {
 
 /// Progress delegate descriptor containing delegate and upload flag
 class ProgressDelegateDesc {
+  /// The `delegate` value.
   final ProgressDelegate delegate;
+
+  /// The `upload` value.
   final bool upload;
 
   /// Creates a progress delegate descriptor

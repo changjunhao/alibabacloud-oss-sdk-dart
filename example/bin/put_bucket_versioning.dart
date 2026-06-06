@@ -27,8 +27,7 @@ void main(List<String> arguments) async {
     ..addOption(
       'status',
       abbr: 's',
-      help:
-          'The versioning state of the bucket.\n'
+      help: 'The versioning state of the bucket.\n'
           'Valid values: Enabled, Suspended',
       mandatory: true,
     )

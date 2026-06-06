@@ -27,8 +27,7 @@ void main(List<String> arguments) async {
     ..addOption(
       'acl',
       abbr: 'a',
-      help:
-          'The ACL that you want to configure or modify for the bucket.\n'
+      help: 'The ACL that you want to configure or modify for the bucket.\n'
           'Valid values: private, public-read, public-read-write',
       mandatory: true,
     )

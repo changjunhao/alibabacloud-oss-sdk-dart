@@ -8,6 +8,7 @@ class AccessMonitorConfiguration {
   /// - Disabled: Access tracking is disabled.
   AccessMonitorStatus? status;
 
+  /// Creates a AccessMonitorConfiguration instance.
   AccessMonitorConfiguration({this.status});
 
   /// Creates an AccessMonitorConfiguration instance from a JSON map
@@ -26,6 +27,7 @@ class AccessMonitorConfiguration {
 /// The request for the PutBucketAccessMonitor operation.
 class PutBucketAccessMonitorRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
@@ -34,6 +36,7 @@ class PutBucketAccessMonitorRequest extends RequestModel {
   /// The request body schema.
   AccessMonitorConfiguration? accessMonitorConfiguration;
 
+  /// Creates a PutBucketAccessMonitorRequest instance.
   PutBucketAccessMonitorRequest({
     this.bucket,
     this.accessMonitorConfiguration,
@@ -64,8 +67,10 @@ class PutBucketAccessMonitorRequest extends RequestModel {
 /// The result for the PutBucketAccessMonitor operation.
 class PutBucketAccessMonitorResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
+  /// Creates a PutBucketAccessMonitorResult instance.
   PutBucketAccessMonitorResult({ResultModelProp? commonProp})
     : commonProp = commonProp ?? ResultModelProp();
 
@@ -83,11 +88,13 @@ class PutBucketAccessMonitorResult extends ResultModel {
 /// The request for the GetBucketAccessMonitor operation.
 class GetBucketAccessMonitorRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
   String? bucket;
 
+  /// Creates a GetBucketAccessMonitorRequest instance.
   GetBucketAccessMonitorRequest({this.bucket, RequestModelProp? commonProp})
     : commonProp = commonProp ?? RequestModelProp();
 
@@ -105,11 +112,13 @@ class GetBucketAccessMonitorRequest extends RequestModel {
 /// The result for the GetBucketAccessMonitor operation.
 class GetBucketAccessMonitorResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
   /// The container that stores access monitor configuration.
   AccessMonitorConfiguration? accessMonitorConfiguration;
 
+  /// Creates a GetBucketAccessMonitorResult instance.
   GetBucketAccessMonitorResult({
     this.accessMonitorConfiguration,
     ResultModelProp? commonProp,

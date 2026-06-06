@@ -1,3 +1,7 @@
+/// Core library exports for the Alibaba Cloud OSS SDK for Dart.
+///
+/// Import this library to access the main OSS client, request and result
+/// models, credentials providers, retry utilities, signers, and shared types.
 library;
 
 // Core

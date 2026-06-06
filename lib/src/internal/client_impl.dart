@@ -33,11 +33,19 @@ import 'response_checker_middleware.dart';
 
 /// Inner options for client implementation
 class InnerOptions {
+  /// The `userAgent` value.
   final String userAgent;
+
+  /// The `logger` value.
   final LogAgent? logger;
+
+  /// The `dio` value.
   final Dio dio;
+
+  /// The `dioOwner` value.
   final bool dioOwner;
 
+  /// Creates an InnerOptions instance.
   const InnerOptions({
     required this.userAgent,
     this.logger,
@@ -48,11 +56,19 @@ class InnerOptions {
 
 /// Presign inner result containing presigned URL information
 class PresignInnerResult {
+  /// The `method` value.
   String? method;
+
+  /// The `url` value.
   String? url;
+
+  /// The `expiration` value.
   DateTime? expiration;
+
+  /// The `signedHeaders` value.
   Map<String, String>? signedHeaders;
 
+  /// Creates a PresignInnerResult instance.
   PresignInnerResult({
     this.method,
     this.url,
@@ -63,8 +79,13 @@ class PresignInnerResult {
 
 /// Client implementation class for OSS operations
 class ClientImpl {
+  /// The `executeStack` value.
   late final ExecuteStack executeStack;
+
+  /// The `options` value.
   final ClientOptions options;
+
+  /// The `innerOptions` value.
   final InnerOptions innerOptions;
 
   /// Creates a new ClientImpl instance

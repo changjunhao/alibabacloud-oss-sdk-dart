@@ -39,7 +39,8 @@ void main() {
 
     test('testXMLParser', () {
       // withXMLDataError
-      var xmlBodyString = '<?xml version="1.0" encoding="UTF-8"?><Delete><Quiet>false</Quiet><Object><Key>multipart.data</Key></Object><Object><Key>test.jpg</Key></Object><Object><Key>demo.jpg</Key></Object></Delete>';
+      var xmlBodyString =
+          '<?xml version="1.0" encoding="UTF-8"?><Delete><Quiet>false</Quiet><Object><Key>multipart.data</Key></Object><Object><Key>test.jpg</Key></Object><Object><Key>demo.jpg</Key></Object></Delete>';
       var xmlBody = Uint8List.fromList(utf8.encode(xmlBodyString));
       var (root, error) = DictionaryXMLExtensions.withXMLDataError(xmlBody);
       expect(root['Delete'], isNotNull);
@@ -55,18 +56,21 @@ void main() {
         }
       }
 
-      xmlBodyString = '<?xml version="1.0" encoding="UTF-8"?><Delete><Quiet>false</Quiet><Object><Key>multipart.data</Key></Object><Object><Key>test.jpg</Key></Object><Object><Key>demo.jpg</Key>';
+      xmlBodyString =
+          '<?xml version="1.0" encoding="UTF-8"?><Delete><Quiet>false</Quiet><Object><Key>multipart.data</Key></Object><Object><Key>test.jpg</Key></Object><Object><Key>demo.jpg</Key>';
       xmlBody = Uint8List.fromList(utf8.encode(xmlBodyString));
       (root, error) = DictionaryXMLExtensions.withXMLDataError(xmlBody);
       expect(error, isNotNull);
 
-      xmlBodyString = '<?xml version="1.0" encoding="UTF-8"?><Delete><>false</Quiet><Object><Key>multipart.data</Key></Object><Object><Key>test.jpg</Key></Object><Object><Key>demo.jpg</Key></Object></Delete>';
+      xmlBodyString =
+          '<?xml version="1.0" encoding="UTF-8"?><Delete><>false</Quiet><Object><Key>multipart.data</Key></Object><Object><Key>test.jpg</Key></Object><Object><Key>demo.jpg</Key></Object></Delete>';
       xmlBody = Uint8List.fromList(utf8.encode(xmlBodyString));
       (root, error) = DictionaryXMLExtensions.withXMLDataError(xmlBody);
       expect(error, isNotNull);
 
       // withXMLData
-      xmlBodyString = '<?xml version="1.0" encoding="UTF-8"?><Delete><Quiet>false</Quiet><Object><Key>multipart.data</Key></Object><Object><Key>test.jpg</Key></Object><Object><Key>demo.jpg</Key></Object></Delete>';
+      xmlBodyString =
+          '<?xml version="1.0" encoding="UTF-8"?><Delete><Quiet>false</Quiet><Object><Key>multipart.data</Key></Object><Object><Key>test.jpg</Key></Object><Object><Key>demo.jpg</Key></Object></Delete>';
       xmlBody = Uint8List.fromList(utf8.encode(xmlBodyString));
       root = DictionaryXMLExtensions.withXMLData(xmlBody);
       expect(root['Delete'], isNotNull);
@@ -82,19 +86,30 @@ void main() {
         }
       }
 
-      xmlBodyString = '<?xml version="1.0" encoding="UTF-8"?><Delete><Quiet>false</Quiet><Object><Key>multipart.data</Key></Object><Object><Key>test.jpg</Key></Object><Object><Key>demo.jpg</Key>';
+      xmlBodyString =
+          '<?xml version="1.0" encoding="UTF-8"?><Delete><Quiet>false</Quiet><Object><Key>multipart.data</Key></Object><Object><Key>test.jpg</Key></Object><Object><Key>demo.jpg</Key>';
       xmlBody = Uint8List.fromList(utf8.encode(xmlBodyString));
-      expect(() => DictionaryXMLExtensions.withXMLData(xmlBody), throwsException);
+      expect(
+        () => DictionaryXMLExtensions.withXMLData(xmlBody),
+        throwsException,
+      );
 
-      xmlBodyString = '<?xml version="1.0" encoding="UTF-8"?><Delete><>false</Quiet><Object><Key>multipart.data</Key></Object><Object><Key>test.jpg</Key></Object><Object><Key>demo.jpg</Key></Object></Delete>';
+      xmlBodyString =
+          '<?xml version="1.0" encoding="UTF-8"?><Delete><>false</Quiet><Object><Key>multipart.data</Key></Object><Object><Key>test.jpg</Key></Object><Object><Key>demo.jpg</Key></Object></Delete>';
       xmlBody = Uint8List.fromList(utf8.encode(xmlBodyString));
-      expect(() => DictionaryXMLExtensions.withXMLData(xmlBody), throwsException);
+      expect(
+        () => DictionaryXMLExtensions.withXMLData(xmlBody),
+        throwsException,
+      );
     });
 
     test('testEscape', () {
-      const string1 = 'abcdefghijklmnopqrstuvwxyzZBCDEFGHIJKLMNOPQRSTUVWXYZ1234567890一\\[],./-_=+';
-      const string2 = 'abcdefghijklmnopqrstuvwxyzZBCDEFGHIJKLMNOPQRSTUVWXYZ1234567890一\\[],\'."/<->_&=+';
-      const escapeString2 = 'abcdefghijklmnopqrstuvwxyzZBCDEFGHIJKLMNOPQRSTUVWXYZ1234567890一\\[],&apos;.&quot;/&lt;-&gt;_&amp;=+';
+      const string1 =
+          'abcdefghijklmnopqrstuvwxyzZBCDEFGHIJKLMNOPQRSTUVWXYZ1234567890一\\[],./-_=+';
+      const string2 =
+          'abcdefghijklmnopqrstuvwxyzZBCDEFGHIJKLMNOPQRSTUVWXYZ1234567890一\\[],\'."/<->_&=+';
+      const escapeString2 =
+          'abcdefghijklmnopqrstuvwxyzZBCDEFGHIJKLMNOPQRSTUVWXYZ1234567890一\\[],&apos;.&quot;/&lt;-&gt;_&amp;=+';
 
       expect(string1.escape(), equals(string1));
       expect(string2.escape(), equals(escapeString2));
@@ -108,37 +123,38 @@ void main() {
       parameters = {'key': 'value'};
       expect(parameters.encodedQuery(), equals('key=value'));
 
-      parameters = {
-        'key1': 'value1',
-        'key2': 'value2',
-      };
+      parameters = {'key1': 'value1', 'key2': 'value2'};
       final result = parameters.encodedQuery();
       expect(
-        result == 'key1=value1&key2=value2' || result == 'key2=value2&key1=value1',
+        result == 'key1=value1&key2=value2' ||
+            result == 'key2=value2&key1=value1',
         isTrue,
       );
     });
 
     test('testURLEncode', () {
-      const string = 'abcdefghijklmnopqrstuvwxyzZBCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-_.~/ *=+`!@#\$%^&()\\|;\':",<>?';
+      const string =
+          'abcdefghijklmnopqrstuvwxyzZBCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-_.~/ *=+`!@#\$%^&()\\|;\':",<>?';
       final urlEncodedString = string.urlEncode();
       expect(
         urlEncodedString,
-        equals('abcdefghijklmnopqrstuvwxyzZBCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-_.~%2F%20%2A%3D%2B%60%21%40%23%24%25%5E%26%28%29%5C%7C%3B%27%3A%22%2C%3C%3E%3F'),
+        equals(
+          'abcdefghijklmnopqrstuvwxyzZBCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-_.~%2F%20%2A%3D%2B%60%21%40%23%24%25%5E%26%28%29%5C%7C%3B%27%3A%22%2C%3C%3E%3F',
+        ),
       );
 
-      final urlEncodedStringWithoutSeparator = string.urlEncodeWithoutSeparator();
+      final urlEncodedStringWithoutSeparator = string
+          .urlEncodeWithoutSeparator();
       expect(
         urlEncodedStringWithoutSeparator,
-        equals('abcdefghijklmnopqrstuvwxyzZBCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-_.~/%20%2A%3D%2B%60%21%40%23%24%25%5E%26%28%29%5C%7C%3B%27%3A%22%2C%3C%3E%3F'),
+        equals(
+          'abcdefghijklmnopqrstuvwxyzZBCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-_.~/%20%2A%3D%2B%60%21%40%23%24%25%5E%26%28%29%5C%7C%3B%27%3A%22%2C%3C%3E%3F',
+        ),
       );
     });
 
     test('testToBase64JsonString', () {
-      Map<String, String> dic = {
-        'key1': 'value1',
-        'key2': 'value2',
-      };
+      Map<String, String> dic = {'key1': 'value1', 'key2': 'value2'};
       final base64String = dic.toBase64JsonString();
       expect(
         base64String == 'eyJrZXkxIjoidmFsdWUxIiwia2V5MiI6InZhbHVlMiJ9' ||

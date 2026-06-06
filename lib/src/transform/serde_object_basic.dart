@@ -16,6 +16,9 @@ import 'serde_functions.dart';
 /// GetObject, AppendObject, DeleteObject, HeadObject, GetObjectMeta,
 /// DeleteMultipleObjects, RestoreObject, and CleanRestoredObject.
 class SerdeObjectBasic {
+  /// Creates a SerdeObjectBasic instance.
+  SerdeObjectBasic();
+
   // MARK: - PutObject
 
   /// Serializes PutObjectRequest to OperationInput

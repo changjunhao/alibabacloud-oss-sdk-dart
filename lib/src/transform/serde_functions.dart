@@ -19,12 +19,18 @@ typedef SerdeDeserializeDelegate<T extends ResultModel> =
 
 /// Interface for XML serializable objects
 abstract class SerdeSerializeXml {
+  /// Creates a SerdeSerializeXml instance.
+  const SerdeSerializeXml();
+
   /// Convert object to XML data
   Future<Uint8List> asXml();
 }
 
 /// Serialization and deserialization utilities
 class Serde {
+  /// Creates a Serde instance.
+  Serde();
+
   /// Serialize input for request
   static Future<void> serializeInput<T extends RequestModel>(
     T request,

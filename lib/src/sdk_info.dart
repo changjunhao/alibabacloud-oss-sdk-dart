@@ -1,11 +1,14 @@
 /// SDK information class that provides version and name details.
 /// Uses compile-time constants to ensure accurate release metadata.
 class SdkInfo {
+  /// Creates a SdkInfo instance.
+  SdkInfo();
+
   // Compile-time constants for version metadata.
   // These values should be updated by the build script before release.
   static const String _major = '1';
   static const String _minor = '0';
-  static const String _patch = '0';
+  static const String _patch = '1';
   static const String _tag = '';
 
   // Compile-time constants for SDK metadata.
@@ -13,7 +16,7 @@ class SdkInfo {
   static const String _description = 'Alibaba Cloud OSS SDK for Dart';
 
   // Build timestamp, optional and mainly useful for debugging.
-  static const String _buildTime = '2025-07-26T10:38:12.276061Z';
+  static const String _buildTime = '2026-06-06T04:00:00.000000Z';
 
   /// Returns the full version string.
   /// Format: `major.minor.patch<tag>`

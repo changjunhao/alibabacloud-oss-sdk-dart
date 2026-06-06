@@ -7,6 +7,9 @@ import 'serde_extensions.dart';
 
 /// Serialization and deserialization for service operations
 class SerdeService {
+  /// Creates a SerdeService instance.
+  SerdeService();
+
   // MARK: - ListBuckets
 
   /// Serialize ListBuckets request

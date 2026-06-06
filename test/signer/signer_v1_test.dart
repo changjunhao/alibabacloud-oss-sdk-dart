@@ -16,12 +16,12 @@ void main() {
     test('testAuthHeader', () async {
       const ak = 'ak';
       const sk = 'sk';
-      final signTime = DateTime.fromMillisecondsSinceEpoch(1672223261 * 1000, isUtc: true);
-
-      const credentials = Credentials(
-        accessKeyId: ak,
-        accessKeySecret: sk,
+      final signTime = DateTime.fromMillisecondsSinceEpoch(
+        1672223261 * 1000,
+        isUtc: true,
       );
+
+      const credentials = Credentials(accessKeyId: ak, accessKeySecret: sk);
       var signingContext = SigningContext(
         bucket: 'examplebucket',
         key: 'nelson',
@@ -39,7 +39,10 @@ void main() {
       request.headers['x-oss-meta-magic'] = 'abracadabra';
       request.headers['x-oss-date'] = 'Wed, 28 Dec 2022 10:27:41 GMT';
       request = await signer.sign(request, signingContext);
-      expect(request.headers['Authorization'], equals('OSS ak:kSHKmLxlyEAKtZPkJhG9bZb5k7M='));
+      expect(
+        request.headers['Authorization'],
+        equals('OSS ak:kSHKmLxlyEAKtZPkJhG9bZb5k7M='),
+      );
 
       // With Signed Parameter
       uri = Uri.parse('http://examplebucket.oss-cn-hangzhou.aliyuncs.com?acl');
@@ -50,10 +53,15 @@ void main() {
       request.headers['x-oss-meta-magic'] = 'abracadabra';
       request.headers['x-oss-date'] = 'Wed, 28 Dec 2022 10:27:41 GMT';
       request = await signer.sign(request, signingContext);
-      expect(request.headers['Authorization'], equals('OSS ak:/afkugFbmWDQ967j1vr6zygBLQk='));
+      expect(
+        request.headers['Authorization'],
+        equals('OSS ak:/afkugFbmWDQ967j1vr6zygBLQk='),
+      );
 
       // With signed & non-signed Parameter & non-signed headers
-      uri = Uri.parse('http://examplebucket.oss-cn-hangzhou.aliyuncs.com?acl&non-resousce=123');
+      uri = Uri.parse(
+        'http://examplebucket.oss-cn-hangzhou.aliyuncs.com?acl&non-resousce=123',
+      );
       request = RequestMessage(method: 'PUT', requestUri: uri);
       request.headers['Content-MD5'] = 'eB5eJF1ptWaXm4bijSPyxw==';
       request.headers['Content-Type'] = 'text/html';
@@ -62,10 +70,15 @@ void main() {
       request.headers['x-oss-date'] = 'Wed, 28 Dec 2022 10:27:41 GMT';
       request.headers['User-Agent'] = 'test';
       request = await signer.sign(request, signingContext);
-      expect(request.headers['Authorization'], equals('OSS ak:/afkugFbmWDQ967j1vr6zygBLQk='));
+      expect(
+        request.headers['Authorization'],
+        equals('OSS ak:/afkugFbmWDQ967j1vr6zygBLQk='),
+      );
 
       // With sub-resource
-      uri = Uri.parse('http://examplebucket.oss-cn-hangzhou.aliyuncs.com?resourceGroup&non-resousce=null');
+      uri = Uri.parse(
+        'http://examplebucket.oss-cn-hangzhou.aliyuncs.com?resourceGroup&non-resousce=null',
+      );
       signingContext = SigningContext(
         bucket: 'examplebucket',
         signTime: signTime,
@@ -75,14 +88,20 @@ void main() {
       request = RequestMessage(method: 'GET', requestUri: uri);
       request.headers['x-oss-date'] = 'Wed, 28 Dec 2022 10:27:41 GMT';
       request = await signer.sign(request, signingContext);
-      expect(request.headers['Authorization'], equals('OSS ak:vkQmfuUDyi1uDi3bKt67oemssIs='));
+      expect(
+        request.headers['Authorization'],
+        equals('OSS ak:vkQmfuUDyi1uDi3bKt67oemssIs='),
+      );
     });
 
     test('testAuthHeaderToken', () async {
       const ak = 'ak';
       const sk = 'sk';
       const token = 'token';
-      final signTime = DateTime.fromMillisecondsSinceEpoch(1672223261 * 1000, isUtc: true);
+      final signTime = DateTime.fromMillisecondsSinceEpoch(
+        1672223261 * 1000,
+        isUtc: true,
+      );
 
       const credentials = Credentials(
         accessKeyId: ak,
@@ -98,7 +117,9 @@ void main() {
       const signer = SignerV1();
 
       // case 1
-      final uri = Uri.parse('http://examplebucket.oss-cn-hangzhou.aliyuncs.com');
+      final uri = Uri.parse(
+        'http://examplebucket.oss-cn-hangzhou.aliyuncs.com',
+      );
       var request = RequestMessage(method: 'PUT', requestUri: uri);
       request.headers['Content-MD5'] = 'eB5eJF1ptWaXm4bijSPyxw==';
       request.headers['Content-Type'] = 'text/html';
@@ -106,19 +127,22 @@ void main() {
       request.headers['x-oss-meta-magic'] = 'abracadabra';
       request.headers['x-oss-date'] = 'Wed, 28 Dec 2022 10:27:41 GMT';
       request = await signer.sign(request, signingContext);
-      expect(request.headers['Authorization'], equals('OSS ak:H3PAlN3Vucn74tPVEqaQC4AnLwQ='));
+      expect(
+        request.headers['Authorization'],
+        equals('OSS ak:H3PAlN3Vucn74tPVEqaQC4AnLwQ='),
+      );
       expect(request.headers['x-oss-security-token'], equals(token));
     });
 
     test('testAuthQuery', () async {
       const ak = 'ak';
       const sk = 'sk';
-      final signTime = DateTime.fromMillisecondsSinceEpoch(1699807420 * 1000, isUtc: true);
-
-      const credentials = Credentials(
-        accessKeyId: ak,
-        accessKeySecret: sk,
+      final signTime = DateTime.fromMillisecondsSinceEpoch(
+        1699807420 * 1000,
+        isUtc: true,
       );
+
+      const credentials = Credentials(accessKeyId: ak, accessKeySecret: sk);
       var signingContext = SigningContext(
         bucket: 'bucket',
         key: 'key',
@@ -130,20 +154,37 @@ void main() {
       const signer = SignerV1();
 
       // case 1
-      final uri = Uri.parse('http://bucket.oss-cn-hangzhou.aliyuncs.com/key?versionId=versionId');
+      final uri = Uri.parse(
+        'http://bucket.oss-cn-hangzhou.aliyuncs.com/key?versionId=versionId',
+      );
       var request = RequestMessage(method: 'GET', requestUri: uri);
       request = await signer.sign(request, signingContext);
-      expect(request.requestUri.queryParameters['OSSAccessKeyId'], equals('ak'));
-      expect(request.requestUri.queryParameters['Expires'], equals('1699807420'));
-      expect(request.requestUri.queryParameters['Signature'], equals('dcLTea%2BYh9ApirQ8o8dOPqtvJXQ%3D'));
-      expect(request.requestUri.queryParameters['versionId'], equals('versionId'));
+      expect(
+        request.requestUri.queryParameters['OSSAccessKeyId'],
+        equals('ak'),
+      );
+      expect(
+        request.requestUri.queryParameters['Expires'],
+        equals('1699807420'),
+      );
+      expect(
+        request.requestUri.queryParameters['Signature'],
+        equals('dcLTea%2BYh9ApirQ8o8dOPqtvJXQ%3D'),
+      );
+      expect(
+        request.requestUri.queryParameters['versionId'],
+        equals('versionId'),
+      );
     });
 
     test('testAuthQueryToken', () async {
       const ak = 'ak';
       const sk = 'sk';
       const token = 'token';
-      final signTime = DateTime.fromMillisecondsSinceEpoch(1699808204 * 1000, isUtc: true);
+      final signTime = DateTime.fromMillisecondsSinceEpoch(
+        1699808204 * 1000,
+        isUtc: true,
+      );
 
       const credentials = Credentials(
         accessKeyId: ak,
@@ -161,13 +202,27 @@ void main() {
       const signer = SignerV1();
 
       // case 1
-      final uri = Uri.parse('http://bucket.oss-cn-hangzhou.aliyuncs.com/key%2B123?versionId=versionId');
+      final uri = Uri.parse(
+        'http://bucket.oss-cn-hangzhou.aliyuncs.com/key%2B123?versionId=versionId',
+      );
       var request = RequestMessage(method: 'GET', requestUri: uri);
       request = await signer.sign(request, signingContext);
-      expect(request.requestUri.queryParameters['OSSAccessKeyId'], equals('ak'));
-      expect(request.requestUri.queryParameters['Expires'], equals('1699808204'));
-      expect(request.requestUri.queryParameters['Signature'], equals('jzKYRrM5y6Br0dRFPaTGOsbrDhY%3D'));
-      expect(request.requestUri.queryParameters['versionId'], equals('versionId'));
+      expect(
+        request.requestUri.queryParameters['OSSAccessKeyId'],
+        equals('ak'),
+      );
+      expect(
+        request.requestUri.queryParameters['Expires'],
+        equals('1699808204'),
+      );
+      expect(
+        request.requestUri.queryParameters['Signature'],
+        equals('jzKYRrM5y6Br0dRFPaTGOsbrDhY%3D'),
+      );
+      expect(
+        request.requestUri.queryParameters['versionId'],
+        equals('versionId'),
+      );
       expect(request.requestUri.toString().contains('/key%2B123'), isTrue);
     });
   });

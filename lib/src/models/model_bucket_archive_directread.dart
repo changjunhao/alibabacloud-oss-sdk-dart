@@ -8,6 +8,7 @@ class ArchiveDirectReadConfiguration {
   /// - false
   bool? enabled;
 
+  /// Creates a ArchiveDirectReadConfiguration instance.
   ArchiveDirectReadConfiguration({this.enabled});
 
   /// Creates an ArchiveDirectReadConfiguration instance from a JSON map
@@ -15,6 +16,7 @@ class ArchiveDirectReadConfiguration {
     return ArchiveDirectReadConfiguration(enabled: _parseBool(json['Enabled']));
   }
 
+  /// Creates a ArchiveDirectReadConfiguration value using `_parseBool` parameters.
   static bool? _parseBool(dynamic value) {
     if (value == null) return null;
     if (value is bool) return value;
@@ -33,11 +35,13 @@ class ArchiveDirectReadConfiguration {
 /// The request for the GetBucketArchiveDirectRead operation.
 class GetBucketArchiveDirectReadRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
   String? bucket;
 
+  /// Creates a GetBucketArchiveDirectReadRequest instance.
   GetBucketArchiveDirectReadRequest({this.bucket, RequestModelProp? commonProp})
     : commonProp = commonProp ?? RequestModelProp();
 
@@ -57,11 +61,13 @@ class GetBucketArchiveDirectReadRequest extends RequestModel {
 /// The result for the GetBucketArchiveDirectRead operation.
 class GetBucketArchiveDirectReadResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
   /// The container that stores the configurations for real-time access of Archive objects.
   ArchiveDirectReadConfiguration? archiveDirectReadConfiguration;
 
+  /// Creates a GetBucketArchiveDirectReadResult instance.
   GetBucketArchiveDirectReadResult({
     this.archiveDirectReadConfiguration,
     ResultModelProp? commonProp,
@@ -91,6 +97,7 @@ class GetBucketArchiveDirectReadResult extends ResultModel {
 /// The request for the PutBucketArchiveDirectRead operation.
 class PutBucketArchiveDirectReadRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
@@ -99,6 +106,7 @@ class PutBucketArchiveDirectReadRequest extends RequestModel {
   /// The request body.
   ArchiveDirectReadConfiguration? archiveDirectReadConfiguration;
 
+  /// Creates a PutBucketArchiveDirectReadRequest instance.
   PutBucketArchiveDirectReadRequest({
     this.bucket,
     this.archiveDirectReadConfiguration,
@@ -133,8 +141,10 @@ class PutBucketArchiveDirectReadRequest extends RequestModel {
 /// The result for the PutBucketArchiveDirectRead operation.
 class PutBucketArchiveDirectReadResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
+  /// Creates a PutBucketArchiveDirectReadResult instance.
   PutBucketArchiveDirectReadResult({ResultModelProp? commonProp})
     : commonProp = commonProp ?? ResultModelProp();
 

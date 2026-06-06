@@ -10,6 +10,8 @@ enum OperationMetaKey {
   responseHandlers('responseHandlers');
 
   const OperationMetaKey(this.value);
+
+  /// The serialized string value of this enum item.
   final String value;
 }
 
@@ -25,13 +27,17 @@ enum HttpProtocol {
   https('https');
 
   const HttpProtocol(this.value);
+
+  /// The serialized string value of this enum item.
   final String value;
 }
 
 /// Bitwise feature flags for enabling or disabling SDK behaviors.
 class FeatureFlag {
+  /// The `rawValue` value.
   final int rawValue;
 
+  /// Creates a FeatureFlag instance.
   const FeatureFlag._(this.rawValue);
 
   /// Create a FeatureFlag from raw value
@@ -44,6 +50,7 @@ class FeatureFlag {
   /// The feature to help to identify this case, and SDK will correct for clock skew.
   static const FeatureFlag correctClockSkew = FeatureFlag._(1 << 0);
 
+  /// The `enableMD5` value.
   static const FeatureFlag enableMD5 = FeatureFlag._(1 << 1);
 
   /// Content-Type is automatically added based on the object name if not specified.
@@ -73,6 +80,7 @@ class FeatureFlag {
   }
 
   @override
+  /// Returns the `hashCode` value.
   int get hashCode => rawValue.hashCode;
 }
 
@@ -84,5 +92,7 @@ enum Pattern {
   objectKeyPattern(r'[^\/]{1,1023}');
 
   const Pattern(this.value);
+
+  /// The serialized string value of this enum item.
   final String value;
 }

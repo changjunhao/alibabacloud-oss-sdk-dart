@@ -33,8 +33,7 @@ void main(List<String> arguments) async {
     ..addOption(
       'acl',
       abbr: 'a',
-      help:
-          'The ACL of the object.\n'
+      help: 'The ACL of the object.\n'
           'Valid values: private, public-read, public-read-write, default',
       mandatory: true,
     )

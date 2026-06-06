@@ -8,6 +8,9 @@ import 'serde_functions.dart';
 
 /// Serialization and deserialization for object tagging operations
 class SerdeObjectTagging {
+  /// Creates a SerdeObjectTagging instance.
+  SerdeObjectTagging();
+
   // MARK: - PutObjectTagging
 
   /// Serialize PutObjectTagging request

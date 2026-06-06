@@ -35,18 +35,18 @@ void main() {
         DateTime.now().add(const Duration(milliseconds: 100)),
         threshold: const Duration(seconds: 3),
       );
-      
+
       final streamController = StreamController<void>();
       final value = await expiringValue.getValue(() async {
         streamController.add(null);
         await Future.delayed(const Duration(microseconds: 1));
         return (1, DateTime.now());
       });
-      
+
       // Wait for the stream to receive the signal
       await streamController.stream.first;
       streamController.close();
-      
+
       // test it returns current value
       expect(value, equals(0));
     });
@@ -59,13 +59,13 @@ void main() {
         DateTime.now().add(const Duration(days: 365)), // distant future
         threshold: const Duration(seconds: 1),
       );
-      
+
       final value = await expiringValue.getValue(() async {
         called = true;
         await Future.delayed(const Duration(microseconds: 1));
         return (1, DateTime.now());
       });
-      
+
       expect(value, equals(0));
       expect(called, isFalse);
     });
@@ -74,7 +74,7 @@ void main() {
     test('testClosureCalledOnce', () async {
       int callCount = 0;
       final expiringValue = ExpiringValue<int>();
-      
+
       final futures = <Future<int>>[];
       for (int i = 0; i < 100; i++) {
         futures.add(
@@ -85,13 +85,13 @@ void main() {
           }),
         );
       }
-      
+
       final results = await Future.wait(futures);
-      
+
       for (final result in results) {
         expect(result, equals(123));
       }
-      
+
       expect(callCount, equals(1));
     });
 
@@ -103,18 +103,18 @@ void main() {
           return (1, DateTime.now().add(const Duration(seconds: 3)));
         },
       );
-      
+
       final value = await expiringValue.getValue(() async {
         return (2, DateTime.now());
       });
-      
+
       expect(value, equals(1));
     });
 
     /// Test error handling
     test('testErrorHandling', () async {
       final expiringValue = ExpiringValue<int>();
-      
+
       expect(
         () => expiringValue.getValue(() async {
           throw Exception('Test error');
@@ -126,20 +126,17 @@ void main() {
     /// Test cancel operation
     test('testCancel', () async {
       final expiringValue = ExpiringValue<int>();
-      
+
       // Start a getValue operation
       final future = expiringValue.getValue(() async {
         await Future.delayed(const Duration(seconds: 1));
         return (1, DateTime.now());
       });
-      
+
       // Cancel the operation
       expiringValue.cancel();
-      
-      expect(
-        () => future,
-        throwsA(isA<Exception>()),
-      );
+
+      expect(() => future, throwsA(isA<Exception>()));
     });
 
     /// Test threshold behavior
@@ -150,17 +147,17 @@ void main() {
         DateTime.now().add(const Duration(milliseconds: 100)), // expires soon
         threshold: threshold,
       );
-      
+
       bool refreshCalled = false;
       final value = await expiringValue.getValue(() async {
         refreshCalled = true;
         await Future.delayed(const Duration(milliseconds: 10));
         return (99, DateTime.now().add(const Duration(seconds: 10)));
       });
-      
+
       // Should return current value but trigger refresh
       expect(value, equals(42));
-      
+
       // Give some time for the refresh to complete
       await Future.delayed(const Duration(milliseconds: 50));
       expect(refreshCalled, isTrue);

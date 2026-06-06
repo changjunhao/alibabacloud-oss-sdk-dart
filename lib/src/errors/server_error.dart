@@ -57,6 +57,7 @@ class ServerError implements SdkErrorType {
   @override
   Exception? get innerError => null;
 
+  /// Creates a ServerError instance.
   ServerError({
     required this.statusCode,
     required this.headers,
@@ -66,6 +67,7 @@ class ServerError implements SdkErrorType {
   }) : timestamp = _toServerTime(headers);
 
   @override
+  /// Returns the `description` value.
   String get description {
     return '''
 Error returned by Service.

@@ -72,10 +72,8 @@ void main(List<String> arguments) async {
 
     final client = Client(config);
 
-    final deleteObjects = objects
-        .split(',')
-        .map((key) => DeleteObject(key: key.trim()))
-        .toList();
+    final deleteObjects =
+        objects.split(',').map((key) => DeleteObject(key: key.trim())).toList();
 
     print('Deleting multiple objects...');
     print('Bucket: $bucket');

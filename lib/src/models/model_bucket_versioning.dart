@@ -7,6 +7,8 @@ enum EncodeType {
   url('url');
 
   const EncodeType(this.value);
+
+  /// The serialized string value of this enum item.
   final String value;
 }
 
@@ -16,6 +18,7 @@ class VersioningConfiguration {
   /// See BucketVersioningStatusType for supported values.
   final String? status;
 
+  /// Creates a VersioningConfiguration instance.
   const VersioningConfiguration({this.status});
 
   /// Creates a VersioningConfiguration from JSON
@@ -35,6 +38,7 @@ class VersioningConfiguration {
   }
 
   @override
+  /// Returns the `hashCode` value.
   int get hashCode => status.hashCode;
 
   @override
@@ -60,6 +64,7 @@ class DeleteMarkerEntry {
   /// Indicates whether the version is the current version. Valid values: true: The version is the current version. false: The version is a previous version.
   bool? isLatest;
 
+  /// Creates a DeleteMarkerEntry instance.
   DeleteMarkerEntry({
     this.lastModified,
     this.owner,
@@ -106,6 +111,7 @@ class DeleteMarkerEntry {
   }
 
   @override
+  /// Returns the `hashCode` value.
   int get hashCode {
     return Object.hash(lastModified, owner, key, versionId, isLatest);
   }
@@ -149,6 +155,7 @@ class ObjectVersion {
   /// Restore info of the object.
   String? restoreInfo;
 
+  /// Creates a ObjectVersion instance.
   ObjectVersion({
     this.key,
     this.isLatest,
@@ -217,6 +224,7 @@ class ObjectVersion {
   }
 
   @override
+  /// Returns the `hashCode` value.
   int get hashCode {
     return Object.hash(
       key,
@@ -241,6 +249,7 @@ class ObjectVersion {
 /// The request for the PutBucketVersioning operation.
 class PutBucketVersioningRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
@@ -249,6 +258,7 @@ class PutBucketVersioningRequest extends RequestModel {
   /// The container of the request body.
   final VersioningConfiguration? versioningConfiguration;
 
+  /// Creates a PutBucketVersioningRequest instance.
   PutBucketVersioningRequest({
     this.bucket,
     this.versioningConfiguration,
@@ -284,6 +294,7 @@ class PutBucketVersioningRequest extends RequestModel {
   }
 
   @override
+  /// Returns the `hashCode` value.
   int get hashCode {
     return Object.hash(bucket, versioningConfiguration);
   }
@@ -297,8 +308,10 @@ class PutBucketVersioningRequest extends RequestModel {
 /// The result for the PutBucketVersioning operation.
 class PutBucketVersioningResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
+  /// Creates a PutBucketVersioningResult instance.
   PutBucketVersioningResult({ResultModelProp? commonProp})
     : commonProp = commonProp ?? ResultModelProp();
 
@@ -319,6 +332,7 @@ class PutBucketVersioningResult extends ResultModel {
   }
 
   @override
+  /// Returns the `hashCode` value.
   int get hashCode => runtimeType.hashCode;
 
   @override
@@ -330,11 +344,13 @@ class PutBucketVersioningResult extends ResultModel {
 /// The request for the GetBucketVersioning operation.
 class GetBucketVersioningRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
   final String? bucket;
 
+  /// Creates a GetBucketVersioningRequest instance.
   GetBucketVersioningRequest({this.bucket, RequestModelProp? commonProp})
     : commonProp = commonProp ?? RequestModelProp();
 
@@ -355,6 +371,7 @@ class GetBucketVersioningRequest extends RequestModel {
   }
 
   @override
+  /// Returns the `hashCode` value.
   int get hashCode => bucket.hashCode;
 
   @override
@@ -366,11 +383,13 @@ class GetBucketVersioningRequest extends RequestModel {
 /// The result for the GetBucketVersioning operation.
 class GetBucketVersioningResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
   /// The container that stores the versioning state of the bucket.
   VersioningConfiguration? versioningConfiguration;
 
+  /// Creates a GetBucketVersioningResult instance.
   GetBucketVersioningResult({
     this.versioningConfiguration,
     ResultModelProp? commonProp,
@@ -400,6 +419,7 @@ class GetBucketVersioningResult extends ResultModel {
   }
 
   @override
+  /// Returns the `hashCode` value.
   int get hashCode => versioningConfiguration.hashCode;
 
   @override
@@ -411,6 +431,7 @@ class GetBucketVersioningResult extends ResultModel {
 /// The request for the ListObjectVersions operation.
 class ListObjectVersionsRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
@@ -435,6 +456,7 @@ class ListObjectVersionsRequest extends RequestModel {
   /// Sees EncodeType for supported values.
   final String? encodingType;
 
+  /// Creates a ListObjectVersionsRequest instance.
   ListObjectVersionsRequest({
     this.bucket,
     this.delimiter,
@@ -486,6 +508,7 @@ class ListObjectVersionsRequest extends RequestModel {
   }
 
   @override
+  /// Returns the `hashCode` value.
   int get hashCode {
     return Object.hash(
       bucket,
@@ -507,6 +530,7 @@ class ListObjectVersionsRequest extends RequestModel {
 /// The result for the ListObjectVersions operation.
 class ListObjectVersionsResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
   /// If not all results are returned for the request, the NextKeyMarker parameter is included in the response to indicate the key-marker value of the next ListObjectVersions (GetBucketVersions) request.
@@ -548,6 +572,7 @@ class ListObjectVersionsResult extends ResultModel {
   /// Objects whose names contain the same string that ranges from the prefix to the next occurrence of the delimiter are grouped as a single result element
   List<CommonPrefix>? commonPrefixes;
 
+  /// Creates a ListObjectVersionsResult instance.
   ListObjectVersionsResult({
     this.nextKeyMarker,
     this.nextVersionIdMarker,
@@ -637,6 +662,7 @@ class ListObjectVersionsResult extends ResultModel {
   }
 
   @override
+  /// Returns the `hashCode` value.
   int get hashCode {
     return Object.hash(
       nextKeyMarker,

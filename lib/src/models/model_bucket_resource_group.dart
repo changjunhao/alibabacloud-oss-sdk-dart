@@ -5,6 +5,7 @@ class BucketResourceGroupConfiguration {
   /// The ID of the resource group to which the bucket belongs.
   String? resourceGroupId;
 
+  /// Creates a BucketResourceGroupConfiguration instance.
   BucketResourceGroupConfiguration({this.resourceGroupId});
 
   /// Creates an instance from a JSON map
@@ -23,11 +24,13 @@ class BucketResourceGroupConfiguration {
 /// The request for the GetBucketResourceGroup operation.
 class GetBucketResourceGroupRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket that you want to query.
   String? bucket;
 
+  /// Creates a GetBucketResourceGroupRequest instance.
   GetBucketResourceGroupRequest({this.bucket, RequestModelProp? commonProp})
     : commonProp = commonProp ?? RequestModelProp();
 
@@ -45,11 +48,13 @@ class GetBucketResourceGroupRequest extends RequestModel {
 /// The result for the GetBucketResourceGroup operation.
 class GetBucketResourceGroupResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
   /// The container that stores the ID of the resource group.
   BucketResourceGroupConfiguration? bucketResourceGroupConfiguration;
 
+  /// Creates a GetBucketResourceGroupResult instance.
   GetBucketResourceGroupResult({
     this.bucketResourceGroupConfiguration,
     ResultModelProp? commonProp,
@@ -79,6 +84,7 @@ class GetBucketResourceGroupResult extends ResultModel {
 /// The request for the PutBucketResourceGroup operation.
 class PutBucketResourceGroupRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The bucket for which you want to modify the ID of the resource group.
@@ -87,6 +93,7 @@ class PutBucketResourceGroupRequest extends RequestModel {
   /// The request body schema.
   BucketResourceGroupConfiguration? bucketResourceGroupConfiguration;
 
+  /// Creates a PutBucketResourceGroupRequest instance.
   PutBucketResourceGroupRequest({
     this.bucket,
     this.bucketResourceGroupConfiguration,
@@ -119,8 +126,10 @@ class PutBucketResourceGroupRequest extends RequestModel {
 /// The result for the PutBucketResourceGroup operation.
 class PutBucketResourceGroupResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
+  /// Creates a PutBucketResourceGroupResult instance.
   PutBucketResourceGroupResult({ResultModelProp? commonProp})
     : commonProp = commonProp ?? ResultModelProp();
 

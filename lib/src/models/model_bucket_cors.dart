@@ -18,6 +18,7 @@ class CORSRule {
   /// The period of time within which the browser can cache the response to an OPTIONS preflight request for the specified resource. Unit: seconds. You can specify only one MaxAgeSeconds element in a CORS rule.
   int? maxAgeSeconds;
 
+  /// Creates a CORSRule instance.
   CORSRule({
     this.allowedOrigins,
     this.allowedMethods,
@@ -77,6 +78,7 @@ class CORSConfiguration {
   /// Indicates whether the Vary: Origin header was returned. Default value: false. - true: The Vary: Origin header is returned regardless whether the request is a cross-origin request or whether the cross-origin request succeeds. - false: The Vary: Origin header is not returned.
   bool? responseVary;
 
+  /// Creates a CORSConfiguration instance.
   CORSConfiguration({this.corsRules, this.responseVary});
 
   /// Creates a CORSConfiguration instance from a JSON map
@@ -118,6 +120,7 @@ class CORSConfiguration {
 /// The request for the PutBucketCors operation.
 class PutBucketCorsRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
@@ -126,6 +129,7 @@ class PutBucketCorsRequest extends RequestModel {
   /// The request body schema.
   CORSConfiguration? corsConfiguration;
 
+  /// Creates a PutBucketCorsRequest instance.
   PutBucketCorsRequest({
     this.bucket,
     this.corsConfiguration,
@@ -153,8 +157,10 @@ class PutBucketCorsRequest extends RequestModel {
 /// The result for the PutBucketCors operation.
 class PutBucketCorsResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
+  /// Creates a PutBucketCorsResult instance.
   PutBucketCorsResult({ResultModelProp? commonProp})
     : commonProp = commonProp ?? ResultModelProp();
 
@@ -172,11 +178,13 @@ class PutBucketCorsResult extends ResultModel {
 /// The request for the GetBucketCors operation.
 class GetBucketCorsRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
   String? bucket;
 
+  /// Creates a GetBucketCorsRequest instance.
   GetBucketCorsRequest({this.bucket, RequestModelProp? commonProp})
     : commonProp = commonProp ?? RequestModelProp();
 
@@ -194,11 +202,13 @@ class GetBucketCorsRequest extends RequestModel {
 /// The result for the GetBucketCors operation.
 class GetBucketCorsResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
   /// The container that stores CORS configuration.
   CORSConfiguration? corsConfiguration;
 
+  /// Creates a GetBucketCorsResult instance.
   GetBucketCorsResult({this.corsConfiguration, ResultModelProp? commonProp})
     : commonProp = commonProp ?? ResultModelProp();
 
@@ -222,11 +232,13 @@ class GetBucketCorsResult extends ResultModel {
 /// The request for the DeleteBucketCors operation.
 class DeleteBucketCorsRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
   String? bucket;
 
+  /// Creates a DeleteBucketCorsRequest instance.
   DeleteBucketCorsRequest({this.bucket, RequestModelProp? commonProp})
     : commonProp = commonProp ?? RequestModelProp();
 
@@ -244,8 +256,10 @@ class DeleteBucketCorsRequest extends RequestModel {
 /// The result for the DeleteBucketCors operation.
 class DeleteBucketCorsResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
+  /// Creates a DeleteBucketCorsResult instance.
   DeleteBucketCorsResult({ResultModelProp? commonProp})
     : commonProp = commonProp ?? ResultModelProp();
 
@@ -263,6 +277,7 @@ class DeleteBucketCorsResult extends ResultModel {
 /// The request for the OptionObject operation.
 class OptionObjectRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
@@ -280,6 +295,7 @@ class OptionObjectRequest extends RequestModel {
   /// The custom headers to be sent in the actual cross-origin request. You can configure multiple custom headers in a cross-origin request. Custom headers are separated by commas (,). By default, this header is left empty.
   String? accessControlRequestHeaders;
 
+  /// Creates a OptionObjectRequest instance.
   OptionObjectRequest({
     this.bucket,
     this.key,
@@ -316,6 +332,7 @@ class OptionObjectRequest extends RequestModel {
 /// The result for the OptionObject operation.
 class OptionObjectResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
   /// Access-Control-Allow-Origin header value
@@ -342,6 +359,7 @@ class OptionObjectResult extends ResultModel {
     return value?.toInt();
   }
 
+  /// Creates a OptionObjectResult instance.
   OptionObjectResult({ResultModelProp? commonProp})
     : commonProp = commonProp ?? ResultModelProp();
 

@@ -4,6 +4,7 @@ import 'log_agent_level.dart';
 
 /// Log agent implementation backed by `print`.
 class LogAgentPrint implements LogAgent {
+  /// The `level` value.
   final LogAgentLevel level;
 
   /// Creates a print-based log agent.
@@ -13,6 +14,7 @@ class LogAgentPrint implements LogAgent {
   LogAgentPrint({required this.level});
 
   @override
+  /// Returns the `name` value.
   String get name => 'Print';
 
   @override

@@ -4,18 +4,13 @@ import 'package:alibabacloud_oss_sdk_dart/src/credentials/static_credentials_pro
 import 'package:alibabacloud_oss_sdk_dart/src/credentials/credentials.dart';
 
 void main() {
-
-  setUp(() {
-  });
+  setUp(() {});
 
   group('RefreshCredentialsProvider Tests', () {
     test('testClosureWithoutExpiration', () async {
       final credentialsProvider = RefreshCredentialsProvider.fromClosure(
         closure: () async {
-          return const Credentials(
-            accessKeyId: 'ak',
-            accessKeySecret: 'sk',
-          );
+          return const Credentials(accessKeyId: 'ak', accessKeySecret: 'sk');
         },
       );
       final token = await credentialsProvider.getCredentials();
@@ -60,7 +55,7 @@ void main() {
       expect(token.securityToken, equals('token-1'));
       expect(token.expiration, isNotNull);
       expect(token.isExpired, isFalse);
-      
+
       // Wait for token to expire
       await Future.delayed(const Duration(seconds: 3));
       expect(token.isExpired, isTrue);
@@ -144,7 +139,9 @@ void main() {
         expect(cred.securityToken, equals('token-$testCount'));
         expect(cred.expiration, equals(expiration));
         testCount++;
-        await Future.delayed(const Duration(milliseconds: 200)); // sleep 0.2 second
+        await Future.delayed(
+          const Duration(milliseconds: 200),
+        ); // sleep 0.2 second
       }
       expect(testCount, equals(30));
       final count = await counter.getCount();
@@ -195,7 +192,9 @@ void main() {
       expect(cred.expiration, equals(expiration0));
 
       // wait task done
-      await Future.delayed(const Duration(milliseconds: 200)); // sleep 0.2 second
+      await Future.delayed(
+        const Duration(milliseconds: 200),
+      ); // sleep 0.2 second
 
       var testCount = 0;
       for (int i = 0; i < 30; i++) {
@@ -214,7 +213,9 @@ void main() {
     test('testConcurrencyGetCredentials', () async {
       // default refreshInterval is 5 * 60
       final counter = Counter();
-      final expiration0 = DateTime.now().add(const Duration(hours: 1)); // Use longer expiration to avoid refresh
+      final expiration0 = DateTime.now().add(
+        const Duration(hours: 1),
+      ); // Use longer expiration to avoid refresh
       final expiration1 = DateTime.now().add(const Duration(hours: 2));
       final credentialsProvider = RefreshCredentialsProvider.fromClosure(
         closure: () async {

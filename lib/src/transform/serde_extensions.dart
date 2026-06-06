@@ -4,6 +4,9 @@ import 'package:intl/intl.dart';
 
 /// Date formatting utilities
 class DateFormatters {
+  /// Creates a DateFormatters instance.
+  DateFormatters();
+
   /// GMT format (for example, Tue, 29 Apr 2014 18:30:38 GMT)
   static final DateFormat rfc5322DateTime = DateFormat(
     // 'EEE, dd MMM yyyy HH:mm:ss zzz',

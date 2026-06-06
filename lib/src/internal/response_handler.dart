@@ -9,12 +9,18 @@ import '../utils/xml_parser.dart';
 
 /// Response handler interface for processing HTTP responses
 abstract class ResponseHandler {
+  /// Creates a ResponseHandler instance.
+  const ResponseHandler();
+
   /// Called when a response is received
   void onResponse(RequestMessage request, ResponseMessage response);
 }
 
 /// Async response handler interface for processing HTTP responses asynchronously
 abstract class ResponseHandlerAsync extends ResponseHandler {
+  /// Creates a ResponseHandlerAsync instance.
+  const ResponseHandlerAsync();
+
   /// Called when a response is received asynchronously
   Future<void> onResponseAsync(
     RequestMessage request,
@@ -22,6 +28,7 @@ abstract class ResponseHandlerAsync extends ResponseHandler {
   );
 
   @override
+  /// Returns the `onResponse` result.
   void onResponse(RequestMessage request, ResponseMessage response) {
     // Default implementation does nothing for sync calls
   }
@@ -29,7 +36,11 @@ abstract class ResponseHandlerAsync extends ResponseHandler {
 
 /// Server response handler that processes server errors
 class ServerResponseHandler implements ResponseHandlerAsync {
+  /// Creates a ServerResponseHandler instance.
+  ServerResponseHandler();
+
   @override
+  /// Returns the `onResponse` result.
   void onResponse(RequestMessage request, ResponseMessage response) {
     // Default implementation does nothing for sync calls
   }
@@ -106,11 +117,14 @@ class ServerResponseHandler implements ResponseHandlerAsync {
 
 /// Response handler for checking upload CRC validation
 class CheckerUploadCrcResponseHandler implements ResponseHandlerAsync {
+  /// The `crc` value.
   final int? crc;
 
+  /// Creates a CheckerUploadCrcResponseHandler instance.
   const CheckerUploadCrcResponseHandler({this.crc});
 
   @override
+  /// Returns the `onResponse` result.
   void onResponse(RequestMessage request, ResponseMessage response) {
     // Default implementation does nothing for sync calls
   }
@@ -142,9 +156,11 @@ class CheckerUploadCrcResponseHandler implements ResponseHandlerAsync {
 
 /// Response handler for checking download CRC validation
 class CheckerDownloadCrcResponseHandler implements ResponseHandlerAsync {
+  /// Creates a CheckerDownloadCrcResponseHandler instance.
   const CheckerDownloadCrcResponseHandler();
 
   @override
+  /// Returns the `onResponse` result.
   void onResponse(RequestMessage request, ResponseMessage response) {
     // Default implementation does nothing for sync calls
   }

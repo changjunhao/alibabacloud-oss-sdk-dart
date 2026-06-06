@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 /// CRC64 implementation for data integrity verification
 class CRC64 {
+  /// The shared default CRC64 calculator instance.
   static final CRC64 defaultInstance = CRC64._();
 
   static const int _poly = 0xC96C5795D7870F42;
@@ -9,6 +10,7 @@ class CRC64 {
   late final bool _isLittleEndian;
   bool _initialized = false;
 
+  /// Creates a CRC64 instance.
   CRC64._();
 
   /// Initialize CRC64 with precomputed tables

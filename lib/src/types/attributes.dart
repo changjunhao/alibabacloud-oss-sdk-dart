@@ -1,7 +1,9 @@
 /// Attribute key for type-safe attribute storage
 class AttributeKey<T> {
+  /// The unique attribute name used as the storage key.
   final String name;
 
+  /// Creates an attribute key with the given storage name.
   const AttributeKey({required this.name});
 
   @override
@@ -16,12 +18,16 @@ class AttributeKey<T> {
   }
 
   @override
+  /// Returns the `hashCode` value.
   int get hashCode => name.hashCode;
 }
 
 /// A type-safe attribute storage container
 class Attributes {
   final Map<String, List<dynamic>> _attributes = {};
+
+  /// Creates an empty attribute storage container.
+  Attributes();
 
   /// Returns the number of attributes stored
   int get size => _attributes.length;
@@ -79,8 +85,16 @@ class Attributes {
 
 /// Predefined attribute keys
 class AttributeKeys {
+  /// Creates a namespace for predefined attribute keys.
+  const AttributeKeys._();
+
+  /// The sub-resource used during request signing and canonicalization.
   static const subResource = AttributeKey<String>(name: 'sub-resource');
+
+  /// The expiration time associated with a presigned request or response.
   static const expirationTime = AttributeKey<DateTime>(name: 'expiration-time');
+
+  /// The response handlers attached to the current execution context.
   static const responseHandlers = AttributeKey<dynamic>(
     name: 'responseHandlers',
   );

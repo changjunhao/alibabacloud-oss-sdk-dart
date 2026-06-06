@@ -60,6 +60,7 @@ class Credentials {
   }
 
   @override
+  /// Returns the `hashCode` value.
   int get hashCode {
     return Object.hash(accessKeyId, accessKeySecret, securityToken, expiration);
   }

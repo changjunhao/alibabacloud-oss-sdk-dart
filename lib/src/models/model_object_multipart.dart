@@ -15,6 +15,7 @@ class Upload {
   /// The ID of the multipart upload task.
   String? uploadId;
 
+  /// Creates a Upload instance.
   Upload({this.initiated, this.key, this.uploadId});
 
   /// Creates an Upload instance from a JSON map
@@ -46,6 +47,7 @@ class UploadPart {
   /// The number of parts.
   int? partNumber;
 
+  /// Creates a UploadPart instance.
   UploadPart({this.etag, this.partNumber});
 
   /// Creates an UploadPart instance from a JSON map
@@ -62,6 +64,7 @@ class UploadPart {
   }
 }
 
+/// The `Part` part.
 class Part {
   /// The ETag value of the content of the uploaded part.
   String? etag;
@@ -79,6 +82,7 @@ class Part {
   /// This value is calculated based on the ECMA-182 standar
   String? hashCrc64;
 
+  /// Creates a Part instance.
   Part({
     this.etag,
     this.partNumber,
@@ -117,6 +121,7 @@ class CompleteMultipartUpload {
   /// The container that stores the uploaded parts.
   List<UploadPart>? parts;
 
+  /// Creates a CompleteMultipartUpload instance.
   CompleteMultipartUpload({this.parts});
 
   /// Creates a CompleteMultipartUpload instance from a JSON map
@@ -144,12 +149,14 @@ class CopyPartResult {
   /// The ETag of the copied part.
   String? etag;
 
+  /// Creates a CopyPartResult instance.
   CopyPartResult({this.lastModified, this.etag});
 }
 
 /// The request for the InitiateMultipartUpload operation.
 class InitiateMultipartUploadRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket to which the object is uploaded by the multipart upload task.
@@ -197,6 +204,7 @@ class InitiateMultipartUploadRequest extends RequestModel {
   /// The method used to encode the object name in the response. Only URL encoding is supported. The object name can contain characters encoded in UTF-8. However, the XML 1.0 standard cannot be used to parse specific control characters, such as characters whose ASCII values range from 0 to 10. You can configure the encoding-type parameter to encode object names that include characters that cannot be parsed by XML 1.0 in the response. Default value: null
   String? encodingType;
 
+  /// Creates a InitiateMultipartUploadRequest instance.
   InitiateMultipartUploadRequest({
     this.bucket,
     this.key,
@@ -259,6 +267,7 @@ class InitiateMultipartUploadRequest extends RequestModel {
 /// The result for the InitiateMultipartUpload operation.
 class InitiateMultipartUploadResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
   /// The encoding type of the object name in the response. If the encoding-type parameter is specified in the request, the object name in the response is encoded.
@@ -273,6 +282,7 @@ class InitiateMultipartUploadResult extends ResultModel {
   /// The upload ID that uniquely identifies the multipart upload task. The upload ID is used to call UploadPart and CompleteMultipartUpload later.
   String? uploadId;
 
+  /// Creates a InitiateMultipartUploadResult instance.
   InitiateMultipartUploadResult({
     this.encodingType,
     this.bucket,
@@ -305,6 +315,7 @@ class InitiateMultipartUploadResult extends ResultModel {
 /// The request for the UploadPart operation.
 class UploadPartRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
@@ -328,6 +339,7 @@ class UploadPartRequest extends RequestModel {
   /// Progress delegate for tracking upload progress.
   ProgressDelegate? progress;
 
+  /// Creates a UploadPartRequest instance.
   UploadPartRequest({
     this.bucket,
     this.key,
@@ -362,11 +374,13 @@ class UploadPartRequest extends RequestModel {
 /// The result for the UploadPart operation.
 class UploadPartResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
   /// The ETag that is generated when the object is created.
   String? get etag => commonProp.headers?.getCaseInsensitive('ETag');
 
+  /// Creates a UploadPartResult instance.
   UploadPartResult({ResultModelProp? commonProp})
     : commonProp = commonProp ?? ResultModelProp();
 
@@ -384,6 +398,7 @@ class UploadPartResult extends ResultModel {
 /// The request for the CompleteMultipartUpload operation.
 class CompleteMultipartUploadRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
@@ -421,6 +436,7 @@ class CompleteMultipartUploadRequest extends RequestModel {
   /// The request body schema.
   CompleteMultipartUpload? completeMultipartUpload;
 
+  /// Creates a CompleteMultipartUploadRequest instance.
   CompleteMultipartUploadRequest({
     this.bucket,
     this.key,
@@ -466,6 +482,7 @@ class CompleteMultipartUploadRequest extends RequestModel {
 /// The result for the CompleteMultipartUpload operation.
 class CompleteMultipartUploadResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
   /// The version ID of the object.
@@ -492,6 +509,7 @@ class CompleteMultipartUploadResult extends ResultModel {
   /// The callback result data.
   List<int>? callbackResult;
 
+  /// Creates a CompleteMultipartUploadResult instance.
   CompleteMultipartUploadResult({
     this.key,
     this.etag,
@@ -528,6 +546,7 @@ class CompleteMultipartUploadResult extends ResultModel {
 /// The request for the UploadPartCopy operation.
 class UploadPartCopyRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
@@ -572,6 +591,7 @@ class UploadPartCopyRequest extends RequestModel {
   /// The ID that identifies the object to which the parts to upload belong.
   String? uploadId;
 
+  /// Creates a UploadPartCopyRequest instance.
   UploadPartCopyRequest({
     this.bucket,
     this.key,
@@ -626,6 +646,7 @@ class UploadPartCopyRequest extends RequestModel {
 /// The result for the UploadPartCopy operation.
 class UploadPartCopyResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
   /// The version ID of the source object.
@@ -635,6 +656,7 @@ class UploadPartCopyResult extends ResultModel {
   /// The container that stores the copy result.
   CopyPartResult? copyPartResult;
 
+  /// Creates a UploadPartCopyResult instance.
   UploadPartCopyResult({this.copyPartResult, ResultModelProp? commonProp})
     : commonProp = commonProp ?? ResultModelProp();
 
@@ -670,6 +692,7 @@ class UploadPartCopyResult extends ResultModel {
 /// The request for the AbortMultipartUpload operation.
 class AbortMultipartUploadRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
@@ -681,6 +704,7 @@ class AbortMultipartUploadRequest extends RequestModel {
   /// The ID of the multipart upload task.
   String? uploadId;
 
+  /// Creates a request to cancel an in-progress multipart upload task.
   AbortMultipartUploadRequest({
     this.bucket,
     this.key,
@@ -706,8 +730,10 @@ class AbortMultipartUploadRequest extends RequestModel {
 /// The result for the AbortMultipartUpload operation.
 class AbortMultipartUploadResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
+  /// Creates a result for a completed AbortMultipartUpload operation.
   AbortMultipartUploadResult({ResultModelProp? commonProp})
     : commonProp = commonProp ?? ResultModelProp();
 
@@ -725,6 +751,7 @@ class AbortMultipartUploadResult extends ResultModel {
 /// The request for the ListMultipartUploads operation.
 class ListMultipartUploadsRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
@@ -757,6 +784,7 @@ class ListMultipartUploadsRequest extends RequestModel {
   /// Sees EncodingType for supported values.
   String? encodingType;
 
+  /// Creates a ListMultipartUploadsRequest instance.
   ListMultipartUploadsRequest({
     this.bucket,
     this.delimiter,
@@ -798,6 +826,7 @@ class ListMultipartUploadsRequest extends RequestModel {
 /// The result for the ListMultipartUploads operation.
 class ListMultipartUploadsResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
   /// The method used to encode the object name in the response. If encoding-type is specified in the request, values of those elements including Delimiter, KeyMarker, Prefix, NextKeyMarker, and Key are encoded in the returned result.
@@ -838,6 +867,7 @@ class ListMultipartUploadsResult extends ResultModel {
   /// If the delimiter parameter is specified in the request, the response contains the CommonPrefixes parameter. The objects whose names contain the same string from the prefix to the next occurrence of the delimiter are grouped as a single result element in the CommonPrefixes parameter.
   List<CommonPrefix>? commonPrefixes;
 
+  /// Creates a ListMultipartUploadsResult instance.
   ListMultipartUploadsResult({
     this.encodingType,
     this.keyMarker,
@@ -902,6 +932,7 @@ class ListMultipartUploadsResult extends ResultModel {
 /// The request for the ListParts operation.
 class ListPartsRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
@@ -923,6 +954,7 @@ class ListPartsRequest extends RequestModel {
   /// Sees EncodingType for supported values.
   String? encodingType;
 
+  /// Creates a ListPartsRequest instance.
   ListPartsRequest({
     this.bucket,
     this.key,
@@ -961,6 +993,7 @@ class ListPartsRequest extends RequestModel {
 /// The result for the ListParts operation.
 class ListPartsResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
   /// The maximum number of parts in the response.
@@ -990,6 +1023,7 @@ class ListPartsResult extends ResultModel {
   /// The encoding type of the object name in the response.
   String? encodingType;
 
+  /// Creates a ListPartsResult instance.
   ListPartsResult({
     this.maxParts,
     this.isTruncated,

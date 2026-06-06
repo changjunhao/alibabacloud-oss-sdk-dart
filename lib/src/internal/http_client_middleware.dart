@@ -13,6 +13,8 @@ import 'execute_middleware.dart';
 /// HTTP client middleware using Dio for processing HTTP requests
 class HttpClientMiddleware implements ExecuteMiddleware {
   final Dio _dio;
+
+  /// The `logger` value.
   final LogAgent? logger;
 
   /// Creates an HTTP client middleware with the given Dio instance and optional logger

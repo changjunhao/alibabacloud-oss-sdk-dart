@@ -8,6 +8,7 @@ class LoggingEnabled {
   /// The prefix of the log objects. This parameter can be left empty.
   String? targetPrefix;
 
+  /// Creates a LoggingEnabled instance.
   LoggingEnabled({this.targetBucket, this.targetPrefix});
 
   /// Creates a LoggingEnabled instance from a JSON map
@@ -29,6 +30,7 @@ class BucketLoggingStatus {
   /// Indicates the container used to store access logging information. This element is returned if it is enabled and is not returned if it is disabled.
   LoggingEnabled? loggingEnabled;
 
+  /// Creates a BucketLoggingStatus instance.
   BucketLoggingStatus({this.loggingEnabled});
 
   /// Creates a BucketLoggingStatus instance from a JSON map
@@ -53,6 +55,7 @@ class HeaderSet {
   /// The list of the custom request headers.
   List<String>? headers;
 
+  /// Creates a HeaderSet instance.
   HeaderSet({this.headers});
 
   /// Creates a HeaderSet instance from a JSON map
@@ -75,6 +78,7 @@ class ParamSet {
   /// The list of the custom URL parameters.
   List<String>? parameters;
 
+  /// Creates a ParamSet instance.
   ParamSet({this.parameters});
 
   /// Creates a ParamSet instance from a JSON map
@@ -100,6 +104,7 @@ class UserDefinedLogFieldsConfiguration {
   /// The container that stores the configurations of custom URL parameters.
   ParamSet? paramSet;
 
+  /// Creates a UserDefinedLogFieldsConfiguration instance.
   UserDefinedLogFieldsConfiguration({this.headerSet, this.paramSet});
 
   /// Creates a UserDefinedLogFieldsConfiguration instance from a JSON map
@@ -125,6 +130,7 @@ class UserDefinedLogFieldsConfiguration {
 /// The request for the PutBucketLogging operation.
 class PutBucketLoggingRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
@@ -133,6 +139,7 @@ class PutBucketLoggingRequest extends RequestModel {
   /// The request body schema.
   BucketLoggingStatus? bucketLoggingStatus;
 
+  /// Creates a PutBucketLoggingRequest instance.
   PutBucketLoggingRequest({
     this.bucket,
     this.bucketLoggingStatus,
@@ -143,8 +150,10 @@ class PutBucketLoggingRequest extends RequestModel {
 /// The result for the PutBucketLogging operation.
 class PutBucketLoggingResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
+  /// Creates a PutBucketLoggingResult instance.
   PutBucketLoggingResult({ResultModelProp? commonProp})
     : commonProp = commonProp ?? ResultModelProp();
 }
@@ -152,11 +161,13 @@ class PutBucketLoggingResult extends ResultModel {
 /// The request for the GetBucketLogging operation.
 class GetBucketLoggingRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
   String? bucket;
 
+  /// Creates a GetBucketLoggingRequest instance.
   GetBucketLoggingRequest({this.bucket, RequestModelProp? commonProp})
     : commonProp = commonProp ?? RequestModelProp();
 }
@@ -164,11 +175,13 @@ class GetBucketLoggingRequest extends RequestModel {
 /// The result for the GetBucketLogging operation.
 class GetBucketLoggingResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
   /// Indicates the container used to store access logging configuration of a bucket.
   BucketLoggingStatus? bucketLoggingStatus;
 
+  /// Creates a GetBucketLoggingResult instance.
   GetBucketLoggingResult({
     this.bucketLoggingStatus,
     ResultModelProp? commonProp,
@@ -178,11 +191,13 @@ class GetBucketLoggingResult extends ResultModel {
 /// The request for the DeleteBucketLogging operation.
 class DeleteBucketLoggingRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
   String? bucket;
 
+  /// Creates a DeleteBucketLoggingRequest instance.
   DeleteBucketLoggingRequest({this.bucket, RequestModelProp? commonProp})
     : commonProp = commonProp ?? RequestModelProp();
 }
@@ -190,8 +205,10 @@ class DeleteBucketLoggingRequest extends RequestModel {
 /// The result for the DeleteBucketLogging operation.
 class DeleteBucketLoggingResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
+  /// Creates a DeleteBucketLoggingResult instance.
   DeleteBucketLoggingResult({ResultModelProp? commonProp})
     : commonProp = commonProp ?? ResultModelProp();
 }
@@ -199,6 +216,7 @@ class DeleteBucketLoggingResult extends ResultModel {
 /// The request for the PutUserDefinedLogFieldsConfig operation.
 class PutUserDefinedLogFieldsConfigRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
@@ -207,6 +225,7 @@ class PutUserDefinedLogFieldsConfigRequest extends RequestModel {
   /// The container that stores the specified log configurations.
   UserDefinedLogFieldsConfiguration? userDefinedLogFieldsConfiguration;
 
+  /// Creates a PutUserDefinedLogFieldsConfigRequest instance.
   PutUserDefinedLogFieldsConfigRequest({
     this.bucket,
     this.userDefinedLogFieldsConfiguration,
@@ -217,8 +236,10 @@ class PutUserDefinedLogFieldsConfigRequest extends RequestModel {
 /// The result for the PutUserDefinedLogFieldsConfig operation.
 class PutUserDefinedLogFieldsConfigResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
+  /// Creates a PutUserDefinedLogFieldsConfigResult instance.
   PutUserDefinedLogFieldsConfigResult({ResultModelProp? commonProp})
     : commonProp = commonProp ?? ResultModelProp();
 }
@@ -226,11 +247,13 @@ class PutUserDefinedLogFieldsConfigResult extends ResultModel {
 /// The request for the GetUserDefinedLogFieldsConfig operation.
 class GetUserDefinedLogFieldsConfigRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
   String? bucket;
 
+  /// Creates a GetUserDefinedLogFieldsConfigRequest instance.
   GetUserDefinedLogFieldsConfigRequest({
     this.bucket,
     RequestModelProp? commonProp,
@@ -240,11 +263,13 @@ class GetUserDefinedLogFieldsConfigRequest extends RequestModel {
 /// The result for the GetUserDefinedLogFieldsConfig operation.
 class GetUserDefinedLogFieldsConfigResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
   /// The container for the user-defined logging configuration.
   UserDefinedLogFieldsConfiguration? userDefinedLogFieldsConfiguration;
 
+  /// Creates a GetUserDefinedLogFieldsConfigResult instance.
   GetUserDefinedLogFieldsConfigResult({
     this.userDefinedLogFieldsConfiguration,
     ResultModelProp? commonProp,
@@ -254,11 +279,13 @@ class GetUserDefinedLogFieldsConfigResult extends ResultModel {
 /// The request for the DeleteUserDefinedLogFieldsConfig operation.
 class DeleteUserDefinedLogFieldsConfigRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
   String? bucket;
 
+  /// Creates a DeleteUserDefinedLogFieldsConfigRequest instance.
   DeleteUserDefinedLogFieldsConfigRequest({
     this.bucket,
     RequestModelProp? commonProp,
@@ -268,8 +295,10 @@ class DeleteUserDefinedLogFieldsConfigRequest extends RequestModel {
 /// The result for the DeleteUserDefinedLogFieldsConfig operation.
 class DeleteUserDefinedLogFieldsConfigResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
+  /// Creates a DeleteUserDefinedLogFieldsConfigResult instance.
   DeleteUserDefinedLogFieldsConfigResult({ResultModelProp? commonProp})
     : commonProp = commonProp ?? ResultModelProp();
 }

@@ -5,6 +5,9 @@ import 'serde_functions.dart';
 
 /// Serialization and deserialization for region operations
 class SerdeRegion {
+  /// Creates a SerdeRegion instance.
+  SerdeRegion();
+
   // MARK: - DescribeRegions
 
   /// Serialize DescribeRegions request

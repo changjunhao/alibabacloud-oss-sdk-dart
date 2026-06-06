@@ -223,10 +223,7 @@ void main() {
       expect(input.headers['x-oss-forbid-overwrite'], equals('true'));
       expect(input.headers['x-oss-complete-all'], equals('yes'));
       expect(input.headers['x-oss-callback'], equals('callback-value'));
-      expect(
-        input.headers['x-oss-callback-var'],
-        equals('callback-var-value'),
-      );
+      expect(input.headers['x-oss-callback-var'], equals('callback-var-value'));
       expect(
         input.parameters['uploadId'],
         equals('0004B9894A22E5B1888A1E29F823****'),

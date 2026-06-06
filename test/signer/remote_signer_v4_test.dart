@@ -27,11 +27,12 @@ class SignatureImpl implements SignatureDelegate {
     );
 
     // step 3
-    final signature = _calcSignature(signingKey: signingKey, stringToSign: stringToSign);
+    final signature = _calcSignature(
+      signingKey: signingKey,
+      stringToSign: stringToSign,
+    );
 
-    return {
-      'signature': signature,
-    };
+    return {'signature': signature};
   }
 
   List<int> _calcSigningKey({
@@ -40,14 +41,16 @@ class SignatureImpl implements SignatureDelegate {
     required String product,
     required String date,
   }) {
-    final kDate = Hmac(sha256, utf8.encode('aliyun_v4$accessKeySecret'))
-        .convert(utf8.encode(date));
-    final kRegion = Hmac(sha256, kDate.bytes)
-        .convert(utf8.encode(region));
-    final kProduct = Hmac(sha256, kRegion.bytes)
-        .convert(utf8.encode(product));
-    final kSigning = Hmac(sha256, kProduct.bytes)
-        .convert(utf8.encode('aliyun_v4_request'));
+    final kDate = Hmac(
+      sha256,
+      utf8.encode('aliyun_v4$accessKeySecret'),
+    ).convert(utf8.encode(date));
+    final kRegion = Hmac(sha256, kDate.bytes).convert(utf8.encode(region));
+    final kProduct = Hmac(sha256, kRegion.bytes).convert(utf8.encode(product));
+    final kSigning = Hmac(
+      sha256,
+      kProduct.bytes,
+    ).convert(utf8.encode('aliyun_v4_request'));
     return kSigning.bytes;
   }
 
@@ -55,9 +58,13 @@ class SignatureImpl implements SignatureDelegate {
     required List<int> signingKey,
     required String stringToSign,
   }) {
-    final kSignature = Hmac(sha256, signingKey)
-        .convert(utf8.encode(stringToSign));
-    return kSignature.bytes.map((b) => b.toRadixString(16).padLeft(2, '0')).join();
+    final kSignature = Hmac(
+      sha256,
+      signingKey,
+    ).convert(utf8.encode(stringToSign));
+    return kSignature.bytes
+        .map((b) => b.toRadixString(16).padLeft(2, '0'))
+        .join();
   }
 }
 
@@ -75,15 +82,17 @@ void main() {
         '|param2': '',
         'param2': '',
       };
-      final queries = parameters.entries.map((entry) {
-        final name = entry.key.urlEncode();
-        final value = entry.value?.urlEncode();
-        if (name != null) {
-          return '$name=${value ?? ''}';
-        } else {
-          return '';
-        }
-      }).join('&');
+      final queries = parameters.entries
+          .map((entry) {
+            final name = entry.key.urlEncode();
+            final value = entry.value?.urlEncode();
+            if (name != null) {
+              return '$name=${value ?? ''}';
+            } else {
+              return '';
+            }
+          })
+          .join('&');
 
       final uri = Uri.parse('$host/${path.urlEncodePath()}?$queries');
 
@@ -97,7 +106,10 @@ void main() {
         'x-oss-content-sha256': 'UNSIGNED-PAYLOAD',
       };
 
-      final signTime = DateTime.fromMillisecondsSinceEpoch(1702743657 * 1000, isUtc: true);
+      final signTime = DateTime.fromMillisecondsSinceEpoch(
+        1702743657 * 1000,
+        isUtc: true,
+      );
 
       var signingContext = SigningContext(
         bucket: 'bucket',
@@ -111,10 +123,16 @@ void main() {
       request = await signer.sign(request, signingContext);
       final urlStr = request.requestUri.toString();
 
-      const authPat = 'OSS4-HMAC-SHA256 Credential=ak/20231216/cn-hangzhou/oss/aliyun_v4_request,Signature=e21d18daa82167720f9b1047ae7e7f1ce7cb77a31e8203a7d5f4624fa0284afe';
+      const authPat =
+          'OSS4-HMAC-SHA256 Credential=ak/20231216/cn-hangzhou/oss/aliyun_v4_request,Signature=e21d18daa82167720f9b1047ae7e7f1ce7cb77a31e8203a7d5f4624fa0284afe';
       expect(request.headers['Authorization'], equals(authPat));
 
-      expect(urlStr.contains('bucket.oss-cn-hangzhou.aliyuncs.com/1234%2B-/123/1.txt?'), isTrue);
+      expect(
+        urlStr.contains(
+          'bucket.oss-cn-hangzhou.aliyuncs.com/1234%2B-/123/1.txt?',
+        ),
+        isTrue,
+      );
       expect(urlStr.contains('%2Bparam2='), isTrue);
       expect(urlStr.contains('%2Bparam1=value3'), isTrue);
     });
@@ -131,15 +149,17 @@ void main() {
         '|param2': '',
         'param2': '',
       };
-      final queries = parameters.entries.map((entry) {
-        final name = entry.key.urlEncode();
-        final value = entry.value?.urlEncode();
-        if (name != null) {
-          return '$name=${value ?? ''}';
-        } else {
-          return '';
-        }
-      }).join('&');
+      final queries = parameters.entries
+          .map((entry) {
+            final name = entry.key.urlEncode();
+            final value = entry.value?.urlEncode();
+            if (name != null) {
+              return '$name=${value ?? ''}';
+            } else {
+              return '';
+            }
+          })
+          .join('&');
 
       final uri = Uri.parse('$host/${path.urlEncodePath()}?$queries');
 
@@ -152,8 +172,14 @@ void main() {
         'content-type': 'application/octet-stream',
       };
 
-      final signTime = DateTime.fromMillisecondsSinceEpoch(1702781677 * 1000, isUtc: true);
-      final expirationTime = DateTime.fromMillisecondsSinceEpoch(1702782276 * 1000, isUtc: true);
+      final signTime = DateTime.fromMillisecondsSinceEpoch(
+        1702781677 * 1000,
+        isUtc: true,
+      );
+      final expirationTime = DateTime.fromMillisecondsSinceEpoch(
+        1702782276 * 1000,
+        isUtc: true,
+      );
 
       var signingContext = SigningContext(
         bucket: 'bucket',
@@ -169,13 +195,31 @@ void main() {
       request = await signer.sign(request, signingContext);
       final urlStr = request.requestUri.toString();
 
-      expect(urlStr.contains('x-oss-signature-version=OSS4-HMAC-SHA256'), isTrue);
+      expect(
+        urlStr.contains('x-oss-signature-version=OSS4-HMAC-SHA256'),
+        isTrue,
+      );
       expect(urlStr.contains('x-oss-expires=599'), isTrue);
-      expect(urlStr.contains('x-oss-credential=ak%2F20231217%2Fcn-hangzhou%2Foss%2Faliyun_v4_request'), isTrue);
-      expect(urlStr.contains('x-oss-signature=a39966c61718be0d5b14e668088b3fa07601033f6518ac7b523100014269c0fe'), isTrue);
+      expect(
+        urlStr.contains(
+          'x-oss-credential=ak%2F20231217%2Fcn-hangzhou%2Foss%2Faliyun_v4_request',
+        ),
+        isTrue,
+      );
+      expect(
+        urlStr.contains(
+          'x-oss-signature=a39966c61718be0d5b14e668088b3fa07601033f6518ac7b523100014269c0fe',
+        ),
+        isTrue,
+      );
       expect(urlStr.contains('x-oss-additional-headers'), isFalse);
 
-      expect(urlStr.contains('bucket.oss-cn-hangzhou.aliyuncs.com/1234%2B-/123/1.txt?'), isTrue);
+      expect(
+        urlStr.contains(
+          'bucket.oss-cn-hangzhou.aliyuncs.com/1234%2B-/123/1.txt?',
+        ),
+        isTrue,
+      );
       expect(urlStr.contains('%2Bparam2=&'), isTrue);
       expect(urlStr.contains('%2Bparam1=value3&'), isTrue);
     });

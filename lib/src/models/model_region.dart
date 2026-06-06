@@ -14,6 +14,7 @@ class RegionInfo {
   /// The acceleration endpoint of the region. The value is always oss-accelerate.aliyuncs.com.
   String? accelerateEndpoint;
 
+  /// Creates a RegionInfo instance.
   RegionInfo({
     this.region,
     this.internetEndpoint,
@@ -47,6 +48,7 @@ class RegionInfoList {
   /// The information about the regions.
   List<RegionInfo>? regionInfos;
 
+  /// Creates a RegionInfoList instance.
   RegionInfoList({this.regionInfos});
 
   /// Creates a RegionInfoList instance from a JSON map
@@ -67,11 +69,13 @@ class RegionInfoList {
 /// The request for the DescribeRegions operation.
 class DescribeRegionsRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The region ID of the request.
   String? regions;
 
+  /// Creates a DescribeRegionsRequest instance.
   DescribeRegionsRequest({this.regions, RequestModelProp? commonProp})
     : commonProp = commonProp ?? RequestModelProp();
 
@@ -89,11 +93,13 @@ class DescribeRegionsRequest extends RequestModel {
 /// The result for the DescribeRegions operation.
 class DescribeRegionsResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
   /// The information about the regions.
   RegionInfoList? regionInfoList;
 
+  /// Creates a DescribeRegionsResult instance.
   DescribeRegionsResult({this.regionInfoList, ResultModelProp? commonProp})
     : commonProp = commonProp ?? ResultModelProp();
 

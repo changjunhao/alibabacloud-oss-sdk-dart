@@ -5,6 +5,7 @@ import 'log_agent_level.dart';
 
 /// Log agent implementation backed by `dart:developer`.
 class LogAgentLogger implements LogAgent {
+  /// The `level` value.
   final LogAgentLevel level;
   final String _subsystem;
 
@@ -18,6 +19,7 @@ class LogAgentLogger implements LogAgent {
     : _subsystem = subsystem ?? SdkInfo.name;
 
   @override
+  /// Returns the `name` value.
   String get name => 'Logger';
 
   @override

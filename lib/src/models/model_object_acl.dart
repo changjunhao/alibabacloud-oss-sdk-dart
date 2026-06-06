@@ -5,6 +5,7 @@ import '../transform/serde_extensions.dart';
 /// The request for the PutObjectAcl operation.
 class PutObjectAclRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
@@ -20,6 +21,7 @@ class PutObjectAclRequest extends RequestModel {
   /// The version id of the object.
   String? versionId;
 
+  /// Creates a PutObjectAclRequest instance.
   PutObjectAclRequest({
     this.bucket,
     this.key,
@@ -52,12 +54,14 @@ class PutObjectAclRequest extends RequestModel {
 /// The result for the PutObjectAcl operation.
 class PutObjectAclResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
   /// Version of the object.
   String? get versionId =>
       commonProp.headers?.getCaseInsensitive('x-oss-version-id');
 
+  /// Creates a PutObjectAclResult instance.
   PutObjectAclResult({ResultModelProp? commonProp})
     : commonProp = commonProp ?? ResultModelProp();
 
@@ -75,6 +79,7 @@ class PutObjectAclResult extends ResultModel {
 /// The request for the GetObjectAcl operation.
 class GetObjectAclRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
@@ -86,6 +91,7 @@ class GetObjectAclRequest extends RequestModel {
   /// The version id of the target object.
   String? versionId;
 
+  /// Creates a GetObjectAclRequest instance.
   GetObjectAclRequest({
     this.bucket,
     this.key,
@@ -111,11 +117,13 @@ class GetObjectAclRequest extends RequestModel {
 /// The result for the GetObjectAcl operation.
 class GetObjectAclResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
   /// The container that stores the results of the GetObjectACL request.
   AccessControlPolicy? accessControlPolicy;
 
+  /// Creates a GetObjectAclResult instance.
   GetObjectAclResult({this.accessControlPolicy, ResultModelProp? commonProp})
     : commonProp = commonProp ?? ResultModelProp();
 

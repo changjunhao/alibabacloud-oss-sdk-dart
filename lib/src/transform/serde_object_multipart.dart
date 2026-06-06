@@ -9,6 +9,9 @@ import 'serde_functions.dart';
 
 /// Serialization functions for multipart upload operations
 class SerdeObjectMultipart {
+  /// Creates a SerdeObjectMultipart instance.
+  SerdeObjectMultipart();
+
   // MARK: - InitiateMultipartUpload
   /// Serialize InitiateMultipartUpload request
   static Future<void> serializeInitiateMultipartUpload(

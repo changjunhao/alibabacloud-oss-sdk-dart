@@ -4,6 +4,9 @@ import 'log_agent_level.dart';
 ///
 /// Defines the basic API used by logging implementations.
 abstract class LogAgent {
+  /// Creates a logging agent interface.
+  const LogAgent();
+
   /// The logger name, typically the name of the backing logger type.
   String get name;
 

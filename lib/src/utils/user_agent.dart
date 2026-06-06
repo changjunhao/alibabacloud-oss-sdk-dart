@@ -40,6 +40,9 @@ String _getLocaleIdentifier() {
 
 /// Utility methods for building user agent strings.
 class UserAgent {
+  /// Creates an UserAgent instance.
+  UserAgent();
+
   /// Returns the default user agent string.
   /// Format: `sdkName/sdkVersion (systemName/systemVersion/localeIdentifier)`
   static String getDefault() {

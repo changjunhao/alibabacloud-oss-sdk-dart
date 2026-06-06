@@ -36,6 +36,7 @@ class ObjectSummary {
   /// Storage class of the object.
   String? storageClass;
 
+  /// Creates a ObjectSummary instance.
   ObjectSummary({
     this.type,
     this.size,
@@ -48,6 +49,7 @@ class ObjectSummary {
     this.storageClass,
   });
 
+  /// Converts the ObjectSummary instance to a JSON map.
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
     if (type != null) json['Type'] = type;
@@ -66,6 +68,7 @@ class ObjectSummary {
     return json;
   }
 
+  /// Creates a ObjectSummary instance from a JSON map.
   factory ObjectSummary.fromJson(Map<String, dynamic> json) {
     return ObjectSummary(
       type: json.getCaseInsensitive('Type'),
@@ -103,12 +106,14 @@ class ServerSideEncryptionRule {
   /// Key managed by Key Management Service (KMS).
   String? kmsMasterKeyId;
 
+  /// Creates a ServerSideEncryptionRule instance.
   ServerSideEncryptionRule({
     this.kmsDataEncryption,
     this.sseAlgorithm,
     this.kmsMasterKeyId,
   });
 
+  /// Converts the ServerSideEncryptionRule instance to a JSON map.
   Map<String, dynamic> toJson() {
     return {
       'kMSDataEncryption': kmsDataEncryption,
@@ -117,6 +122,7 @@ class ServerSideEncryptionRule {
     };
   }
 
+  /// Creates a ServerSideEncryptionRule instance from a JSON map.
   factory ServerSideEncryptionRule.fromJson(Map<String, dynamic> json) {
     return ServerSideEncryptionRule(
       kmsDataEncryption: json['kMSDataEncryption'] as String?,
@@ -135,6 +141,8 @@ enum BucketVersioningStatusType {
   suspended('Suspended');
 
   const BucketVersioningStatusType(this.value);
+
+  /// The serialized string value of this enum item.
   final String value;
 
   @override
@@ -164,8 +172,10 @@ class CreateBucketConfiguration {
   /// See [DataRedundancyType] for supported values.
   String? dataRedundancyType;
 
+  /// Creates a CreateBucketConfiguration instance.
   CreateBucketConfiguration({this.storageClass, this.dataRedundancyType});
 
+  /// Converts the CreateBucketConfiguration instance to a JSON map.
   Map<String, dynamic> toJson() {
     return {
       'storageClass': storageClass,
@@ -173,6 +183,7 @@ class CreateBucketConfiguration {
     };
   }
 
+  /// Creates a CreateBucketConfiguration instance from a JSON map.
   factory CreateBucketConfiguration.fromJson(Map<String, dynamic> json) {
     return CreateBucketConfiguration(
       storageClass: json['storageClass'] as String?,
@@ -189,12 +200,15 @@ class CommonPrefix {
   /// Prefix that must be included in the object names to list.
   String? prefix;
 
+  /// Creates a CommonPrefix instance.
   CommonPrefix({this.prefix});
 
+  /// Converts the CommonPrefix instance to a JSON map.
   Map<String, dynamic> toJson() {
     return {'prefix': prefix};
   }
 
+  /// Creates a CommonPrefix instance from a JSON map.
   factory CommonPrefix.fromJson(Map<String, dynamic> json) {
     return CommonPrefix(prefix: json['prefix'] as String?);
   }
@@ -208,12 +222,15 @@ class BucketPolicy {
   /// Prefix used for stored logs.
   String? logPrefix;
 
+  /// Creates a BucketPolicy instance.
   BucketPolicy({this.logBucket, this.logPrefix});
 
+  /// Converts the BucketPolicy instance to a JSON map.
   Map<String, dynamic> toJson() {
     return {'logBucket': logBucket, 'logPrefix': logPrefix};
   }
 
+  /// Creates a BucketPolicy instance from a JSON map.
   factory BucketPolicy.fromJson(Map<String, dynamic> json) {
     return BucketPolicy(
       logBucket: json['logBucket'] as String?,
@@ -284,6 +301,7 @@ class Bucket {
   /// Bucket creation time in UTC.
   DateTime? creationDate;
 
+  /// Creates a Bucket instance.
   Bucket({
     this.dataRedundancyType,
     this.extranetEndpoint,
@@ -305,6 +323,7 @@ class Bucket {
     this.creationDate,
   });
 
+  /// Converts the Bucket instance to a JSON map.
   Map<String, dynamic> toJson() {
     return {
       'dataRedundancyType': dataRedundancyType,
@@ -328,6 +347,7 @@ class Bucket {
     };
   }
 
+  /// Creates a Bucket instance from a JSON map.
   factory Bucket.fromJson(Map<String, dynamic> json) {
     return Bucket(
       dataRedundancyType: json['dataRedundancyType'] as String?,
@@ -371,12 +391,15 @@ class BucketInfo {
   /// Stored bucket information.
   Bucket? bucket;
 
+  /// Creates a BucketInfo instance.
   BucketInfo({this.bucket});
 
+  /// Converts the BucketInfo instance to a JSON map.
   Map<String, dynamic> toJson() {
     return {'bucket': bucket?.toJson()};
   }
 
+  /// Creates a BucketInfo instance from a JSON map.
   factory BucketInfo.fromJson(Map<String, dynamic> json) {
     return BucketInfo(
       bucket: json['bucket'] != null
@@ -451,6 +474,7 @@ class BucketStat {
   /// Billable storage used by Deep Cold Archive objects, in bytes.
   int? deepColdArchiveStorage;
 
+  /// Creates a BucketStat instance.
   BucketStat({
     this.objectCount,
     this.infrequentAccessRealStorage,
@@ -475,6 +499,7 @@ class BucketStat {
     this.deepColdArchiveStorage,
   });
 
+  /// Converts the BucketStat instance to a JSON map.
   Map<String, dynamic> toJson() {
     return {
       'objectCount': objectCount,
@@ -501,6 +526,7 @@ class BucketStat {
     };
   }
 
+  /// Creates a BucketStat instance from a JSON map.
   factory BucketStat.fromJson(Map<String, dynamic> json) {
     return BucketStat(
       objectCount: json['objectCount'] as int?,
@@ -531,18 +557,22 @@ class BucketStat {
 /// Request for the `GetBucketStat` operation.
 class GetBucketStatRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// Bucket whose statistics are queried.
   String? bucket;
 
+  /// Creates a GetBucketStatRequest instance.
   GetBucketStatRequest({this.bucket, RequestModelProp? commonProp})
     : commonProp = commonProp ?? RequestModelProp();
 
+  /// Converts the GetBucketStatRequest instance to a JSON map.
   Map<String, dynamic> toJson() {
     return {'bucket': bucket};
   }
 
+  /// Creates a GetBucketStatRequest instance from a JSON map.
   factory GetBucketStatRequest.fromJson(Map<String, dynamic> json) {
     return GetBucketStatRequest(bucket: json['bucket'] as String?);
   }
@@ -551,18 +581,22 @@ class GetBucketStatRequest extends RequestModel {
 /// Result of the `GetBucketStat` operation.
 class GetBucketStatResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
   /// Container for all data returned by `GetBucketStat`.
   BucketStat? bucketStat;
 
+  /// Creates a GetBucketStatResult instance.
   GetBucketStatResult({this.bucketStat, ResultModelProp? commonProp})
     : commonProp = commonProp ?? ResultModelProp();
 
+  /// Converts the GetBucketStatResult instance to a JSON map.
   Map<String, dynamic> toJson() {
     return {'bucketStat': bucketStat?.toJson()};
   }
 
+  /// Creates a GetBucketStatResult instance from a JSON map.
   factory GetBucketStatResult.fromJson(Map<String, dynamic> json) {
     return GetBucketStatResult(
       bucketStat: json['bucketStat'] != null
@@ -575,6 +609,7 @@ class GetBucketStatResult extends ResultModel {
 /// Request for the `PutBucket` operation.
 class PutBucketRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// Bucket name.
@@ -609,6 +644,7 @@ class PutBucketRequest extends RequestModel {
   /// Container for the request body.
   CreateBucketConfiguration? createBucketConfiguration;
 
+  /// Creates a PutBucketRequest instance.
   PutBucketRequest({
     this.bucket,
     this.acl,
@@ -618,6 +654,7 @@ class PutBucketRequest extends RequestModel {
     RequestModelProp? commonProp,
   }) : commonProp = commonProp ?? RequestModelProp();
 
+  /// Converts the PutBucketRequest instance to a JSON map.
   Map<String, dynamic> toJson() {
     return {
       'bucket': bucket,
@@ -628,6 +665,7 @@ class PutBucketRequest extends RequestModel {
     };
   }
 
+  /// Creates a PutBucketRequest instance from a JSON map.
   factory PutBucketRequest.fromJson(Map<String, dynamic> json) {
     return PutBucketRequest(
       bucket: json['bucket'] as String?,
@@ -646,15 +684,19 @@ class PutBucketRequest extends RequestModel {
 /// Result of the `PutBucket` operation.
 class PutBucketResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
+  /// Creates a PutBucketResult instance.
   PutBucketResult({ResultModelProp? commonProp})
     : commonProp = commonProp ?? ResultModelProp();
 
+  /// Converts the PutBucketResult instance to a JSON map.
   Map<String, dynamic> toJson() {
     return {};
   }
 
+  /// Creates a PutBucketResult instance from a JSON map.
   factory PutBucketResult.fromJson(Map<String, dynamic> json) {
     return PutBucketResult();
   }
@@ -663,18 +705,22 @@ class PutBucketResult extends ResultModel {
 /// Request for the `DeleteBucket` operation.
 class DeleteBucketRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// Bucket name.
   String? bucket;
 
+  /// Creates a DeleteBucketRequest instance.
   DeleteBucketRequest({this.bucket, RequestModelProp? commonProp})
     : commonProp = commonProp ?? RequestModelProp();
 
+  /// Converts the DeleteBucketRequest instance to a JSON map.
   Map<String, dynamic> toJson() {
     return {'bucket': bucket};
   }
 
+  /// Creates a DeleteBucketRequest instance from a JSON map.
   factory DeleteBucketRequest.fromJson(Map<String, dynamic> json) {
     return DeleteBucketRequest(bucket: json['bucket'] as String?);
   }
@@ -683,15 +729,19 @@ class DeleteBucketRequest extends RequestModel {
 /// Result of the `DeleteBucket` operation.
 class DeleteBucketResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
+  /// Creates a DeleteBucketResult instance.
   DeleteBucketResult({ResultModelProp? commonProp})
     : commonProp = commonProp ?? ResultModelProp();
 
+  /// Converts the DeleteBucketResult instance to a JSON map.
   Map<String, dynamic> toJson() {
     return {};
   }
 
+  /// Creates a DeleteBucketResult instance from a JSON map.
   factory DeleteBucketResult.fromJson(Map<String, dynamic> json) {
     return DeleteBucketResult();
   }
@@ -700,6 +750,7 @@ class DeleteBucketResult extends ResultModel {
 /// Request for the `ListObjects` operation.
 class ListObjectsRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// Bucket name.
@@ -723,6 +774,7 @@ class ListObjectsRequest extends RequestModel {
   /// Encoding type used in the response.
   String? encodingType;
 
+  /// Creates a ListObjectsRequest instance.
   ListObjectsRequest({
     this.bucket,
     this.delimiter,
@@ -733,6 +785,7 @@ class ListObjectsRequest extends RequestModel {
     RequestModelProp? commonProp,
   }) : commonProp = commonProp ?? RequestModelProp();
 
+  /// Converts the ListObjectsRequest instance to a JSON map.
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
     if (bucket != null) json['Bucket'] = bucket;
@@ -744,6 +797,7 @@ class ListObjectsRequest extends RequestModel {
     return json;
   }
 
+  /// Creates a ListObjectsRequest value using `fromJson` parameters.
   static ListObjectsRequest fromJson(Map<String, dynamic> json) {
     return ListObjectsRequest(
       bucket: json.getCaseInsensitive('Bucket'),
@@ -759,6 +813,7 @@ class ListObjectsRequest extends RequestModel {
 /// Result of the `ListObjects` operation.
 class ListObjectsResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
   /// Prefix returned in object names.
@@ -792,6 +847,7 @@ class ListObjectsResult extends ResultModel {
   /// Delimiter used to group object names.
   String? delimiter;
 
+  /// Creates a ListObjectsResult instance.
   ListObjectsResult({
     this.prefix,
     this.maxKeys,
@@ -806,6 +862,7 @@ class ListObjectsResult extends ResultModel {
     ResultModelProp? commonProp,
   }) : commonProp = commonProp ?? ResultModelProp();
 
+  /// Converts the ListObjectsResult instance to a JSON map.
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
     if (prefix != null) json['Prefix'] = prefix;
@@ -825,6 +882,7 @@ class ListObjectsResult extends ResultModel {
     return json;
   }
 
+  /// Creates a ListObjectsResult value using `fromJson` parameters.
   static ListObjectsResult fromJson(Map<String, dynamic> json) {
     return ListObjectsResult(
       prefix: json.getCaseInsensitive('Prefix'),
@@ -852,6 +910,7 @@ class ListObjectsResult extends ResultModel {
 /// Request for the `ListObjectsV2` operation.
 class ListObjectsV2Request extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// Bucket name.
@@ -896,6 +955,7 @@ class ListObjectsV2Request extends RequestModel {
   /// This value can be taken from `NextContinuationToken`.
   String? continuationToken;
 
+  /// Creates a ListObjectsV2Request instance.
   ListObjectsV2Request({
     this.bucket,
     this.delimiter,
@@ -908,6 +968,7 @@ class ListObjectsV2Request extends RequestModel {
     RequestModelProp? commonProp,
   }) : commonProp = commonProp ?? RequestModelProp();
 
+  /// Converts the ListObjectsV2Request instance to a JSON map.
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
     if (bucket != null) json['Bucket'] = bucket;
@@ -923,6 +984,7 @@ class ListObjectsV2Request extends RequestModel {
     return json;
   }
 
+  /// Creates a ListObjectsV2Request value using `fromJson` parameters.
   static ListObjectsV2Request fromJson(Map<String, dynamic> json) {
     return ListObjectsV2Request(
       bucket: json.getCaseInsensitive('Bucket'),
@@ -940,6 +1002,7 @@ class ListObjectsV2Request extends RequestModel {
 /// Result of the `ListObjectsV2` operation.
 class ListObjectsV2Result extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
   /// Prefix returned in object names.
@@ -982,6 +1045,7 @@ class ListObjectsV2Result extends ResultModel {
   /// Delimiter used to group object names.
   String? delimiter;
 
+  /// Creates a ListObjectsV2Result instance.
   ListObjectsV2Result({
     this.prefix,
     this.startAfter,
@@ -998,6 +1062,7 @@ class ListObjectsV2Result extends ResultModel {
     ResultModelProp? commonProp,
   }) : commonProp = commonProp ?? ResultModelProp();
 
+  /// Converts the ListObjectsV2Result instance to a JSON map.
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
     if (prefix != null) json['Prefix'] = prefix;
@@ -1023,6 +1088,7 @@ class ListObjectsV2Result extends ResultModel {
     return json;
   }
 
+  /// Creates a ListObjectsV2Result value using `fromJson` parameters.
   static ListObjectsV2Result fromJson(Map<String, dynamic> json) {
     return ListObjectsV2Result(
       prefix: json.getCaseInsensitive('Prefix'),
@@ -1052,20 +1118,24 @@ class ListObjectsV2Result extends ResultModel {
 /// Request for the `GetBucketInfo` operation.
 class GetBucketInfoRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// Bucket name.
   String? bucket;
 
+  /// Creates a GetBucketInfoRequest instance.
   GetBucketInfoRequest({this.bucket, RequestModelProp? commonProp})
     : commonProp = commonProp ?? RequestModelProp();
 
+  /// Converts the GetBucketInfoRequest instance to a JSON map.
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
     if (bucket != null) json['Bucket'] = bucket;
     return json;
   }
 
+  /// Creates a GetBucketInfoRequest value using `fromJson` parameters.
   static GetBucketInfoRequest fromJson(Map<String, dynamic> json) {
     return GetBucketInfoRequest(bucket: json.getCaseInsensitive('Bucket'));
   }
@@ -1074,20 +1144,24 @@ class GetBucketInfoRequest extends RequestModel {
 /// Result of the `GetBucketInfo` operation.
 class GetBucketInfoResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
   /// Container that stores bucket information.
   BucketInfo? bucketInfo;
 
+  /// Creates a GetBucketInfoResult instance.
   GetBucketInfoResult({this.bucketInfo, ResultModelProp? commonProp})
     : commonProp = commonProp ?? ResultModelProp();
 
+  /// Converts the GetBucketInfoResult instance to a JSON map.
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
     if (bucketInfo != null) json['BucketInfo'] = bucketInfo!.toJson();
     return json;
   }
 
+  /// Creates a GetBucketInfoResult value using `fromJson` parameters.
   static GetBucketInfoResult fromJson(Map<String, dynamic> json) {
     return GetBucketInfoResult(
       bucketInfo: json.getCaseInsensitive('BucketInfo') != null
@@ -1102,20 +1176,24 @@ class GetBucketInfoResult extends ResultModel {
 /// Request for the `GetBucketLocation` operation.
 class GetBucketLocationRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// Bucket name.
   String? bucket;
 
+  /// Creates a GetBucketLocationRequest instance.
   GetBucketLocationRequest({this.bucket, RequestModelProp? commonProp})
     : commonProp = commonProp ?? RequestModelProp();
 
+  /// Converts the GetBucketLocationRequest instance to a JSON map.
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
     if (bucket != null) json['Bucket'] = bucket;
     return json;
   }
 
+  /// Creates a GetBucketLocationRequest value using `fromJson` parameters.
   static GetBucketLocationRequest fromJson(Map<String, dynamic> json) {
     return GetBucketLocationRequest(bucket: json.getCaseInsensitive('Bucket'));
   }
@@ -1124,6 +1202,7 @@ class GetBucketLocationRequest extends RequestModel {
 /// Result of the `GetBucketLocation` operation.
 class GetBucketLocationResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
   /// Region where the bucket resides.
@@ -1134,11 +1213,13 @@ class GetBucketLocationResult extends ResultModel {
   /// `oss-ap-southeast-1`.
   String? locationConstraint;
 
+  /// Creates a GetBucketLocationResult instance.
   GetBucketLocationResult({
     this.locationConstraint,
     ResultModelProp? commonProp,
   }) : commonProp = commonProp ?? ResultModelProp();
 
+  /// Converts the GetBucketLocationResult instance to a JSON map.
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
     if (locationConstraint != null) {
@@ -1147,6 +1228,7 @@ class GetBucketLocationResult extends ResultModel {
     return json;
   }
 
+  /// Creates a GetBucketLocationResult value using `fromJson` parameters.
   static GetBucketLocationResult fromJson(Map<String, dynamic> json) {
     return GetBucketLocationResult(
       locationConstraint: json.getCaseInsensitive('LocationConstraint'),

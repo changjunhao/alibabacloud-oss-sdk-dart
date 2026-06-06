@@ -2,6 +2,9 @@ import 'credentials.dart';
 
 /// Abstract base class for providing credentials.
 abstract class CredentialsProvider {
+  /// Creates a credentials provider.
+  const CredentialsProvider();
+
   /// Gets the credentials.
   ///
   /// Returns a [Future] that completes with [Credentials].

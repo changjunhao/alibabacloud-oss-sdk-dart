@@ -9,6 +9,7 @@ import '../utils/oss_utils.dart';
 
 /// SignerV1 implementation for OSS request signing
 class SignerV1 implements Signer {
+  /// The `rfc822Datetime` value.
   static final DateFormat rfc822Datetime = _createDateFormatter(
     "EEE, dd MMM yyyy HH:mm:ss 'GMT'",
   );
@@ -212,6 +213,7 @@ class SignerV1 implements Signer {
 
   /// Build canonicalized OSS headers string for signature
   String canonicalizedOSSHeaders(Map<String, String> headers) {
+    /// The `lowercaseHeaders` value.
     final Map<String, String> lowercaseHeaders = {};
     for (final entry in headers.entries) {
       lowercaseHeaders[entry.key.toLowerCase()] = entry.value;

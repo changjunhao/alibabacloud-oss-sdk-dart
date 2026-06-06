@@ -12,10 +12,7 @@ import 'package:alibabacloud_oss_sdk_dart/src/errors/client_errors.dart';
 void main() {
   group('SerdeBucketAcl Tests', () {
     test('testSerializePutBucketAcl', () async {
-      var input = OperationInput(
-        operationName: 'PutBucketAcl',
-        method: 'PUT',
-      );
+      var input = OperationInput(operationName: 'PutBucketAcl', method: 'PUT');
       const acl = 'private';
 
       // Test with empty request (no ACL)
@@ -39,12 +36,9 @@ void main() {
 
     test('testDeserializeGetBucketAcl', () async {
       // Test with null body
-      var output = OperationOutput(
-        statusCode: 200,
-        headers: {},
-      );
+      var output = OperationOutput(statusCode: 200, headers: {});
       var result = GetBucketAclResponse();
-      
+
       expect(
         () async => await Serde.deserializeOutput(
           result,
@@ -61,7 +55,7 @@ void main() {
         body: ByteStream.fromData(Uint8List.fromList(utf8.encode('<a></a>'))),
       );
       result = GetBucketAclResponse();
-      
+
       expect(
         () async => await Serde.deserializeOutput(
           result,
@@ -75,7 +69,8 @@ void main() {
       const acl = 'private';
       const ownerId = '0022012****';
       const displayName = 'user_example';
-      final xml = '''
+      final xml =
+          '''
 <AccessControlPolicy>
     <Owner>
         <ID>$ownerId</ID>
@@ -85,7 +80,8 @@ void main() {
         <Grant>$acl</Grant>
     </AccessControlList>
 </AccessControlPolicy>
-'''.trim();
+'''
+              .trim();
 
       output = OperationOutput(
         statusCode: 200,
@@ -93,15 +89,18 @@ void main() {
         body: ByteStream.fromData(Uint8List.fromList(utf8.encode(xml))),
       );
       result = GetBucketAclResponse();
-      
+
       await Serde.deserializeOutput(
         result,
         output,
         customDeserializers: [SerdeBucketAcl.deserializeGetBucketAcl],
       );
-      
+
       expect(result.accessControlPolicy?.accessControlList?.grant, equals(acl));
-      expect(result.accessControlPolicy?.owner?.displayName, equals(displayName));
+      expect(
+        result.accessControlPolicy?.owner?.displayName,
+        equals(displayName),
+      );
       expect(result.accessControlPolicy?.owner?.id, equals(ownerId));
     });
   });

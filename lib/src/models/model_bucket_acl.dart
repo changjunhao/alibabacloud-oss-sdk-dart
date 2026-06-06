@@ -4,6 +4,7 @@ import 'model_types.dart';
 /// The request for the PutBucketAcl operation.
 class PutBucketAclRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
@@ -17,9 +18,11 @@ class PutBucketAclRequest extends RequestModel {
   /// Sees CannedAccessControlList for supported values.
   String? acl;
 
+  /// Creates a PutBucketAclRequest instance.
   PutBucketAclRequest({this.bucket, this.acl, RequestModelProp? commonProp})
     : commonProp = commonProp ?? RequestModelProp();
 
+  /// Converts the PutBucketAclRequest instance to a JSON map.
   Map<String, dynamic> toJson() {
     return {'bucket': bucket, 'acl': acl};
   }
@@ -30,8 +33,10 @@ class PutBucketAclResponse extends ResultModel {
   @override
   ResultModelProp commonProp = ResultModelProp();
 
+  /// Creates a PutBucketAclResponse instance.
   PutBucketAclResponse();
 
+  /// Creates a PutBucketAclResponse instance from a JSON map.
   factory PutBucketAclResponse.fromJson(Map<String, dynamic> json) {
     return PutBucketAclResponse();
   }
@@ -40,14 +45,17 @@ class PutBucketAclResponse extends ResultModel {
 /// The request for the GetBucketAcl operation.
 class GetBucketAclRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
   String? bucket;
 
+  /// Creates a GetBucketAclRequest instance.
   GetBucketAclRequest({this.bucket, RequestModelProp? commonProp})
     : commonProp = commonProp ?? RequestModelProp();
 
+  /// Converts the GetBucketAclRequest instance to a JSON map.
   Map<String, dynamic> toJson() {
     return {'bucket': bucket};
   }
@@ -61,8 +69,10 @@ class GetBucketAclResponse extends ResultModel {
   /// The container that stores the ACL information.
   AccessControlPolicy? accessControlPolicy;
 
+  /// Creates a GetBucketAclResponse instance.
   GetBucketAclResponse({this.accessControlPolicy});
 
+  /// Creates a GetBucketAclResponse instance from a JSON map.
   factory GetBucketAclResponse.fromJson(Map<String, dynamic> json) {
     return GetBucketAclResponse(
       accessControlPolicy: json['accessControlPolicy'] != null

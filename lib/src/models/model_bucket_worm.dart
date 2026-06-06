@@ -21,6 +21,7 @@ class WormConfiguration {
   /// The time at which the retention policy will be expired.
   String? expirationDate;
 
+  /// Creates a WormConfiguration instance.
   WormConfiguration({
     this.wormId,
     this.state,
@@ -59,6 +60,7 @@ class InitiateWormConfiguration {
   /// The number of days for which objects can be retained.
   int? retentionPeriodInDays;
 
+  /// Creates a InitiateWormConfiguration instance.
   InitiateWormConfiguration({this.retentionPeriodInDays});
 
   /// Creates an InitiateWormConfiguration instance from a JSON map
@@ -81,6 +83,7 @@ class ExtendWormConfiguration {
   /// The number of days for which objects can be retained.
   int? retentionPeriodInDays;
 
+  /// Creates a ExtendWormConfiguration instance.
   ExtendWormConfiguration({this.retentionPeriodInDays});
 
   /// Creates an ExtendWormConfiguration instance from a JSON map
@@ -101,6 +104,7 @@ class ExtendWormConfiguration {
 /// The request for the InitiateBucketWorm operation.
 class InitiateBucketWormRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
@@ -109,6 +113,7 @@ class InitiateBucketWormRequest extends RequestModel {
   /// The container of the request body.
   InitiateWormConfiguration? initiateWormConfiguration;
 
+  /// Creates a InitiateBucketWormRequest instance.
   InitiateBucketWormRequest({
     this.bucket,
     this.initiateWormConfiguration,
@@ -139,11 +144,13 @@ class InitiateBucketWormRequest extends RequestModel {
 /// The result for the InitiateBucketWorm operation.
 class InitiateBucketWormResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
   /// The ID of the retention policy from response header x-oss-worm-id.
   String? get wormId => commonProp.headers?.getCaseInsensitive('x-oss-worm-id');
 
+  /// Creates a InitiateBucketWormResult instance.
   InitiateBucketWormResult({ResultModelProp? commonProp})
     : commonProp = commonProp ?? ResultModelProp();
 
@@ -161,11 +168,13 @@ class InitiateBucketWormResult extends ResultModel {
 /// The request for the AbortBucketWorm operation.
 class AbortBucketWormRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
   String? bucket;
 
+  /// Creates a AbortBucketWormRequest instance.
   AbortBucketWormRequest({this.bucket, RequestModelProp? commonProp})
     : commonProp = commonProp ?? RequestModelProp();
 
@@ -183,8 +192,10 @@ class AbortBucketWormRequest extends RequestModel {
 /// The result for the AbortBucketWorm operation.
 class AbortBucketWormResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
+  /// Creates a AbortBucketWormResult instance.
   AbortBucketWormResult({ResultModelProp? commonProp})
     : commonProp = commonProp ?? ResultModelProp();
 
@@ -202,6 +213,7 @@ class AbortBucketWormResult extends ResultModel {
 /// The request for the CompleteBucketWorm operation.
 class CompleteBucketWormRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
@@ -210,6 +222,7 @@ class CompleteBucketWormRequest extends RequestModel {
   /// The ID of the retention policy.
   String? wormId;
 
+  /// Creates a CompleteBucketWormRequest instance.
   CompleteBucketWormRequest({
     this.bucket,
     this.wormId,
@@ -233,8 +246,10 @@ class CompleteBucketWormRequest extends RequestModel {
 /// The result for the CompleteBucketWorm operation.
 class CompleteBucketWormResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
+  /// Creates a CompleteBucketWormResult instance.
   CompleteBucketWormResult({ResultModelProp? commonProp})
     : commonProp = commonProp ?? ResultModelProp();
 
@@ -252,6 +267,7 @@ class CompleteBucketWormResult extends ResultModel {
 /// The request for the ExtendBucketWorm operation.
 class ExtendBucketWormRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
@@ -263,6 +279,7 @@ class ExtendBucketWormRequest extends RequestModel {
   /// The container of the request body.
   ExtendWormConfiguration? extendWormConfiguration;
 
+  /// Creates a ExtendBucketWormRequest instance.
   ExtendBucketWormRequest({
     this.bucket,
     this.wormId,
@@ -296,8 +313,10 @@ class ExtendBucketWormRequest extends RequestModel {
 /// The result for the ExtendBucketWorm operation.
 class ExtendBucketWormResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
+  /// Creates a ExtendBucketWormResult instance.
   ExtendBucketWormResult({ResultModelProp? commonProp})
     : commonProp = commonProp ?? ResultModelProp();
 
@@ -315,11 +334,13 @@ class ExtendBucketWormResult extends ResultModel {
 /// The request for the GetBucketWorm operation.
 class GetBucketWormRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
   String? bucket;
 
+  /// Creates a GetBucketWormRequest instance.
   GetBucketWormRequest({this.bucket, RequestModelProp? commonProp})
     : commonProp = commonProp ?? RequestModelProp();
 
@@ -337,11 +358,13 @@ class GetBucketWormRequest extends RequestModel {
 /// The result for the GetBucketWorm operation.
 class GetBucketWormResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
   /// The container that stores the information about retention policies of the bucket.
   WormConfiguration? wormConfiguration;
 
+  /// Creates a GetBucketWormResult instance.
   GetBucketWormResult({this.wormConfiguration, ResultModelProp? commonProp})
     : commonProp = commonProp ?? ResultModelProp();
 

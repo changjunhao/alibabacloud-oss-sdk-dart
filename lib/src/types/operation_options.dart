@@ -67,6 +67,7 @@ class OperationOptions {
   }
 
   @override
+  /// Returns the `hashCode` value.
   int get hashCode {
     return Object.hash(
       retryMaxAttempts,

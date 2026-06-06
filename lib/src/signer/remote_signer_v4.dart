@@ -6,6 +6,7 @@ import '../errors/client_errors.dart';
 
 /// RemoteSignerV4 implementation for OSS request signing with remote signature delegation
 class RemoteSignerV4 extends SignerV4 {
+  /// The `delegate` value.
   final SignatureDelegate delegate;
 
   /// Creates a new RemoteSignerV4 instance with the provided delegate

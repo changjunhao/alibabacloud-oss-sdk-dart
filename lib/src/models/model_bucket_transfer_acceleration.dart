@@ -6,6 +6,7 @@ class TransferAccelerationConfiguration {
   /// Whether the transfer acceleration is enabled for this bucket.
   bool? enabled;
 
+  /// Creates a TransferAccelerationConfiguration instance.
   TransferAccelerationConfiguration({this.enabled});
 
   /// Creates a TransferAccelerationConfiguration instance from a JSON map
@@ -31,6 +32,7 @@ class TransferAccelerationConfiguration {
 /// The request for the PutBucketTransferAcceleration operation.
 class PutBucketTransferAccelerationRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
@@ -39,6 +41,7 @@ class PutBucketTransferAccelerationRequest extends RequestModel {
   /// The container of the request body.
   TransferAccelerationConfiguration? transferAccelerationConfiguration;
 
+  /// Creates a PutBucketTransferAccelerationRequest instance.
   PutBucketTransferAccelerationRequest({
     this.bucket,
     this.transferAccelerationConfiguration,
@@ -73,8 +76,10 @@ class PutBucketTransferAccelerationRequest extends RequestModel {
 /// The result for the PutBucketTransferAcceleration operation.
 class PutBucketTransferAccelerationResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
+  /// Creates a PutBucketTransferAccelerationResult instance.
   PutBucketTransferAccelerationResult({ResultModelProp? commonProp})
     : commonProp = commonProp ?? ResultModelProp();
 
@@ -94,11 +99,13 @@ class PutBucketTransferAccelerationResult extends ResultModel {
 /// The request for the GetBucketTransferAcceleration operation.
 class GetBucketTransferAccelerationRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
   String? bucket;
 
+  /// Creates a GetBucketTransferAccelerationRequest instance.
   GetBucketTransferAccelerationRequest({
     this.bucket,
     RequestModelProp? commonProp,
@@ -122,11 +129,13 @@ class GetBucketTransferAccelerationRequest extends RequestModel {
 /// The result for the GetBucketTransferAcceleration operation.
 class GetBucketTransferAccelerationResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
   /// The container that stores the transfer acceleration configurations.
   TransferAccelerationConfiguration? transferAccelerationConfiguration;
 
+  /// Creates a GetBucketTransferAccelerationResult instance.
   GetBucketTransferAccelerationResult({
     this.transferAccelerationConfiguration,
     ResultModelProp? commonProp,

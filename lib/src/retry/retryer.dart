@@ -1,5 +1,8 @@
 /// Interface for retry strategies.
 abstract class Retryer {
+  /// Creates a Retryer instance.
+  const Retryer();
+
   /// Determines if an error is retryable.
   bool isErrorRetryable(Exception error);
 

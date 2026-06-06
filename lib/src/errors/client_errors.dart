@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 import 'error.dart';
 
+/// Client-side error thrown before or after sending an OSS request.
 class ClientError implements SdkErrorType {
   /// The error code
   final String code;
@@ -12,6 +13,7 @@ class ClientError implements SdkErrorType {
   @override
   final Exception? innerError;
 
+  /// Creates a client error with a code, message, and optional inner error.
   const ClientError({
     required this.code,
     required this.message,
@@ -19,6 +21,7 @@ class ClientError implements SdkErrorType {
   });
 
   @override
+  /// Returns the `description` value.
   String get description {
     if (innerError != null) {
       return '$message\nCaused by:\n$innerError';
@@ -33,6 +36,7 @@ class ClientError implements SdkErrorType {
 
 /// Credentials error.
 extension CredentialsErrors on ClientError {
+  /// Creates an error for missing or empty credentials.
   static ClientError credentialsEmptyError({Exception? innerError}) {
     return ClientError(
       code: 'CredentialsError',
@@ -41,6 +45,7 @@ extension CredentialsErrors on ClientError {
     );
   }
 
+  /// Creates an error for failures while fetching credentials.
   static ClientError credentialsFetchError({Exception? innerError}) {
     return ClientError(
       code: 'CredentialsFetchError',
@@ -52,6 +57,7 @@ extension CredentialsErrors on ClientError {
 
 /// Parameter error.
 extension ParameterErrors on ClientError {
+  /// Creates an error for an invalid parameter field.
   static ClientError paramInvalidError(String field) {
     return ClientError(
       code: 'ParameterError',
@@ -59,10 +65,12 @@ extension ParameterErrors on ClientError {
     );
   }
 
+  /// Creates an error for a null parameter field.
   static ClientError paramNullError(String field) {
     return ClientError(code: 'ParameterError', message: 'Null field, $field.');
   }
 
+  /// Creates an error for a null or empty parameter field.
   static ClientError paramNullOrEmptyError(String field) {
     return ClientError(
       code: 'ParameterError',
@@ -70,6 +78,7 @@ extension ParameterErrors on ClientError {
     );
   }
 
+  /// Creates an error for a missing required parameter field.
   static ClientError paramRequiredError(String field) {
     return ClientError(
       code: 'ParameterError',
@@ -80,6 +89,7 @@ extension ParameterErrors on ClientError {
 
 /// Validation error.
 extension ValidationErrors on ClientError {
+  /// Creates an error for an invalid bucket name.
   static ClientError bucketInvalidError(String value) {
     return ClientError(
       code: 'ValidationError',
@@ -87,6 +97,7 @@ extension ValidationErrors on ClientError {
     );
   }
 
+  /// Creates an error for an invalid object key.
   static ClientError objectInvalidError(String value) {
     return ClientError(
       code: 'ValidationError',
@@ -94,6 +105,7 @@ extension ValidationErrors on ClientError {
     );
   }
 
+  /// Creates an error for an invalid endpoint value.
   static ClientError endpointInvalidError() {
     return const ClientError(
       code: 'ValidationError',
@@ -104,6 +116,7 @@ extension ValidationErrors on ClientError {
 
 /// CRC check error.
 extension CrcErrors on ClientError {
+  /// Creates a CRC inconsistency error for mismatched client and server values.
   static ClientError inconsistentError(int clientCrc, int serverCrc) {
     return ClientError(
       code: 'InconsistentError',
@@ -114,6 +127,7 @@ extension CrcErrors on ClientError {
 
 /// Presign error.
 extension PresignErrors on ClientError {
+  /// Creates an error for a presign expiration outside the allowed range.
   static ClientError presignExpirationError(DateTime expiration) {
     return ClientError(
       code: 'PresignError',
@@ -125,6 +139,7 @@ extension PresignErrors on ClientError {
 
 /// Serialization & Deserialization error.
 extension SerdeErrors on ClientError {
+  /// Creates an error for serialization failures.
   static ClientError serializationError({Exception? innerError}) {
     return ClientError(
       code: 'SerdeError',
@@ -133,6 +148,7 @@ extension SerdeErrors on ClientError {
     );
   }
 
+  /// Creates an error for deserialization failures.
   static ClientError deserializationError({Exception? innerError}) {
     return ClientError(
       code: 'SerdeError',
@@ -141,6 +157,7 @@ extension SerdeErrors on ClientError {
     );
   }
 
+  /// Creates an error for response body parsing failures.
   static ClientError parseResponseBodyError({
     String? info,
     Uint8List? snapshot,
@@ -162,6 +179,7 @@ extension SerdeErrors on ClientError {
 
 /// Operation Error
 extension OperationErrors on ClientError {
+  /// Creates an error for a failed named operation.
   static ClientError operationError(String name, Exception innerError) {
     return ClientError(
       code: 'OperationError',
@@ -173,6 +191,7 @@ extension OperationErrors on ClientError {
 
 /// Remote signature Error
 extension RemoteSignatureErrors on ClientError {
+  /// Creates an error for missing required fields in a remote signature result.
   static ClientError signatureResultRequiredError(String field) {
     return ClientError(
       code: 'RemoteSignatureError',
@@ -180,6 +199,7 @@ extension RemoteSignatureErrors on ClientError {
     );
   }
 
+  /// Creates an error for remote signature invocation failures.
   static ClientError signatureCallError(Exception innerError) {
     return ClientError(
       code: 'RemoteSignatureError',

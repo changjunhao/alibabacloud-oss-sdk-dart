@@ -62,6 +62,7 @@ class PresignResult {
   }
 
   @override
+  /// Returns the `hashCode` value.
   int get hashCode {
     return Object.hash(method, url, expiration, signedHeaders);
   }

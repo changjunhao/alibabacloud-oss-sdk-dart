@@ -36,5 +36,6 @@ class PaginatorOptions {
   }
 
   @override
+  /// Returns the `hashCode` value.
   int get hashCode => limit.hashCode;
 }

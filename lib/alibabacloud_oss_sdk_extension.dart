@@ -1,3 +1,7 @@
+/// Extension library exports for the Alibaba Cloud OSS SDK for Dart.
+///
+/// Import this library to access extended bucket configuration operations and
+/// their related request and result models.
 library;
 
 // Extension Client operations

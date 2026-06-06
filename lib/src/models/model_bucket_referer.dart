@@ -7,6 +7,7 @@ class RefererList {
   /// The addresses in the Referer whitelist.
   List<String>? referers;
 
+  /// Creates a RefererList instance.
   RefererList({this.referers});
 
   /// Creates a RefererList instance from a JSON map
@@ -29,6 +30,7 @@ class RefererBlacklist {
   /// The addresses in the Referer blacklist.
   List<String>? referers;
 
+  /// Creates a RefererBlacklist instance.
   RefererBlacklist({this.referers});
 
   /// Creates a RefererBlacklist instance from a JSON map
@@ -66,6 +68,7 @@ class RefererConfiguration {
   /// The container that stores the Referer blacklist.
   RefererBlacklist? refererBlacklist;
 
+  /// Creates a RefererConfiguration instance.
   RefererConfiguration({
     this.allowEmptyReferer,
     this.allowTruncateQueryString,
@@ -102,6 +105,7 @@ class RefererConfiguration {
     };
   }
 
+  /// Creates a RefererConfiguration value using `_parseBool` parameters.
   static bool? _parseBool(dynamic value) {
     if (value == null) return null;
     if (value is bool) return value;
@@ -115,6 +119,7 @@ class RefererConfiguration {
 /// The request for the PutBucketReferer operation.
 class PutBucketRefererRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
@@ -123,6 +128,7 @@ class PutBucketRefererRequest extends RequestModel {
   /// The request body schema.
   RefererConfiguration? refererConfiguration;
 
+  /// Creates a PutBucketRefererRequest instance.
   PutBucketRefererRequest({
     this.bucket,
     this.refererConfiguration,
@@ -133,8 +139,10 @@ class PutBucketRefererRequest extends RequestModel {
 /// The result for the PutBucketReferer operation.
 class PutBucketRefererResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
+  /// Creates a PutBucketRefererResult instance.
   PutBucketRefererResult({ResultModelProp? commonProp})
     : commonProp = commonProp ?? ResultModelProp();
 }
@@ -142,11 +150,13 @@ class PutBucketRefererResult extends ResultModel {
 /// The request for the GetBucketReferer operation.
 class GetBucketRefererRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
   String? bucket;
 
+  /// Creates a GetBucketRefererRequest instance.
   GetBucketRefererRequest({this.bucket, RequestModelProp? commonProp})
     : commonProp = commonProp ?? RequestModelProp();
 }
@@ -154,11 +164,13 @@ class GetBucketRefererRequest extends RequestModel {
 /// The result for the GetBucketReferer operation.
 class GetBucketRefererResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
   /// The container that stores the hotlink protection configurations.
   RefererConfiguration? refererConfiguration;
 
+  /// Creates a GetBucketRefererResult instance.
   GetBucketRefererResult({
     this.refererConfiguration,
     ResultModelProp? commonProp,

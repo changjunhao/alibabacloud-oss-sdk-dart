@@ -40,12 +40,7 @@ class PutApiRequest extends RequestModel {
 
   /// Converts the PutApiRequest instance to a JSON map
   Map<String, dynamic> toJson() {
-    return {
-      'bucket': bucket,
-      'key': key,
-      'acl': acl,
-      'metadata': metadata,
-    };
+    return {'bucket': bucket, 'key': key, 'acl': acl, 'metadata': metadata};
   }
 }
 
@@ -57,10 +52,7 @@ class PutApiXmlResult {
   /// Another string value from XML response.
   String? strValue1;
 
-  PutApiXmlResult({
-    this.strValue,
-    this.strValue1,
-  });
+  PutApiXmlResult({this.strValue, this.strValue1});
 
   /// Creates a PutApiXmlResult instance from a JSON map
   factory PutApiXmlResult.fromJson(Map<String, dynamic> json) {
@@ -72,10 +64,7 @@ class PutApiXmlResult {
 
   /// Converts the PutApiXmlResult instance to a JSON map
   Map<String, dynamic> toJson() {
-    return {
-      'strValue': strValue,
-      'StrValue1': strValue1,
-    };
+    return {'strValue': strValue, 'StrValue1': strValue1};
   }
 }
 
@@ -85,21 +74,22 @@ class PutApiResult extends ResultModel {
   ResultModelProp commonProp = ResultModelProp();
 
   /// String header value from response.
-  String? get headerStr => commonProp.headers?.getCaseInsensitive('x-oss-header-str');
+  String? get headerStr =>
+      commonProp.headers?.getCaseInsensitive('x-oss-header-str');
 
   /// Integer header value from response.
-  int? get headerInt => commonProp.headers?.getCaseInsensitive('x-oss-header-int')?.toInt();
+  int? get headerInt =>
+      commonProp.headers?.getCaseInsensitive('x-oss-header-int')?.toInt();
 
   /// Boolean header value from response.
-  bool? get headerBool => commonProp.headers?.getCaseInsensitive('x-oss-header-bool')?.toBool();
+  bool? get headerBool =>
+      commonProp.headers?.getCaseInsensitive('x-oss-header-bool')?.toBool();
 
   /// The XML result structure.
   PutApiXmlResult? xmlResult;
 
-  PutApiResult({
-    this.xmlResult,
-    ResultModelProp? commonProp,
-  }) : commonProp = commonProp ?? ResultModelProp();
+  PutApiResult({this.xmlResult, ResultModelProp? commonProp})
+    : commonProp = commonProp ?? ResultModelProp();
 
   /// Creates a PutApiResult instance from a JSON map
   factory PutApiResult.fromJson(Map<String, dynamic> json) {
@@ -112,8 +102,6 @@ class PutApiResult extends ResultModel {
 
   /// Converts the PutApiResult instance to a JSON map
   Map<String, dynamic> toJson() {
-    return {
-      'xmlResult': xmlResult?.toJson(),
-    };
+    return {'xmlResult': xmlResult?.toJson()};
   }
 }

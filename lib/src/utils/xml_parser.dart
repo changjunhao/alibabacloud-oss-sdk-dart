@@ -3,11 +3,18 @@ import 'package:xml/xml.dart';
 
 /// Parser interface.
 abstract class Parser {
+  /// Creates a Parser instance.
+  const Parser();
+
+  /// Parses raw bytes into a structured key-value map.
   Map<String, dynamic> parse(Uint8List data);
 }
 
 /// XML parser that converts XML data into a `Map` structure.
 class XmlParser implements Parser {
+  /// Creates a XmlParser instance.
+  XmlParser();
+
   Map<String, dynamic> _response = {};
   final _Stack<_ElementNode> _elementStack = _Stack<_ElementNode>();
   _ElementNode? _rootNode;

@@ -2,14 +2,22 @@ import '../transform/serde_extensions.dart';
 
 /// Common properties for request models
 class RequestModelProp {
+  /// The `headers` value.
   Map<String, String>? headers;
+
+  /// The `parameters` value.
   Map<String, String?>? parameters;
 
+  /// Creates a RequestModelProp instance.
   RequestModelProp({this.headers, this.parameters});
 }
 
 /// Base interface for request models
 abstract class RequestModel {
+  /// Creates a RequestModel instance.
+  const RequestModel();
+
+  /// Returns the `commonProp` value.
   RequestModelProp get commonProp;
   set commonProp(RequestModelProp value);
 
@@ -28,14 +36,22 @@ abstract class RequestModel {
 
 /// Common properties for result models
 class ResultModelProp {
+  /// The HTTP status code associated with the result.
   int statusCode = 0;
+
+  /// The `headers` value.
   Map<String, String>? headers;
 
+  /// Creates a ResultModelProp instance.
   ResultModelProp();
 }
 
 /// Base interface for result models
 abstract class ResultModel {
+  /// Creates a ResultModel instance.
+  const ResultModel();
+
+  /// Returns the `commonProp` value.
   ResultModelProp get commonProp;
   set commonProp(ResultModelProp value);
 

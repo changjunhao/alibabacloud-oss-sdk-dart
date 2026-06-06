@@ -4,8 +4,10 @@ import 'model_bucket_public_access_block.dart';
 /// The request for the GetPublicAccessBlock operation.
 class GetPublicAccessBlockRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
+  /// Creates a GetPublicAccessBlockRequest instance.
   GetPublicAccessBlockRequest({RequestModelProp? commonProp})
     : commonProp = commonProp ?? RequestModelProp();
 
@@ -23,11 +25,13 @@ class GetPublicAccessBlockRequest extends RequestModel {
 /// The result for the GetPublicAccessBlock operation.
 class GetPublicAccessBlockResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
   /// The container in which the Block Public Access configurations are stored.
   PublicAccessBlockConfiguration? publicAccessBlockConfiguration;
 
+  /// Creates a GetPublicAccessBlockResult instance.
   GetPublicAccessBlockResult({
     this.publicAccessBlockConfiguration,
     ResultModelProp? commonProp,
@@ -57,11 +61,13 @@ class GetPublicAccessBlockResult extends ResultModel {
 /// The request for the PutPublicAccessBlock operation.
 class PutPublicAccessBlockRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// Request body.
   PublicAccessBlockConfiguration? publicAccessBlockConfiguration;
 
+  /// Creates a PutPublicAccessBlockRequest instance.
   PutPublicAccessBlockRequest({
     this.publicAccessBlockConfiguration,
     RequestModelProp? commonProp,
@@ -91,8 +97,10 @@ class PutPublicAccessBlockRequest extends RequestModel {
 /// The result for the PutPublicAccessBlock operation.
 class PutPublicAccessBlockResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
+  /// Creates a PutPublicAccessBlockResult instance.
   PutPublicAccessBlockResult({ResultModelProp? commonProp})
     : commonProp = commonProp ?? ResultModelProp();
 
@@ -110,8 +118,10 @@ class PutPublicAccessBlockResult extends ResultModel {
 /// The request for the DeletePublicAccessBlock operation.
 class DeletePublicAccessBlockRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
+  /// Creates a DeletePublicAccessBlockRequest instance.
   DeletePublicAccessBlockRequest({RequestModelProp? commonProp})
     : commonProp = commonProp ?? RequestModelProp();
 
@@ -129,8 +139,10 @@ class DeletePublicAccessBlockRequest extends RequestModel {
 /// The result for the DeletePublicAccessBlock operation.
 class DeletePublicAccessBlockResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
+  /// Creates a DeletePublicAccessBlockResult instance.
   DeletePublicAccessBlockResult({ResultModelProp? commonProp})
     : commonProp = commonProp ?? ResultModelProp();
 

@@ -26,6 +26,7 @@ class BucketSummary {
   /// The region in which the bucket is located.
   String? region;
 
+  /// Creates a BucketSummary instance.
   BucketSummary({
     this.creationDate,
     this.extranetEndpoint,
@@ -66,6 +67,7 @@ class BucketSummary {
 /// The request for the ListBuckets operation.
 class ListBucketsRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The ID of the resource group to which the bucket belongs.
@@ -80,6 +82,7 @@ class ListBucketsRequest extends RequestModel {
   /// The maximum number of buckets that can be returned. Valid values: 1 to 1000. Default value: 100
   int? maxKeys;
 
+  /// Creates a ListBucketsRequest instance.
   ListBucketsRequest({
     this.resourceGroupId,
     this.prefix,
@@ -112,6 +115,7 @@ class ListBucketsRequest extends RequestModel {
 /// The result for the ListBuckets operation.
 class ListBucketsResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
   /// The maximum number of buckets that can be returned.
@@ -135,6 +139,7 @@ class ListBucketsResult extends ResultModel {
   /// The name of the bucket from which the buckets are returned.
   String? marker;
 
+  /// Creates a ListBucketsResult instance.
   ListBucketsResult({
     this.maxKeys,
     this.isTruncated,

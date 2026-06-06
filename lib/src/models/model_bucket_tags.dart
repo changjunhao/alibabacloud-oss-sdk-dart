@@ -4,6 +4,7 @@ import 'model_object_tagging.dart';
 /// The request for the PutBucketTags operation.
 class PutBucketTagsRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
@@ -12,6 +13,7 @@ class PutBucketTagsRequest extends RequestModel {
   /// The request body schema.
   Tagging? tagging;
 
+  /// Creates a PutBucketTagsRequest instance.
   PutBucketTagsRequest({
     this.bucket,
     this.tagging,
@@ -37,8 +39,10 @@ class PutBucketTagsRequest extends RequestModel {
 /// The result for the PutBucketTags operation.
 class PutBucketTagsResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
+  /// Creates a PutBucketTagsResult instance.
   PutBucketTagsResult({ResultModelProp? commonProp})
     : commonProp = commonProp ?? ResultModelProp();
 
@@ -56,11 +60,13 @@ class PutBucketTagsResult extends ResultModel {
 /// The request for the GetBucketTags operation.
 class GetBucketTagsRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
   String? bucket;
 
+  /// Creates a GetBucketTagsRequest instance.
   GetBucketTagsRequest({this.bucket, RequestModelProp? commonProp})
     : commonProp = commonProp ?? RequestModelProp();
 
@@ -78,11 +84,13 @@ class GetBucketTagsRequest extends RequestModel {
 /// The result for the GetBucketTags operation.
 class GetBucketTagsResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
   /// The container that stores the returned tags of the bucket. If no tags are configured for the bucket, an XML message body is returned in which the Tagging element is empty.
   Tagging? tagging;
 
+  /// Creates a GetBucketTagsResult instance.
   GetBucketTagsResult({this.tagging, ResultModelProp? commonProp})
     : commonProp = commonProp ?? ResultModelProp();
 
@@ -104,11 +112,13 @@ class GetBucketTagsResult extends ResultModel {
 /// The request for the DeleteBucketTags operation.
 class DeleteBucketTagsRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
   String? bucket;
 
+  /// Creates a DeleteBucketTagsRequest instance.
   DeleteBucketTagsRequest({this.bucket, RequestModelProp? commonProp})
     : commonProp = commonProp ?? RequestModelProp();
 
@@ -126,8 +136,10 @@ class DeleteBucketTagsRequest extends RequestModel {
 /// The result for the DeleteBucketTags operation.
 class DeleteBucketTagsResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
+  /// Creates a DeleteBucketTagsResult instance.
   DeleteBucketTagsResult({ResultModelProp? commonProp})
     : commonProp = commonProp ?? ResultModelProp();
 

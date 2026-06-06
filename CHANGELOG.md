@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.0.1
+
+### Improvements
+
+- Updated package metadata for `pub.dev`, including repository and issue tracker URLs
+- Added package badges and secure links in `README.md` and `README-CN.md`
+- Added a top-level `example/main.dart` for package layout and `pub.dev` example detection
+- Expanded `dartdoc` coverage across public API surfaces to improve generated documentation quality
+- Refined formatting and package metadata to improve local `pana` validation results
+
 ## 1.0.0
 
 ### Features

@@ -5,6 +5,7 @@ class PolicyStatus {
   /// Indicates whether the current bucket policy allows public access.
   bool? isPublic;
 
+  /// Creates a PolicyStatus instance.
   PolicyStatus({this.isPublic});
 
   /// Creates an instance from a JSON map
@@ -28,6 +29,7 @@ class PolicyStatus {
 /// The request for the PutBucketPolicy operation.
 class PutBucketPolicyRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
@@ -36,6 +38,7 @@ class PutBucketPolicyRequest extends RequestModel {
   /// The request body (policy JSON string).
   String? body;
 
+  /// Creates a PutBucketPolicyRequest instance.
   PutBucketPolicyRequest({this.bucket, this.body, RequestModelProp? commonProp})
     : commonProp = commonProp ?? RequestModelProp();
 
@@ -56,8 +59,10 @@ class PutBucketPolicyRequest extends RequestModel {
 /// The result for the PutBucketPolicy operation.
 class PutBucketPolicyResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
+  /// Creates a PutBucketPolicyResult instance.
   PutBucketPolicyResult({ResultModelProp? commonProp})
     : commonProp = commonProp ?? ResultModelProp();
 
@@ -75,11 +80,13 @@ class PutBucketPolicyResult extends ResultModel {
 /// The request for the GetBucketPolicy operation.
 class GetBucketPolicyRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
   String? bucket;
 
+  /// Creates a GetBucketPolicyRequest instance.
   GetBucketPolicyRequest({this.bucket, RequestModelProp? commonProp})
     : commonProp = commonProp ?? RequestModelProp();
 
@@ -97,11 +104,13 @@ class GetBucketPolicyRequest extends RequestModel {
 /// The result for the GetBucketPolicy operation.
 class GetBucketPolicyResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
   /// The policy body content.
   String? body;
 
+  /// Creates a GetBucketPolicyResult instance.
   GetBucketPolicyResult({this.body, ResultModelProp? commonProp})
     : commonProp = commonProp ?? ResultModelProp();
 
@@ -119,11 +128,13 @@ class GetBucketPolicyResult extends ResultModel {
 /// The request for the DeleteBucketPolicy operation.
 class DeleteBucketPolicyRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
   String? bucket;
 
+  /// Creates a DeleteBucketPolicyRequest instance.
   DeleteBucketPolicyRequest({this.bucket, RequestModelProp? commonProp})
     : commonProp = commonProp ?? RequestModelProp();
 
@@ -141,8 +152,10 @@ class DeleteBucketPolicyRequest extends RequestModel {
 /// The result for the DeleteBucketPolicy operation.
 class DeleteBucketPolicyResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
+  /// Creates a DeleteBucketPolicyResult instance.
   DeleteBucketPolicyResult({ResultModelProp? commonProp})
     : commonProp = commonProp ?? ResultModelProp();
 
@@ -160,11 +173,13 @@ class DeleteBucketPolicyResult extends ResultModel {
 /// The request for the GetBucketPolicyStatus operation.
 class GetBucketPolicyStatusRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
   String? bucket;
 
+  /// Creates a GetBucketPolicyStatusRequest instance.
   GetBucketPolicyStatusRequest({this.bucket, RequestModelProp? commonProp})
     : commonProp = commonProp ?? RequestModelProp();
 
@@ -182,11 +197,13 @@ class GetBucketPolicyStatusRequest extends RequestModel {
 /// The result for the GetBucketPolicyStatus operation.
 class GetBucketPolicyStatusResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
   /// The container that stores public access information.
   PolicyStatus? policyStatus;
 
+  /// Creates a GetBucketPolicyStatusResult instance.
   GetBucketPolicyStatusResult({this.policyStatus, ResultModelProp? commonProp})
     : commonProp = commonProp ?? ResultModelProp();
 

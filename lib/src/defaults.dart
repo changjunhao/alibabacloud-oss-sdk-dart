@@ -2,6 +2,9 @@ import 'enums.dart';
 
 /// Default configuration values for the OSS SDK.
 class Defaults {
+  /// Creates a container for SDK default values.
+  const Defaults();
+
   /// The OSS product identifier.
   static const String product = 'oss';
 

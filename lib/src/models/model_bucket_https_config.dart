@@ -9,6 +9,7 @@ class TLS {
   /// The TLS versions.
   List<String>? tlsVersions;
 
+  /// Creates a TLS instance.
   TLS({this.enable, this.tlsVersions});
 
   /// Creates a TLS instance from a JSON map
@@ -44,6 +45,7 @@ class HttpsConfiguration {
   /// The container that stores TLS version configurations.
   TLS? tls;
 
+  /// Creates a HttpsConfiguration instance.
   HttpsConfiguration({this.tls});
 
   /// Creates a HttpsConfiguration instance from a JSON map
@@ -64,6 +66,7 @@ class HttpsConfiguration {
 /// The request for the PutBucketHttpsConfig operation.
 class PutBucketHttpsConfigRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
@@ -72,6 +75,7 @@ class PutBucketHttpsConfigRequest extends RequestModel {
   /// The request body schema.
   HttpsConfiguration? httpsConfiguration;
 
+  /// Creates a PutBucketHttpsConfigRequest instance.
   PutBucketHttpsConfigRequest({
     this.bucket,
     this.httpsConfiguration,
@@ -102,8 +106,10 @@ class PutBucketHttpsConfigRequest extends RequestModel {
 /// The result for the PutBucketHttpsConfig operation.
 class PutBucketHttpsConfigResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
+  /// Creates a PutBucketHttpsConfigResult instance.
   PutBucketHttpsConfigResult({ResultModelProp? commonProp})
     : commonProp = commonProp ?? ResultModelProp();
 
@@ -121,11 +127,13 @@ class PutBucketHttpsConfigResult extends ResultModel {
 /// The request for the GetBucketHttpsConfig operation.
 class GetBucketHttpsConfigRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
   String? bucket;
 
+  /// Creates a GetBucketHttpsConfigRequest instance.
   GetBucketHttpsConfigRequest({this.bucket, RequestModelProp? commonProp})
     : commonProp = commonProp ?? RequestModelProp();
 
@@ -143,11 +151,13 @@ class GetBucketHttpsConfigRequest extends RequestModel {
 /// The result for the GetBucketHttpsConfig operation.
 class GetBucketHttpsConfigResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
   /// The container that stores HTTPS configurations.
   HttpsConfiguration? httpsConfiguration;
 
+  /// Creates a GetBucketHttpsConfigResult instance.
   GetBucketHttpsConfigResult({
     this.httpsConfiguration,
     ResultModelProp? commonProp,
@@ -173,11 +183,13 @@ class GetBucketHttpsConfigResult extends ResultModel {
 /// The request for the DeleteBucketHttpsConfig operation.
 class DeleteBucketHttpsConfigRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
   String? bucket;
 
+  /// Creates a DeleteBucketHttpsConfigRequest instance.
   DeleteBucketHttpsConfigRequest({this.bucket, RequestModelProp? commonProp})
     : commonProp = commonProp ?? RequestModelProp();
 
@@ -195,8 +207,10 @@ class DeleteBucketHttpsConfigRequest extends RequestModel {
 /// The result for the DeleteBucketHttpsConfig operation.
 class DeleteBucketHttpsConfigResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
+  /// Creates a DeleteBucketHttpsConfigResult instance.
   DeleteBucketHttpsConfigResult({ResultModelProp? commonProp})
     : commonProp = commonProp ?? ResultModelProp();
 

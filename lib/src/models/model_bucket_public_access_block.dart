@@ -7,6 +7,7 @@ class PublicAccessBlockConfiguration {
   /// false (default): disables Block Public Access.
   bool? blockPublicAccess;
 
+  /// Creates a PublicAccessBlockConfiguration instance.
   PublicAccessBlockConfiguration({this.blockPublicAccess});
 
   /// Creates a PublicAccessBlockConfiguration instance from a JSON map
@@ -16,6 +17,7 @@ class PublicAccessBlockConfiguration {
     );
   }
 
+  /// Creates a PublicAccessBlockConfiguration value using `_parseBool` parameters.
   static bool? _parseBool(dynamic value) {
     if (value == null) return null;
     if (value is bool) return value;
@@ -34,6 +36,7 @@ class PublicAccessBlockConfiguration {
 /// The request for the PutBucketPublicAccessBlock operation.
 class PutBucketPublicAccessBlockRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
@@ -42,6 +45,7 @@ class PutBucketPublicAccessBlockRequest extends RequestModel {
   /// Request body.
   PublicAccessBlockConfiguration? publicAccessBlockConfiguration;
 
+  /// Creates a PutBucketPublicAccessBlockRequest instance.
   PutBucketPublicAccessBlockRequest({
     this.bucket,
     this.publicAccessBlockConfiguration,
@@ -76,8 +80,10 @@ class PutBucketPublicAccessBlockRequest extends RequestModel {
 /// The result for the PutBucketPublicAccessBlock operation.
 class PutBucketPublicAccessBlockResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
+  /// Creates a PutBucketPublicAccessBlockResult instance.
   PutBucketPublicAccessBlockResult({ResultModelProp? commonProp})
     : commonProp = commonProp ?? ResultModelProp();
 
@@ -95,11 +101,13 @@ class PutBucketPublicAccessBlockResult extends ResultModel {
 /// The request for the GetBucketPublicAccessBlock operation.
 class GetBucketPublicAccessBlockRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
   String? bucket;
 
+  /// Creates a GetBucketPublicAccessBlockRequest instance.
   GetBucketPublicAccessBlockRequest({this.bucket, RequestModelProp? commonProp})
     : commonProp = commonProp ?? RequestModelProp();
 
@@ -119,11 +127,13 @@ class GetBucketPublicAccessBlockRequest extends RequestModel {
 /// The result for the GetBucketPublicAccessBlock operation.
 class GetBucketPublicAccessBlockResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
   /// The container in which the Block Public Access configurations are stored.
   PublicAccessBlockConfiguration? publicAccessBlockConfiguration;
 
+  /// Creates a GetBucketPublicAccessBlockResult instance.
   GetBucketPublicAccessBlockResult({
     this.publicAccessBlockConfiguration,
     ResultModelProp? commonProp,
@@ -153,11 +163,13 @@ class GetBucketPublicAccessBlockResult extends ResultModel {
 /// The request for the DeleteBucketPublicAccessBlock operation.
 class DeleteBucketPublicAccessBlockRequest extends RequestModel {
   @override
+  /// Shared request properties such as headers and query parameters.
   RequestModelProp commonProp;
 
   /// The name of the bucket.
   String? bucket;
 
+  /// Creates a DeleteBucketPublicAccessBlockRequest instance.
   DeleteBucketPublicAccessBlockRequest({
     this.bucket,
     RequestModelProp? commonProp,
@@ -181,8 +193,10 @@ class DeleteBucketPublicAccessBlockRequest extends RequestModel {
 /// The result for the DeleteBucketPublicAccessBlock operation.
 class DeleteBucketPublicAccessBlockResult extends ResultModel {
   @override
+  /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
+  /// Creates a DeleteBucketPublicAccessBlockResult instance.
   DeleteBucketPublicAccessBlockResult({ResultModelProp? commonProp})
     : commonProp = commonProp ?? ResultModelProp();
 

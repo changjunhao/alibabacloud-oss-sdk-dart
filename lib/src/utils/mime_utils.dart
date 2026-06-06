@@ -2,6 +2,9 @@ import 'package:mime/mime.dart';
 
 /// Utilities for handling MIME types
 class MimeUtils {
+  /// Creates a MIME utility container.
+  const MimeUtils();
+
   /// User-defined MIME type mappings that override default mappings
   static final Map<String, String> userMappings = <String, String>{};
 

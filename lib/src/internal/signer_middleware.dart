@@ -69,6 +69,7 @@ class SignerMiddleware implements ExecuteMiddleware {
     }
 
     // Fetch credentials
+    /// The `credentials` value.
     final Credentials credentials;
     try {
       credentials = await provider.getCredentials();

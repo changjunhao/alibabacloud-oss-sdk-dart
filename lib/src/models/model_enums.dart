@@ -13,6 +13,8 @@ enum CannedAccessControlList {
   publicReadWrite('public-read-write');
 
   const CannedAccessControlList(this.value);
+
+  /// The serialized string value of this enum item.
   final String value;
 
   @override
@@ -34,6 +36,8 @@ enum StorageClass {
   coldArchive('ColdArchive');
 
   const StorageClass(this.value);
+
+  /// The serialized string value of this enum item.
   final String value;
 
   @override
@@ -49,6 +53,8 @@ enum MetadataDirective {
   replace('REPLACE');
 
   const MetadataDirective(this.value);
+
+  /// The serialized string value of this enum item.
   final String value;
 
   @override
@@ -64,6 +70,8 @@ enum TaggingDirective {
   replace('REPLACE');
 
   const TaggingDirective(this.value);
+
+  /// The serialized string value of this enum item.
   final String value;
 
   @override
@@ -83,6 +91,8 @@ enum Tier {
   bulk('Bulk');
 
   const Tier(this.value);
+
+  /// The serialized string value of this enum item.
   final String value;
 
   @override
@@ -100,6 +110,8 @@ enum DataRedundancyType {
   zrs('ZRS');
 
   const DataRedundancyType(this.value);
+
+  /// The serialized string value of this enum item.
   final String value;
 
   @override
@@ -112,6 +124,8 @@ enum EncodingType {
   url('url');
 
   const EncodingType(this.value);
+
+  /// The serialized string value of this enum item.
   final String value;
 
   @override
@@ -127,11 +141,14 @@ enum AccessMonitorStatus {
   disabled('Disabled');
 
   const AccessMonitorStatus(this.value);
+
+  /// The serialized string value of this enum item.
   final String value;
 
   @override
   String toString() => value;
 
+  /// Creates an AccessMonitorStatus value from its string representation.
   static AccessMonitorStatus? fromString(String? value) {
     if (value == null) return null;
     for (final e in values) {
@@ -150,11 +167,14 @@ enum WormState {
   locked('Locked');
 
   const WormState(this.value);
+
+  /// The serialized string value of this enum item.
   final String value;
 
   @override
   String toString() => value;
 
+  /// Creates an WormState value from its string representation.
   static WormState? fromString(String? value) {
     if (value == null) return null;
     for (final e in values) {
