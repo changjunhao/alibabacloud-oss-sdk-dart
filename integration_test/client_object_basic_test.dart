@@ -365,6 +365,80 @@ void main() {
       expect(String.fromCharCodes(bodyData!), equals(content1 + content2));
     });
 
+    test('testSealAppendObject', () async {
+      final objectKey = testCase.randomObjectName();
+      final data = Uint8List.fromList('hello oss'.codeUnits);
+
+      // Append data first
+      final appendResult = await client.appendObject(
+        AppendObjectRequest(
+          bucket: bucketName,
+          key: objectKey,
+          position: 0,
+          body: ByteStream.fromData(data),
+        ),
+      );
+      expect(appendResult.statusCode, equals(200));
+      expect(appendResult.nextAppendPosition, isNotNull);
+
+      // Seal the appendable object using the current length as position
+      final sealResult = await client.sealAppendObject(
+        SealAppendObjectRequest(
+          bucket: bucketName,
+          key: objectKey,
+          position: data.length,
+        ),
+      );
+      expect(sealResult.statusCode, equals(200));
+
+      // Cleanup
+      await client.deleteObject(
+        DeleteObjectRequest(bucket: bucketName, key: objectKey),
+      );
+    });
+
+    test('testSealAppendObjectWithError', () async {
+      // Missing bucket
+      try {
+        await client.sealAppendObject(SealAppendObjectRequest());
+        fail('Expected a ClientError for missing bucket');
+      } catch (e) {
+        expect(e, isA<ClientError>());
+        expect(
+          (e as ClientError).message,
+          equals('Missing required field, request.bucket.'),
+        );
+      }
+
+      // Missing key
+      try {
+        await client.sealAppendObject(
+          SealAppendObjectRequest(bucket: bucketName),
+        );
+        fail('Expected a ClientError for missing key');
+      } catch (e) {
+        expect(e, isA<ClientError>());
+        expect(
+          (e as ClientError).message,
+          equals('Missing required field, request.key.'),
+        );
+      }
+
+      // Missing position
+      try {
+        await client.sealAppendObject(
+          SealAppendObjectRequest(bucket: bucketName, key: 'key'),
+        );
+        fail('Expected a ClientError for missing position');
+      } catch (e) {
+        expect(e, isA<ClientError>());
+        expect(
+          (e as ClientError).message,
+          equals('Missing required field, request.position.'),
+        );
+      }
+    });
+
     test('testDeleteObject', () async {
       final objectKey = testCase.randomObjectName();
       final data = Uint8List.fromList('hello oss - delete test'.codeUnits);
@@ -420,8 +494,10 @@ void main() {
       // Delete multiple objects
       final deleteRequest = DeleteMultipleObjectsRequest(
         bucket: bucketName,
-        objects: objectKeys.map((key) => DeleteObject(key: key)).toList(),
-        quiet: true,
+        delete: Delete(
+          objects: objectKeys.map((key) => DeleteObject(key: key)).toList(),
+          quiet: true,
+        ),
       );
       final deleteResult = await client.deleteMultipleObjects(deleteRequest);
       expect(deleteResult.statusCode, equals(200));
@@ -1328,8 +1404,10 @@ void main() {
       // Delete with quiet mode (no response body for deleted objects)
       final deleteRequest = DeleteMultipleObjectsRequest(
         bucket: bucketName,
-        objects: objectKeys.map((key) => DeleteObject(key: key)).toList(),
-        quiet: true,
+        delete: Delete(
+          objects: objectKeys.map((key) => DeleteObject(key: key)).toList(),
+          quiet: true,
+        ),
       );
       final deleteResult = await client.deleteMultipleObjects(deleteRequest);
       expect(deleteResult.statusCode, equals(200));
@@ -1367,12 +1445,14 @@ void main() {
       // Delete mix of existing and non-existing objects (non-quiet mode)
       final deleteRequest = DeleteMultipleObjectsRequest(
         bucket: bucketName,
-        objects: [
-          DeleteObject(key: existingKey1),
-          DeleteObject(key: existingKey2),
-          DeleteObject(key: nonExistingKey),
-        ],
-        quiet: false,
+        delete: Delete(
+          objects: [
+            DeleteObject(key: existingKey1),
+            DeleteObject(key: existingKey2),
+            DeleteObject(key: nonExistingKey),
+          ],
+          quiet: false,
+        ),
       );
       final deleteResult = await client.deleteMultipleObjects(deleteRequest);
       expect(deleteResult.statusCode, equals(200));
@@ -1429,11 +1509,13 @@ void main() {
       // Delete specific versions
       final deleteRequest = DeleteMultipleObjectsRequest(
         bucket: bucketName,
-        objects: [
-          DeleteObject(key: objectKey, versionId: versionId1),
-          DeleteObject(key: objectKey, versionId: versionId2),
-        ],
-        quiet: false,
+        delete: Delete(
+          objects: [
+            DeleteObject(key: objectKey, versionId: versionId1),
+            DeleteObject(key: objectKey, versionId: versionId2),
+          ],
+          quiet: false,
+        ),
       );
       final deleteResult = await client.deleteMultipleObjects(deleteRequest);
       expect(deleteResult.statusCode, equals(200));

@@ -239,6 +239,47 @@ extension ClientObjectBasic on Client {
     return result;
   }
 
+  /// Seals an appendable object so that no more data can be appended to it.
+  ///
+  /// Parameters:
+  /// - [request]: The request parameter to send
+  /// - [options]: Optional, operation options
+  ///
+  /// Returns: The result instance.
+  ///
+  /// Throws: Various OSS-specific exceptions based on the operation result
+  Future<SealAppendObjectResult> sealAppendObject(
+    SealAppendObjectRequest request, [
+    OperationOptions? options,
+  ]) async {
+    // Create operation input
+    var input = OperationInput(
+      operationName: 'SealAppendObject',
+      method: 'POST',
+      bucket: request.bucket.ensureRequired('request.bucket'),
+      key: request.key.ensureRequired('request.key'),
+      headers: {'Content-Type': 'application/xml'},
+      parameters: {'seal': ''},
+    );
+    request.position.ensureRequired('request.position');
+
+    // Serialize the request
+    SerdeObjectBasic.serializeSealAppendObject(request, input);
+
+    // Execute the operation
+    var output = await invokeOperation(input, options);
+
+    // Create and deserialize the result
+    var result = SealAppendObjectResult();
+    await Serde.deserializeOutput(
+      result,
+      output,
+      customDeserializers: [SerdeObjectBasic.deserializeSealAppendObject],
+    );
+
+    return result;
+  }
+
   /// You can call this operation to delete an object.
   ///
   /// Parameters:
@@ -384,6 +425,9 @@ extension ClientObjectBasic on Client {
     SerdeObjectBasic.serializeDeleteMultipleObjects(request, input);
     await Serde.addContentMd5(request, input);
 
+    // Ensure the delete container is provided
+    request.delete.ensureRequired('request.delete');
+
     // Execute the operation
     var output = await invokeOperation(input, options);
 
@@ -391,7 +435,7 @@ extension ClientObjectBasic on Client {
     var result = DeleteMultipleObjectsResult();
 
     // Only deserialize body if not in quiet mode
-    if (!(request.quiet ?? false)) {
+    if (!(request.delete?.quiet ?? false)) {
       await Serde.deserializeOutput(
         result,
         output,

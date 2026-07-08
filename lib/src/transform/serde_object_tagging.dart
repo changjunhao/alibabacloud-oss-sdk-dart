@@ -4,6 +4,7 @@ import '../types/operation_input.dart';
 import '../types/operation_output.dart';
 import '../types/byte_stream.dart';
 import '../models/model_object_tagging.dart';
+import '../utils/oss_utils.dart';
 import 'serde_functions.dart';
 
 /// Serialization and deserialization for object tagging operations
@@ -29,8 +30,8 @@ class SerdeObjectTagging {
       for (final tag in request.tagging!.tagSet!.tags!) {
         if (tag.key != null && tag.value != null) {
           xmlBody += '<Tag>';
-          xmlBody += '<Key>${tag.key}</Key>';
-          xmlBody += '<Value>${tag.value}</Value>';
+          xmlBody += '<Key>${tag.key!.escape()}</Key>';
+          xmlBody += '<Value>${tag.value!.escape()}</Value>';
           xmlBody += '</Tag>';
         }
       }

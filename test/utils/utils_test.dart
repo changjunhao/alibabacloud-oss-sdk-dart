@@ -113,6 +113,16 @@ void main() {
 
       expect(string1.escape(), equals(string1));
       expect(string2.escape(), equals(escapeString2));
+
+      // XML special characters combined
+      expect(
+        'key&1<2>3"4\'5'.escape(),
+        equals('key&amp;1&lt;2&gt;3&quot;4&apos;5'),
+      );
+      // Whitespace control characters (tab, newline, carriage return)
+      expect('key\t\n\r'.escape(), equals('key&#x9;&#xA;&#xD;'));
+      // Other control characters below 0x20
+      expect('key\u{01}\u{08}'.escape(), equals('key&#x1;&#x8;'));
     });
 
     test('testEncodedQuery', () {

@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.1.0
+
+### Added
+
+- **SealAppendObject**: New API to seal an appendable object.
+- **XML Escape**: Enhanced `escape()` to handle control characters (`\t`, `\n`, `\r`), other C0 control characters, and invalid XML characters.
+
+### Changed
+
+- **Object Tagging**: Tag `Key`/`Value` are now XML-escaped during serialization.
+
+### Breaking Changes
+
+- **DeleteMultipleObjects**: `DeleteMultipleObjectsRequest` no longer exposes top-level `quiet`/`objects`. Use the new nested `delete: Delete(quiet: ..., objects: ...)` instead.
+
 ## 1.0.2
 
 ### Bug Fixes

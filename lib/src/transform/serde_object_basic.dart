@@ -446,11 +446,11 @@ class SerdeObjectBasic {
 
     var xmlBody = '<?xml version="1.0" encoding="UTF-8"?>';
     xmlBody += '<Delete>';
-    if (request.quiet != null) {
-      xmlBody += '<Quiet>${request.quiet}</Quiet>';
+    if (request.delete?.quiet != null) {
+      xmlBody += '<Quiet>${request.delete?.quiet}</Quiet>';
     }
-    if (request.objects != null) {
-      for (final object in request.objects!) {
+    if (request.delete?.objects != null) {
+      for (final object in request.delete!.objects!) {
         if (object.key != null) {
           xmlBody += '<Object><Key>${object.key!.escape()}</Key>';
           if (object.versionId != null) {
@@ -579,5 +579,25 @@ class SerdeObjectBasic {
     OperationOutput output,
   ) async {
     // No deserialization needed for CleanRestoredObject
+  }
+
+  // MARK: - SealAppendObject
+
+  /// Serializes SealAppendObjectRequest to OperationInput
+  static void serializeSealAppendObject(
+    SealAppendObjectRequest request,
+    OperationInput input,
+  ) {
+    if (request.position != null) {
+      input.parameters['position'] = '${request.position}';
+    }
+  }
+
+  /// Deserializes OperationOutput to SealAppendObjectResult
+  static Future<void> deserializeSealAppendObject(
+    SealAppendObjectResult result,
+    OperationOutput output,
+  ) async {
+    // No deserialization needed for SealAppendObject
   }
 }

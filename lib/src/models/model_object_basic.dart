@@ -79,6 +79,34 @@ class DeleteObject {
   }
 }
 
+/// The container that stores quiet mode and objects to delete.
+class Delete {
+  /// Specifies whether to enable the Quiet return mode. Valid: true, false.
+  bool? quiet;
+
+  /// The container that stores information about objects to delete.
+  List<DeleteObject>? objects;
+
+  /// Creates a Delete instance.
+  Delete({this.quiet, this.objects});
+
+  /// Creates a Delete instance from a JSON map
+  factory Delete.fromJson(Map<String, dynamic> json) => Delete(
+    quiet: json['quiet'] as bool?,
+    objects: json['objects'] != null
+        ? (json['objects'] as List)
+              .map((e) => DeleteObject.fromJson(e as Map<String, dynamic>))
+              .toList()
+        : null,
+  );
+
+  /// Converts the Delete instance to a JSON map
+  Map<String, dynamic> toJson() => {
+    'quiet': quiet,
+    'objects': objects?.map((e) => e.toJson()).toList(),
+  };
+}
+
 /// The `DeletedInfo` deleted info.
 class DeletedInfo {
   /// The name of the deleted object.
@@ -1018,6 +1046,70 @@ class AppendObjectResult extends ResultModel {
   }
 }
 
+/// The request for the SealAppendObject operation.
+class SealAppendObjectRequest extends RequestModel {
+  @override
+  /// Shared request properties such as headers and query parameters.
+  RequestModelProp commonProp;
+
+  /// The name of the bucket.
+  String? bucket;
+
+  /// The name of the object.
+  String? key;
+
+  /// Specifies the expected length of the object when you call the SealAppendObject operation.
+  /// OSS checks whether this length matches the actual length of the object. If the lengths do not match, the request fails and the PositionNotEqualToLength error is returned.
+  int? position;
+
+  /// Creates a SealAppendObjectRequest instance.
+  SealAppendObjectRequest({
+    this.bucket,
+    this.key,
+    this.position,
+    RequestModelProp? commonProp,
+  }) : commonProp = commonProp ?? RequestModelProp();
+
+  /// Creates a SealAppendObjectRequest instance from a JSON map
+  factory SealAppendObjectRequest.fromJson(Map<String, dynamic> json) {
+    return SealAppendObjectRequest(
+      bucket: json['bucket'] as String?,
+      key: json['key'] as String?,
+      position: json['position'] as int?,
+    );
+  }
+
+  /// Converts the SealAppendObjectRequest instance to a JSON map
+  Map<String, dynamic> toJson() {
+    return {'bucket': bucket, 'key': key, 'position': position};
+  }
+}
+
+/// The result for the SealAppendObject operation.
+class SealAppendObjectResult extends ResultModel {
+  @override
+  /// Shared result properties such as response headers and status metadata.
+  ResultModelProp commonProp;
+
+  /// The time in GMT format when the SealAppendObject operation was first performed on the object. This timestamp does not change even if the operation is performed again.
+  String? get sealedTime =>
+      commonProp.headers?.getCaseInsensitive('x-oss-sealed-time');
+
+  /// Creates a SealAppendObjectResult instance.
+  SealAppendObjectResult({ResultModelProp? commonProp})
+    : commonProp = commonProp ?? ResultModelProp();
+
+  /// Creates a SealAppendObjectResult instance from a JSON map
+  factory SealAppendObjectResult.fromJson(Map<String, dynamic> json) {
+    return SealAppendObjectResult();
+  }
+
+  /// Converts the SealAppendObjectResult instance to a JSON map
+  Map<String, dynamic> toJson() {
+    return {};
+  }
+}
+
 /// The request for the DeleteObject operation.
 class DeleteObjectRequest extends RequestModel {
   @override
@@ -1468,18 +1560,13 @@ class DeleteMultipleObjectsRequest extends RequestModel {
   /// Sees EncodingType for supported values.
   String? encodingType;
 
-  /// Specifies whether to enable the Quiet return mode.
-  /// The DeleteMultipleObjects operation provides the following return modes: Valid value: true,false
-  bool? quiet;
-
-  /// The container that stores information about you want to delete objects.
-  List<DeleteObject>? objects;
+  /// The container that stores quiet mode and information about objects to delete.
+  Delete? delete;
 
   /// Creates a DeleteMultipleObjectsRequest instance.
   DeleteMultipleObjectsRequest({
     this.bucket,
-    this.objects,
-    this.quiet,
+    this.delete,
     this.encodingType,
     RequestModelProp? commonProp,
   }) : commonProp = commonProp ?? RequestModelProp();
@@ -1489,11 +1576,8 @@ class DeleteMultipleObjectsRequest extends RequestModel {
     return DeleteMultipleObjectsRequest(
       bucket: json['bucket'] as String?,
       encodingType: json['encodingType'] as String?,
-      quiet: json['quiet'] as bool?,
-      objects: json['objects'] != null
-          ? (json['objects'] as List)
-                .map((e) => DeleteObject.fromJson(e as Map<String, dynamic>))
-                .toList()
+      delete: json['delete'] != null
+          ? Delete.fromJson(json['delete'] as Map<String, dynamic>)
           : null,
     );
   }
@@ -1503,8 +1587,7 @@ class DeleteMultipleObjectsRequest extends RequestModel {
     return {
       'bucket': bucket,
       'encodingType': encodingType,
-      'quiet': quiet,
-      'objects': objects?.map((e) => e.toJson()).toList(),
+      'delete': delete?.toJson(),
     };
   }
 }

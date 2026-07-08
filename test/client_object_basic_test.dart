@@ -268,6 +268,80 @@ void main() {
       );
     });
 
+    // ===== sealAppendObject =====
+    test('testSealAppendObject - success', () async {
+      mock.addResponse(
+        ResponseMessage(
+          statusCode: 200,
+          headers: {
+            'x-oss-request-id': 'req-123',
+            'x-oss-sealed-time': 'Wed, 08 Jul 2026 00:00:00 GMT',
+          },
+          content: ByteStream.fromData(Uint8List(0)),
+        ),
+      );
+
+      final request = SealAppendObjectRequest(
+        bucket: 'test-bucket',
+        key: 'test-key',
+        position: 11,
+      );
+      final result = await client.sealAppendObject(request);
+
+      expect(result, isNotNull);
+      expect(result.sealedTime, equals('Wed, 08 Jul 2026 00:00:00 GMT'));
+      expect(mock.requests.length, 1);
+      expect(mock.requests[0].method, 'POST');
+    });
+
+    test('testSealAppendObject - missing bucket', () async {
+      final request = SealAppendObjectRequest(key: 'test-key', position: 11);
+
+      expect(
+        () async => await client.sealAppendObject(request),
+        throwsA(isA<ClientError>()),
+      );
+    });
+
+    test('testSealAppendObject - missing key', () async {
+      final request = SealAppendObjectRequest(
+        bucket: 'test-bucket',
+        position: 11,
+      );
+
+      expect(
+        () async => await client.sealAppendObject(request),
+        throwsA(isA<ClientError>()),
+      );
+    });
+
+    test('testSealAppendObject - missing position', () async {
+      final request = SealAppendObjectRequest(
+        bucket: 'test-bucket',
+        key: 'test-key',
+      );
+
+      expect(
+        () async => await client.sealAppendObject(request),
+        throwsA(isA<ClientError>()),
+      );
+    });
+
+    test('testSealAppendObject - server error', () async {
+      mock.addResponse(make403Response());
+
+      final request = SealAppendObjectRequest(
+        bucket: 'test-bucket',
+        key: 'test-key',
+        position: 11,
+      );
+
+      expect(
+        () async => await client.sealAppendObject(request),
+        throwsA(isA<ServerError>()),
+      );
+    });
+
     // ===== deleteObject =====
     test('testDeleteObject - success', () async {
       mock.addResponse(
@@ -345,10 +419,9 @@ void main() {
 
       final request = DeleteMultipleObjectsRequest(
         bucket: 'test-bucket',
-        objects: [
-          DeleteObject(key: 'key1'),
-          DeleteObject(key: 'key2'),
-        ],
+        delete: Delete(
+          objects: [DeleteObject(key: 'key1'), DeleteObject(key: 'key2')],
+        ),
       );
       final result = await client.deleteMultipleObjects(request);
 
@@ -359,7 +432,7 @@ void main() {
 
     test('testDeleteMultipleObjects - missing bucket', () async {
       final request = DeleteMultipleObjectsRequest(
-        objects: [DeleteObject(key: 'key1')],
+        delete: Delete(objects: [DeleteObject(key: 'key1')]),
       );
 
       expect(
@@ -373,7 +446,7 @@ void main() {
 
       final request = DeleteMultipleObjectsRequest(
         bucket: 'test-bucket',
-        objects: [DeleteObject(key: 'key1')],
+        delete: Delete(objects: [DeleteObject(key: 'key1')]),
       );
 
       expect(

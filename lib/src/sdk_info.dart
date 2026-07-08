@@ -7,8 +7,8 @@ class SdkInfo {
   // Compile-time constants for version metadata.
   // These values should be updated by the build script before release.
   static const String _major = '1';
-  static const String _minor = '0';
-  static const String _patch = '2';
+  static const String _minor = '1';
+  static const String _patch = '0';
   static const String _tag = '';
 
   // Compile-time constants for SDK metadata.
@@ -16,7 +16,7 @@ class SdkInfo {
   static const String _description = 'Alibaba Cloud OSS SDK for Dart';
 
   // Build timestamp, optional and mainly useful for debugging.
-  static const String _buildTime = '2026-06-06T06:00:00.000000Z';
+  static const String _buildTime = '2026-07-08T05:25:51.737741Z';
 
   /// Returns the full version string.
   /// Format: `major.minor.patch<tag>`

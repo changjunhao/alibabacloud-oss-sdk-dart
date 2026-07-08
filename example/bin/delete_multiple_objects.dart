@@ -85,7 +85,10 @@ void main(List<String> arguments) async {
     print('');
 
     final result = await client.deleteMultipleObjects(
-      DeleteMultipleObjectsRequest(bucket: bucket, objects: deleteObjects),
+      DeleteMultipleObjectsRequest(
+        bucket: bucket,
+        delete: Delete(objects: deleteObjects),
+      ),
     );
 
     print('✅ Successfully deleted multiple objects!');

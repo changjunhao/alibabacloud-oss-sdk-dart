@@ -350,12 +350,14 @@ void main() {
       // Scenario 1: Request with quiet and objects
       final request = DeleteMultipleObjectsRequest(
         bucket: 'test-bucket',
-        quiet: true,
         encodingType: 'url',
-        objects: [
-          DeleteObject(key: 'key1'),
-          DeleteObject(key: 'key2', versionId: 'vid-123'),
-        ],
+        delete: Delete(
+          quiet: true,
+          objects: [
+            DeleteObject(key: 'key1'),
+            DeleteObject(key: 'key2', versionId: 'vid-123'),
+          ],
+        ),
       );
       final input = OperationInput(
         operationName: 'DeleteMultipleObjects',
@@ -379,6 +381,179 @@ void main() {
         ),
       );
       expect(xmlString, contains('</Delete>'));
+    });
+
+    test('testSerializeDeleteMultipleObjects - quiet false', () async {
+      final request = DeleteMultipleObjectsRequest(
+        bucket: 'test-bucket',
+        delete: Delete(quiet: false, objects: [DeleteObject(key: 'key1')]),
+      );
+      final input = OperationInput(
+        operationName: 'DeleteMultipleObjects',
+        method: 'POST',
+      );
+      SerdeObjectBasic.serializeDeleteMultipleObjects(request, input);
+
+      final xmlString = utf8.decode((await input.body!.readData())!);
+      expect(
+        xmlString,
+        equals(
+          '<?xml version="1.0" encoding="UTF-8"?>'
+          '<Delete><Quiet>false</Quiet>'
+          '<Object><Key>key1</Key></Object></Delete>',
+        ),
+      );
+    });
+
+    test('testSerializeDeleteMultipleObjects - quiet nil', () async {
+      final request = DeleteMultipleObjectsRequest(
+        bucket: 'test-bucket',
+        delete: Delete(objects: [DeleteObject(key: 'key1')]),
+      );
+      final input = OperationInput(
+        operationName: 'DeleteMultipleObjects',
+        method: 'POST',
+      );
+      SerdeObjectBasic.serializeDeleteMultipleObjects(request, input);
+
+      final xmlString = utf8.decode((await input.body!.readData())!);
+      expect(xmlString, isNot(contains('<Quiet>')));
+      expect(
+        xmlString,
+        equals(
+          '<?xml version="1.0" encoding="UTF-8"?>'
+          '<Delete><Object><Key>key1</Key></Object></Delete>',
+        ),
+      );
+    });
+
+    test('testSerializeDeleteMultipleObjects - no versionId', () async {
+      final request = DeleteMultipleObjectsRequest(
+        bucket: 'test-bucket',
+        delete: Delete(objects: [DeleteObject(key: 'obj-key')]),
+      );
+      final input = OperationInput(
+        operationName: 'DeleteMultipleObjects',
+        method: 'POST',
+      );
+      SerdeObjectBasic.serializeDeleteMultipleObjects(request, input);
+
+      final xmlString = utf8.decode((await input.body!.readData())!);
+      expect(xmlString, contains('<Object><Key>obj-key</Key></Object>'));
+      expect(xmlString, isNot(contains('<VersionId>')));
+    });
+
+    test('testSerializeDeleteMultipleObjects - special chars', () async {
+      final request = DeleteMultipleObjectsRequest(
+        bucket: 'test-bucket',
+        delete: Delete(objects: [DeleteObject(key: 'key&1<2>3"4\'5')]),
+      );
+      final input = OperationInput(
+        operationName: 'DeleteMultipleObjects',
+        method: 'POST',
+      );
+      SerdeObjectBasic.serializeDeleteMultipleObjects(request, input);
+
+      final xmlString = utf8.decode((await input.body!.readData())!);
+      expect(
+        xmlString,
+        contains(
+          '<Object><Key>key&amp;1&lt;2&gt;3&quot;4&apos;5</Key></Object>',
+        ),
+      );
+    });
+
+    test('testSerializeDeleteMultipleObjects - empty objects', () async {
+      final request = DeleteMultipleObjectsRequest(
+        bucket: 'test-bucket',
+        delete: Delete(objects: []),
+      );
+      final input = OperationInput(
+        operationName: 'DeleteMultipleObjects',
+        method: 'POST',
+      );
+      SerdeObjectBasic.serializeDeleteMultipleObjects(request, input);
+
+      final xmlString = utf8.decode((await input.body!.readData())!);
+      expect(
+        xmlString,
+        equals('<?xml version="1.0" encoding="UTF-8"?><Delete></Delete>'),
+      );
+    });
+
+    test('testSerializeDeleteMultipleObjects - delete nil', () async {
+      final request = DeleteMultipleObjectsRequest(bucket: 'test-bucket');
+      final input = OperationInput(
+        operationName: 'DeleteMultipleObjects',
+        method: 'POST',
+      );
+      SerdeObjectBasic.serializeDeleteMultipleObjects(request, input);
+
+      final xmlString = utf8.decode((await input.body!.readData())!);
+      expect(
+        xmlString,
+        equals('<?xml version="1.0" encoding="UTF-8"?><Delete></Delete>'),
+      );
+    });
+
+    test('testSerializeDeleteMultipleObjects - control chars', () async {
+      final request = DeleteMultipleObjectsRequest(
+        bucket: 'test-bucket',
+        delete: Delete(objects: [DeleteObject(key: 'key\t\n\r')]),
+      );
+      final input = OperationInput(
+        operationName: 'DeleteMultipleObjects',
+        method: 'POST',
+      );
+      SerdeObjectBasic.serializeDeleteMultipleObjects(request, input);
+
+      final xmlString = utf8.decode((await input.body!.readData())!);
+      expect(
+        xmlString,
+        contains('<Object><Key>key&#x9;&#xA;&#xD;</Key></Object>'),
+      );
+    });
+
+    test('testSerializeDeleteMultipleObjects - invalid xml chars', () async {
+      final request = DeleteMultipleObjectsRequest(
+        bucket: 'test-bucket',
+        delete: Delete(objects: [DeleteObject(key: 'key\u{01}\u{08}')]),
+      );
+      final input = OperationInput(
+        operationName: 'DeleteMultipleObjects',
+        method: 'POST',
+      );
+      SerdeObjectBasic.serializeDeleteMultipleObjects(request, input);
+
+      final xmlString = utf8.decode((await input.body!.readData())!);
+      expect(
+        xmlString,
+        contains('<Object><Key>key&#x1;&#x8;</Key></Object>'),
+      );
+    });
+
+    test('testSerializeSealAppendObject', () async {
+      // Scenario 1: position is null -> no parameter set
+      var request = SealAppendObjectRequest(
+        bucket: 'test-bucket',
+        key: 'test-key',
+      );
+      var input = OperationInput(
+        operationName: 'SealAppendObject',
+        method: 'POST',
+      );
+      SerdeObjectBasic.serializeSealAppendObject(request, input);
+      expect(input.parameters['position'], isNull);
+
+      // Scenario 2: position = 1 -> parameter set to '1'
+      request = SealAppendObjectRequest(
+        bucket: 'test-bucket',
+        key: 'test-key',
+        position: 1,
+      );
+      input = OperationInput(operationName: 'SealAppendObject', method: 'POST');
+      SerdeObjectBasic.serializeSealAppendObject(request, input);
+      expect(input.parameters['position'], equals('1'));
     });
 
     test('testSerializeRestoreObject', () async {

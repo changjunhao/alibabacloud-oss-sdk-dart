@@ -203,8 +203,7 @@ class BaseTestCase {
             .toList();
         final deleteRequest = DeleteMultipleObjectsRequest(
           bucket: bucket,
-          objects: objects,
-          quiet: true,
+          delete: Delete(objects: objects, quiet: true),
         );
         try {
           await client.deleteMultipleObjects(deleteRequest);
@@ -219,8 +218,7 @@ class BaseTestCase {
             .toList();
         final deleteRequest = DeleteMultipleObjectsRequest(
           bucket: bucket,
-          objects: objects,
-          quiet: true,
+          delete: Delete(objects: objects, quiet: true),
         );
         try {
           await client.deleteMultipleObjects(deleteRequest);
@@ -239,8 +237,7 @@ class BaseTestCase {
             .toList();
         final deleteRequest = DeleteMultipleObjectsRequest(
           bucket: bucket,
-          objects: objects,
-          quiet: true,
+          delete: Delete(objects: objects, quiet: true),
         );
         try {
           await client.deleteMultipleObjects(deleteRequest);

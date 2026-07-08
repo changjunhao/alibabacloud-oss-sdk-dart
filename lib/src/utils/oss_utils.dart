@@ -116,12 +116,44 @@ extension StringOSSExtensions on String {
 
   /// Escape XML special characters
   String escape() {
-    // Note: & must be replaced first to avoid double-escaping
-    return replaceAll('&', '&amp;')
-        .replaceAll('<', '&lt;')
-        .replaceAll('>', '&gt;')
-        .replaceAll('"', '&quot;')
-        .replaceAll("'", '&apos;');
+    final result = StringBuffer();
+    for (final scalar in runes) {
+      switch (scalar) {
+        case 0x26:
+          result.write('&amp;');
+          break; // &
+        case 0x3C:
+          result.write('&lt;');
+          break; // <
+        case 0x3E:
+          result.write('&gt;');
+          break; // >
+        case 0x22:
+          result.write('&quot;');
+          break; // "
+        case 0x27:
+          result.write('&apos;');
+          break; // '
+        case 0x09:
+          result.write('&#x9;');
+          break; // \t
+        case 0x0A:
+          result.write('&#xA;');
+          break; // \n
+        case 0x0D:
+          result.write('&#xD;');
+          break; // \r
+        default:
+          if (_isXmlValidScalar(scalar)) {
+            result.writeCharCode(scalar);
+          } else if (scalar < 0x20) {
+            result.write('&#x${scalar.toRadixString(16).toUpperCase()};');
+          } else {
+            result.write('\uFFFD');
+          }
+      }
+    }
+    return result.toString();
   }
 
   /// Trim whitespace and newlines
@@ -151,6 +183,15 @@ extension StringOSSExtensions on String {
     return ranges.join();
   }
 }
+
+/// Whether [v] is a valid XML character scalar (aligned with Swift isXmlValid).
+bool _isXmlValidScalar(int v) =>
+    v == 0x9 ||
+    v == 0xA ||
+    v == 0xD ||
+    (v >= 0x20 && v <= 0xD7FF) ||
+    (v >= 0xE000 && v <= 0xFFFD) ||
+    (v >= 0x10000 && v <= 0x10FFFF);
 
 /// Map extensions for OSS utilities
 extension MapOSSExtensions on Map<String, dynamic> {
