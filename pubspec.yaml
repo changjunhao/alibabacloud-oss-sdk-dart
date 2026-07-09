@@ -13,7 +13,7 @@ topics:
   - cloud
 
 environment:
-  sdk: ^3.8.1
+  sdk: ^3.11.0
 
 # Add regular dependencies here.
 dependencies:
