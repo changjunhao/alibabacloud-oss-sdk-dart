@@ -18,7 +18,7 @@ alibabacloud-oss-sdk-dart is the Developer Preview for the OSS SDK for the Dart 
 ### Core Library (`alibabacloud_oss_sdk_dart`)
 - Bucket basic operations (create, delete, list, info, location, stat)
 - Bucket ACL & versioning
-- Object operations (put, get, copy, delete, append, head, meta)
+- Object operations (put, get, copy, delete, append, seal append, head, meta)
 - Multipart upload (initiate, upload part, upload part copy, complete, abort, list parts)
 - Presigned URL generation
 - Paginator for list operations
@@ -48,7 +48,7 @@ alibabacloud-oss-sdk-dart is the Developer Preview for the OSS SDK for the Dart 
 
 ## Requirements
 
-- Dart SDK >= 3.8.1
+- Dart SDK >= 3.11.0
 
 ## Installing
 
@@ -56,7 +56,7 @@ Add the dependency to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  alibabacloud_oss_sdk_dart: ^1.0.0
+  alibabacloud_oss_sdk_dart: ^1.1.0
 ```
 
 Then run:
@@ -343,6 +343,38 @@ await client.putObjectTagging(
 // Get object tagging
 final tagging = await client.getObjectTagging(
   GetObjectTaggingRequest(bucket: bucket, key: key),
+);
+```
+
+### Delete Multiple Objects
+
+```dart
+// Delete multiple objects in a single request.
+// Note: the object list is nested under `delete: Delete(...)`.
+final result = await client.deleteMultipleObjects(
+  DeleteMultipleObjectsRequest(
+    bucket: bucket,
+    delete: Delete(
+      objects: [
+        DeleteObject(key: 'object-1'),
+        DeleteObject(key: 'object-2'),
+      ],
+    ),
+  ),
+);
+
+for (final deleted in result.deletedObjects ?? []) {
+  print('Deleted: ${deleted.key}');
+}
+```
+
+### Seal Append Object
+
+```dart
+// Seal an appendable object so that no more data can be appended.
+// `position` must equal the current length of the object.
+await client.sealAppendObject(
+  SealAppendObjectRequest(bucket: bucket, key: key, position: 1024),
 );
 ```
 

@@ -18,7 +18,7 @@ alibabacloud-oss-sdk-dart 是 OSS 在 Dart 编程语言下的 SDK。
 ### 核心库 (`alibabacloud_oss_sdk_dart`)
 - 存储空间基础操作（创建、删除、列举、详情、区域、统计）
 - 存储空间 ACL 和版本控制
-- 对象操作（上传、下载、复制、删除、追加、Head、Meta）
+- 对象操作（上传、下载、复制、删除、追加、封闭追加、Head、Meta）
 - 分片上传（初始化、上传分片、复制分片、完成、取消、列举分片）
 - 预签名 URL 生成
 - 列举操作分页器
@@ -48,7 +48,7 @@ alibabacloud-oss-sdk-dart 是 OSS 在 Dart 编程语言下的 SDK。
 
 ## 环境要求
 
-- Dart SDK >= 3.8.1
+- Dart SDK >= 3.11.0
 
 ## 安装方法
 
@@ -56,7 +56,7 @@ alibabacloud-oss-sdk-dart 是 OSS 在 Dart 编程语言下的 SDK。
 
 ```yaml
 dependencies:
-  alibabacloud_oss_sdk_dart: ^1.0.0
+  alibabacloud_oss_sdk_dart: ^1.1.0
 ```
 
 然后执行：
@@ -343,6 +343,38 @@ await client.putObjectTagging(
 // 获取对象标签
 final tagging = await client.getObjectTagging(
   GetObjectTaggingRequest(bucket: bucket, key: key),
+);
+```
+
+### 批量删除对象
+
+```dart
+// 在单次请求中删除多个对象。
+// 注意：对象列表现在嵌套在 `delete: Delete(...)` 中。
+final result = await client.deleteMultipleObjects(
+  DeleteMultipleObjectsRequest(
+    bucket: bucket,
+    delete: Delete(
+      objects: [
+        DeleteObject(key: 'object-1'),
+        DeleteObject(key: 'object-2'),
+      ],
+    ),
+  ),
+);
+
+for (final deleted in result.deletedObjects ?? []) {
+  print('已删除: ${deleted.key}');
+}
+```
+
+### 封闭追加对象（Seal Append Object）
+
+```dart
+// 封闭可追加对象，之后不再允许追加数据。
+// `position` 必须等于对象当前的长度。
+await client.sealAppendObject(
+  SealAppendObjectRequest(bucket: bucket, key: key, position: 1024),
 );
 ```
 
