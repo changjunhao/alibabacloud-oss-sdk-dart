@@ -301,6 +301,12 @@ class Bucket {
   /// Bucket creation time in UTC.
   DateTime? creationDate;
 
+  /// The resource type of the bucket.
+  String? bucketResourceType;
+
+  /// The associated AgenticBucket physical full name.
+  String? agenticBucketName;
+
   /// Creates a Bucket instance.
   Bucket({
     this.dataRedundancyType,
@@ -321,6 +327,8 @@ class Bucket {
     this.accessControlList,
     this.bucketPolicy,
     this.creationDate,
+    this.bucketResourceType,
+    this.agenticBucketName,
   });
 
   /// Converts the Bucket instance to a JSON map.
@@ -343,6 +351,8 @@ class Bucket {
       'intranetEndpoint': intranetEndpoint,
       'accessControlList': accessControlList?.toJson(),
       'bucketPolicy': bucketPolicy?.toJson(),
+      'bucketResourceType': bucketResourceType,
+      'agenticBucketName': agenticBucketName,
       'creationDate': creationDate?.toIso8601String(),
     };
   }
@@ -369,6 +379,8 @@ class Bucket {
           : null,
       comment: json['comment'] as String?,
       blockPublicAccess: json['blockPublicAccess'] as bool?,
+      bucketResourceType: json['bucketResourceType'] as String?,
+      agenticBucketName: json['agenticBucketName'] as String?,
       accessMonitor: json['accessMonitor'] as String?,
       intranetEndpoint: json['intranetEndpoint'] as String?,
       accessControlList: json['accessControlList'] != null
@@ -644,6 +656,9 @@ class PutBucketRequest extends RequestModel {
   /// Container for the request body.
   CreateBucketConfiguration? createBucketConfiguration;
 
+  /// The physical full name of the AgenticBucket that the BucketSpace belongs to; sent as-is.
+  String? agenticBucket;
+
   /// Creates a PutBucketRequest instance.
   PutBucketRequest({
     this.bucket,
@@ -651,6 +666,7 @@ class PutBucketRequest extends RequestModel {
     this.resourceGroupId,
     this.bucketTagging,
     this.createBucketConfiguration,
+    this.agenticBucket,
     RequestModelProp? commonProp,
   }) : commonProp = commonProp ?? RequestModelProp();
 
@@ -661,6 +677,7 @@ class PutBucketRequest extends RequestModel {
       'acl': acl,
       'resourceGroupId': resourceGroupId,
       'bucketTagging': bucketTagging,
+      'agenticBucket': agenticBucket,
       'createBucketConfiguration': createBucketConfiguration?.toJson(),
     };
   }
@@ -672,6 +689,7 @@ class PutBucketRequest extends RequestModel {
       acl: json['acl'] as String?,
       resourceGroupId: json['resourceGroupId'] as String?,
       bucketTagging: json['bucketTagging'] as String?,
+      agenticBucket: json['agenticBucket'] as String?,
       createBucketConfiguration: json['createBucketConfiguration'] != null
           ? CreateBucketConfiguration.fromJson(
               json['createBucketConfiguration'] as Map<String, dynamic>,

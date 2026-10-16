@@ -37,7 +37,7 @@ void main() {
     test('testPutBucketWithAcl', () async {
       final newBucket = baseTestCase.randomBucketName();
       try {
-        final request = PutBucketRequest(bucket: newBucket, acl: 'public-read');
+        final request = PutBucketRequest(bucket: newBucket, acl: 'private');
         final result = await client.putBucket(request);
         expect(result.statusCode, equals(200));
 
@@ -46,7 +46,7 @@ void main() {
         final infoResult = await client.getBucketInfo(infoRequest);
         expect(
           infoResult.bucketInfo?.bucket?.accessControlList?.grant,
-          equals('public-read'),
+          equals('private'),
         );
       } finally {
         await baseTestCase.cleanBucket(client, newBucket);

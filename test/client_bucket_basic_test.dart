@@ -20,6 +20,26 @@ void main() {
       client = Client(config, [(options) => options.executeMW = mock]);
     });
 
+    test(
+      'PutBucket sends parent bucket header and omits unconfigured body',
+      () async {
+        mock.addResponse(ResponseMessage(statusCode: 200, headers: {}));
+        await client.putBucket(
+          PutBucketRequest(
+            bucket: 'space',
+            agenticBucket: 'parent-137-cn-hangzhou-ab-apsr',
+          ),
+        );
+        final sent = mock.requests.single;
+        expect(
+          sent.headers['x-oss-agentic-bucket'],
+          'parent-137-cn-hangzhou-ab-apsr',
+        );
+        expect(sent.content, isNull);
+        expect(sent.headers['content-md5'], isNull);
+      },
+    );
+
     // ===== putBucket =====
     test('testPutBucket - success', () async {
       mock.addResponse(

@@ -4,6 +4,12 @@ import 'package:alibabacloud_oss_sdk_dart/src/errors/client_errors.dart';
 
 void main() {
   group('Errors Tests', () {
+    test('Account format validation error', () {
+      final error = ValidationErrors.accountIdInvalidError('abc');
+      expect(error.code, 'ValidationError');
+      expect(error.message, 'Account id is invalid, got abc.');
+    });
+
     test('testOperationError', () {
       final error = ServerError(
         statusCode: 400,

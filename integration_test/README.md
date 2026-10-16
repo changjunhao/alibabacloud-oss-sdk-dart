@@ -12,8 +12,8 @@ data protection, presigned URLs, paginators, and extension features.
 
 ## Test Statistics
 
-- **Test files**: 28
-- **Test cases**: 227
+- **Test files**: 33
+- **Test cases**: ~240
 - **API coverage**: Comprehensive coverage of OSS operations
 
 ## Environment Variables
@@ -34,6 +34,21 @@ export OSS_TEST_ACCESS_KEY_SECRET=<your-access-key-secret>
 | `OSS_TEST_REGION` | OSS region identifier, for example `cn-hangzhou` |
 | `OSS_TEST_ACCESS_KEY_ID` | Alibaba Cloud AccessKey ID |
 | `OSS_TEST_ACCESS_KEY_SECRET` | Alibaba Cloud AccessKey Secret |
+
+### Agentic / BucketSpace tests
+
+The `agentic/` tests create real AgenticBucket and BucketSpace resources and are
+**opt-in**. They additionally require:
+
+| Variable | Description |
+| --- | --- |
+| `OSS_TEST_USER_ID` | Alibaba Cloud account UID used to build physical bucket names. |
+| `OSS_TEST_ENABLE_AGENTIC` | Must be `true`; otherwise the group is skipped so no cloud resource is created. |
+| `OSS_TEST_SEAL_APPEND_SUPPORTED` | Optional; `true` asserts the SealAppendObject success path, otherwise the `OperationNotSupported` path. |
+
+AgenticBucket deletion is a two-phase flow (Disable → ~24h cooldown → Delete), so a
+freshly disabled bucket returns `409/AgenticBucketNotReady`. Cleanup only touches
+resources created by the current run; it never scans or reclaims historical buckets.
 
 ## Running Tests
 
@@ -98,6 +113,17 @@ dart test integration_test/client_object_basic_test.dart --reporter expanded
 | `client_integration_test.dart` | 8 | InvokeOperation for Put, Get, Head, and Delete in success and failure cases |
 | `client_misc_test.dart` | 9 | Multiple `ByteStream` types, upload and download progress callbacks, auto MIME detection, CRC64 checks, and special-character query and key handling |
 | `client_public_access_block_test.dart` | 4 | PutPublicAccessBlock, GetPublicAccessBlock, DeletePublicAccessBlock, success and failure cases |
+
+### Agentic / BucketSpace (opt-in)
+
+| File | Coverage |
+| --- | --- |
+| `agentic/agentic_test_support.dart` | Shared opt-in gate, client factories, name builders, and this-run-only cleanup with cooldown reporting |
+| `agentic/agentic_bucket_basic_test.dart` | Create/Get/List/Paginator/Enabled status and eventual-consistency listing |
+| `agentic/agentic_bucket_lifecycle_test.dart` | Disable then observe `AgenticBucketNotReady` (no 24h wait) |
+| `agentic/agentic_bucket_space_test.dart` | BucketSpace binding, GetBucketInfo fields, object CRUD, listing, and presigned GET |
+| `agentic/agentic_bucket_misc_test.dart` | alias and path-style addressing capability handling |
+| `agentic/agentic_bucket_server_errors_test.dart` | NoSuchAgenticBucket and InvalidAccessKeyId propagation |
 
 ## Coverage Summary
 

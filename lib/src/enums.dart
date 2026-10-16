@@ -19,7 +19,7 @@ enum OperationMetaKey {
 enum EndpointType { defautt, internal, accelerate, dualstack, overseas }
 
 /// The addressing style for constructing OSS request URLs.
-enum AddressStyleType { virtualHosted, cname, path }
+enum AddressStyleType { virtualHosted, cname, path, virtualHostedAlias }
 
 /// The HTTP protocol scheme.
 enum HttpProtocol {

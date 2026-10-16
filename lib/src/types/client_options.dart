@@ -3,6 +3,7 @@ import '../retry/retryer.dart';
 import '../signer/signer.dart';
 import '../enums.dart';
 import '../internal/execute_middleware.dart';
+import 'operation_input.dart';
 
 /// Client options for configuring OSS client behavior
 class ClientOptions {
@@ -42,6 +43,13 @@ class ClientOptions {
   /// The middleware to send request, use for test
   ExecuteMiddleware? executeMW;
 
+  /// Resolves the physical bucket name for signing only; called only when the input contains a bucket, and should not modify the input.
+  String Function(OperationInput input)? bucketNameResolver;
+
+  /// Replaces the base request URL (scheme, authority, path), excluding query or fragment.
+  /// Query parameters are still appended by the core execution chain; the callback should not modify the input.
+  String Function(OperationInput input)? endpointProvider;
+
   /// Creates a new ClientOptions instance
   ClientOptions({
     required this.product,
@@ -56,6 +64,8 @@ class ClientOptions {
     required this.featureFlags,
     List<String>? additionalHeaders,
     this.executeMW,
+    this.bucketNameResolver,
+    this.endpointProvider,
   }) : additionalHeaders = additionalHeaders ?? [];
 
   /// Creates a copy of this ClientOptions with optional parameter overrides
@@ -72,6 +82,8 @@ class ClientOptions {
     FeatureFlag? featureFlags,
     List<String>? additionalHeaders,
     ExecuteMiddleware? executeMW,
+    String Function(OperationInput input)? bucketNameResolver,
+    String Function(OperationInput input)? endpointProvider,
   }) {
     return ClientOptions(
       product: product ?? this.product,
@@ -87,6 +99,8 @@ class ClientOptions {
       additionalHeaders:
           additionalHeaders ?? List<String>.from(this.additionalHeaders),
       executeMW: executeMW ?? this.executeMW,
+      bucketNameResolver: bucketNameResolver ?? this.bucketNameResolver,
+      endpointProvider: endpointProvider ?? this.endpointProvider,
     );
   }
 }

@@ -17,6 +17,12 @@ class Configuration {
   /// The region in which the bucket is located.
   String? region;
 
+  /// Alibaba Cloud account UID; must contain only ASCII digits when non-empty.
+  String? accountId;
+
+  /// Use short alias host label for Agentic client; disabled by default.
+  bool? useVirtualHostedAlias;
+
   /// Max retry count, default value is 3
   int? retryMaxAttempts;
 
@@ -93,6 +99,8 @@ class Configuration {
     this.endpoint,
     this.credentialsProvider,
     this.region,
+    this.accountId,
+    this.useVirtualHostedAlias,
     this.retryMaxAttempts,
     this.maxConnectionsPerHost,
     this.timeoutIntervalForRequest,
@@ -147,6 +155,18 @@ class Configuration {
   /// Returns this Configuration instance for method chaining.
   Configuration withRegion(String region) {
     this.region = region;
+    return this;
+  }
+
+  /// Sets the Alibaba Cloud account UID.
+  Configuration withAccountId(String accountId) {
+    this.accountId = accountId;
+    return this;
+  }
+
+  /// Sets Agentic short alias addressing.
+  Configuration withUseVirtualHostedAlias(bool useVirtualHostedAlias) {
+    this.useVirtualHostedAlias = useVirtualHostedAlias;
     return this;
   }
 
@@ -350,6 +370,8 @@ class Configuration {
     String? endpoint,
     CredentialsProvider? credentialsProvider,
     String? region,
+    String? accountId,
+    bool? useVirtualHostedAlias,
     int? retryMaxAttempts,
     int? maxConnectionsPerHost,
     Duration? timeoutIntervalForRequest,
@@ -376,6 +398,9 @@ class Configuration {
       endpoint: endpoint ?? this.endpoint,
       credentialsProvider: credentialsProvider ?? this.credentialsProvider,
       region: region ?? this.region,
+      accountId: accountId ?? this.accountId,
+      useVirtualHostedAlias:
+          useVirtualHostedAlias ?? this.useVirtualHostedAlias,
       retryMaxAttempts: retryMaxAttempts ?? this.retryMaxAttempts,
       maxConnectionsPerHost:
           maxConnectionsPerHost ?? this.maxConnectionsPerHost,
@@ -429,6 +454,7 @@ class Configuration {
         'enableFollowRedirect: $enableFollowRedirect, '
         'usePathStyle: $usePathStyle, '
         'useCname: $useCname, '
+        'useVirtualHostedAlias: $useVirtualHostedAlias, '
         'signerVersion: $signerVersion, '
         'signer: $signer, '
         'useDualStackEndpoint: $useDualStackEndpoint, '
@@ -446,6 +472,8 @@ class Configuration {
         other.endpoint == endpoint &&
         other.credentialsProvider == credentialsProvider &&
         other.region == region &&
+        other.accountId == accountId &&
+        other.useVirtualHostedAlias == useVirtualHostedAlias &&
         other.retryMaxAttempts == retryMaxAttempts &&
         other.maxConnectionsPerHost == maxConnectionsPerHost &&
         other.timeoutIntervalForRequest == timeoutIntervalForRequest &&
@@ -476,6 +504,8 @@ class Configuration {
       endpoint,
       credentialsProvider,
       region,
+      accountId,
+      useVirtualHostedAlias,
       retryMaxAttempts,
       maxConnectionsPerHost,
       timeoutIntervalForRequest,

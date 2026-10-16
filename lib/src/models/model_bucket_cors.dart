@@ -335,23 +335,23 @@ class OptionObjectResult extends ResultModel {
   /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
-  /// Access-Control-Allow-Origin header value
+  /// The origin of the request; not included in the response when the cross-origin request is denied.
   String? get accessControlAllowOrigin =>
       commonProp.headers?.getCaseInsensitive('Access-Control-Allow-Origin');
 
-  /// Access-Control-Allow-Methods header value
+  /// Allowed HTTP request methods; not included in the response when the request is denied.
   String? get accessControlAllowMethods =>
       commonProp.headers?.getCaseInsensitive('Access-Control-Allow-Methods');
 
-  /// Access-Control-Allow-Headers header value
+  /// Allowed request headers; the request is rejected when it contains disallowed headers.
   String? get accessControlAllowHeaders =>
       commonProp.headers?.getCaseInsensitive('Access-Control-Allow-Headers');
 
-  /// Access-Control-Expose-Headers header value
+  /// List of response headers that client JavaScript is allowed to read.
   String? get accessControlExposeHeaders =>
       commonProp.headers?.getCaseInsensitive('Access-Control-Expose-Headers');
 
-  /// Access-Control-Max-Age header value
+  /// Maximum duration in seconds for the browser to cache the preflight result.
   int? get accessControlMaxAge {
     final value = commonProp.headers?.getCaseInsensitive(
       'Access-Control-Max-Age',

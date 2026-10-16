@@ -711,7 +711,7 @@ class GetObjectResult extends ResultModel {
   String? get expiration =>
       commonProp.headers?.getCaseInsensitive('x-oss-expiration');
 
-  /// Request charged information.
+  /// Requester-pays information returned when the requester-pays mode is enabled.
   String? get requestCharged =>
       commonProp.headers?.getCaseInsensitive('x-oss-request-charged');
 
@@ -1528,7 +1528,7 @@ class RestoreObjectResult extends ResultModel {
   String? get versionId =>
       commonProp.headers?.getCaseInsensitive('x-oss-version-id');
 
-  /// The restore priority of the object.
+  /// Restore priority of thawed Cold Archive or Deep Cold Archive objects.
   String? get objectRestorePriority =>
       commonProp.headers?.getCaseInsensitive('x-oss-object-restore-priority');
 

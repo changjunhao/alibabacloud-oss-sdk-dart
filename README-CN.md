@@ -67,7 +67,7 @@ dart pub get
 
 ## Library 入口
 
-SDK 提供两个 library 入口，按需导入：
+SDK 提供三个 library 入口，按需导入：
 
 ```dart
 // 核心库 - 存储空间基础接口、对象接口、高级接口（分页器、预签名）
@@ -75,11 +75,15 @@ import 'package:alibabacloud_oss_sdk_dart/alibabacloud_oss_sdk_dart.dart';
 
 // 扩展库 - 存储空间配置类接口（CORS、加密、日志等）
 import 'package:alibabacloud_oss_sdk_dart/alibabacloud_oss_sdk_extension.dart';
+
+// Agentic 库 - AgenticBucket 管理与 BucketSpace（重导出核心库）
+import 'package:alibabacloud_oss_sdk_dart/alibabacloud_oss_sdk_agentic.dart';
 ```
 
 > **说明：**
 > - `alibabacloud_oss_sdk_dart` 提供了存储空间基础接口、所有对象接口和高级接口（如分页器、预签名）。
 > - `alibabacloud_oss_sdk_extension` 提供了其他存储空间配置类接口，如跨域资源共享、加密、日志、策略等。
+> - `alibabacloud_oss_sdk_agentic` 提供 `AgenticBucketClient`（AgenticBucket 管理）与 `BucketSpaceClient.make` 工厂；后者返回普通 `Client`，会将每个 bucket 逻辑前缀透明改写为物理名 `{prefix}-{accountId}-{region}-bs-apsr`。需在 `Configuration` 中提供 `accountId` 与 `region`；Agentic 接口以默认 V4 签名为验证基线。
 
 ## 快速使用
 

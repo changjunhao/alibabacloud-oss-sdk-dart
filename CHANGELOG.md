@@ -1,5 +1,37 @@
 # Changelog
 
+## Unreleased
+
+### Added
+
+- **AgenticBucket/BucketSpace**: New entry point `alibabacloud_oss_sdk_agentic.dart`, providing
+  `AgenticBucketClient` (six management APIs: create/delete/get/list/putStatus/listBucketSpaces)
+  and `BucketSpaceClient.make` (returns a `Client` reusing the ordinary object/bucket/paginator/presigner APIs).
+- **BucketSpaceHelper**: Exported from the core entry point; converts a logical prefix into the
+  physical full name `{prefix}-{accountId}-{region}-bs-apsr`.
+- **Configuration**: Added `accountId` and `useVirtualHostedAlias`; a non-empty accountId uses
+  deferred validation (construction does not throw; `ValidationError` is surfaced before the first
+  operation/presign, and only ASCII digits are allowed).
+- **Physical-name addressing**: Signing uses the physical bucket name; URLs support three label
+  styles: virtual-hosted, path, and short alias. The alias and physical labels honor the 63-character
+  DNS limit; path-style does not check this length.
+- **Paginators**: `ListAgenticBucketsPaginator` and `ListBucketSpacesPaginator`, lazy `.stream`,
+  throwing `PaginationError` on a missing or non-advancing continuation token.
+- Added 8 Agentic/BucketSpace examples with the corresponding unit and controlled integration tests.
+
+### Changed
+
+- **PutBucket**: No longer sends an empty XML body when `createBucketConfiguration` is absent (BucketSpace
+  creation requires no body); added an optional `agenticBucket` → `x-oss-agentic-bucket` header.
+- **Bucket/GetBucketInfo**: Added parsing of `bucketResourceType` and `agenticBucketName`.
+
+### Compatibility
+
+- `virtualHostedAlias` is appended to the end of `AddressStyleType`; downstream exhaustive switches
+  may need a new branch.
+- The two new optional hooks `ClientOptions.bucketNameResolver`/`endpointProvider` default to null and
+  preserve ordinary OSS behavior when unset.
+
 ## 1.1.0
 
 ### Added

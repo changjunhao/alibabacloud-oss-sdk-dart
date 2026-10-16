@@ -159,7 +159,7 @@ void main() {
         accessKeySecret: 'sk',
       );
 
-      // 默认配置 - virtualHosted 模式
+      // Default configuration - virtualHosted mode
       var config = Configuration.defaultConfig()
           .withRegion('cn-hangzhou')
           .withCredentialsProvider(credentialsProvider)
@@ -168,13 +168,13 @@ void main() {
 
       expect(client, isNotNull);
 
-      // virtualHosted, service 级别操作
+      // virtualHosted, service-level operations
       mock.reset();
       mock.addResponse(make403Response());
       try {
         await client.listBuckets(ListBucketsRequest());
       } catch (e) {
-        // 预期会失败，403错误
+        // Expected to fail, 403 error
       }
       expect(mock.requests.length, 1);
       expect(
@@ -182,13 +182,13 @@ void main() {
         'https://oss-cn-hangzhou.aliyuncs.com/',
       );
 
-      // virtualHosted, 只有bucket的操作
+      // virtualHosted, bucket-only operations
       mock.reset();
       mock.addResponse(make403Response());
       try {
         await client.getBucketAcl(GetBucketAclRequest(bucket: 'bucket'));
       } catch (e) {
-        // 预期会失败，403错误
+        // Expected to fail, 403 error
       }
       expect(mock.requests.length, 1);
       expect(
@@ -196,7 +196,7 @@ void main() {
         'https://bucket.oss-cn-hangzhou.aliyuncs.com/?acl=',
       );
 
-      // virtualHosted, bucket和key的操作
+      // virtualHosted, bucket and key operations
       mock.reset();
       mock.addResponse(make403Response());
       try {
@@ -204,7 +204,7 @@ void main() {
           GetObjectAclRequest(bucket: 'bucket', key: 'key'),
         );
       } catch (e) {
-        // 预期会失败，403错误
+        // Expected to fail, 403 error
       }
       expect(mock.requests.length, 1);
       expect(
@@ -212,7 +212,7 @@ void main() {
         'https://bucket.oss-cn-hangzhou.aliyuncs.com/key?acl=',
       );
 
-      // path 模式, service 级别操作
+      // path mode, service-level operations
       config = Configuration.defaultConfig()
           .withRegion('cn-hangzhou')
           .withCredentialsProvider(credentialsProvider)
@@ -225,7 +225,7 @@ void main() {
       try {
         await client.listBuckets(ListBucketsRequest());
       } catch (e) {
-        // 预期会失败，403错误
+        // Expected to fail, 403 error
       }
       expect(mock.requests.length, 1);
       expect(
@@ -233,13 +233,13 @@ void main() {
         'https://oss-cn-hangzhou.aliyuncs.com/',
       );
 
-      // path 模式, 只有bucket的操作
+      // path mode, bucket-only operations
       mock.reset();
       mock.addResponse(make403Response());
       try {
         await client.getBucketAcl(GetBucketAclRequest(bucket: 'bucket'));
       } catch (e) {
-        // 预期会失败，403错误
+        // Expected to fail, 403 error
       }
       expect(mock.requests.length, 1);
       expect(
@@ -247,7 +247,7 @@ void main() {
         'https://oss-cn-hangzhou.aliyuncs.com/bucket/?acl=',
       );
 
-      // path 模式, bucket和key的操作
+      // path mode, bucket and key operations
       mock.reset();
       mock.addResponse(make403Response());
       try {
@@ -255,7 +255,7 @@ void main() {
           GetObjectAclRequest(bucket: 'bucket', key: 'key'),
         );
       } catch (e) {
-        // 预期会失败，403错误
+        // Expected to fail, 403 error
       }
       expect(mock.requests.length, 1);
       expect(
@@ -263,7 +263,7 @@ void main() {
         'https://oss-cn-hangzhou.aliyuncs.com/bucket/key?acl=',
       );
 
-      // cname 模式, service 级别操作
+      // cname mode, service-level operations
       config = Configuration.defaultConfig()
           .withRegion('cn-hangzhou')
           .withEndpoint('www.cname.com')
@@ -277,18 +277,18 @@ void main() {
       try {
         await client.listBuckets(ListBucketsRequest());
       } catch (e) {
-        // 预期会失败，403错误
+        // Expected to fail, 403 error
       }
       expect(mock.requests.length, 1);
       expect(mock.requests[0].requestUri.toString(), 'https://www.cname.com/');
 
-      // cname 模式, 只有bucket的操作
+      // cname mode, bucket-only operations
       mock.reset();
       mock.addResponse(make403Response());
       try {
         await client.getBucketAcl(GetBucketAclRequest(bucket: 'bucket'));
       } catch (e) {
-        // 预期会失败，403错误
+        // Expected to fail, 403 error
       }
       expect(mock.requests.length, 1);
       expect(
@@ -296,7 +296,7 @@ void main() {
         'https://www.cname.com/?acl=',
       );
 
-      // cname 模式, bucket和key的操作
+      // cname mode, bucket and key operations
       mock.reset();
       mock.addResponse(make403Response());
       try {
@@ -304,7 +304,7 @@ void main() {
           GetObjectAclRequest(bucket: 'bucket', key: 'key'),
         );
       } catch (e) {
-        // 预期会失败，403错误
+        // Expected to fail, 403 error
       }
       expect(mock.requests.length, 1);
       expect(

@@ -12,6 +12,7 @@ export 'src/defaults.dart';
 export 'src/enums.dart';
 export 'src/progress.dart';
 export 'src/sdk_info.dart';
+export 'src/agentic/bucket_space_helper.dart';
 
 // Credentials
 export 'src/credentials/anonymous_credentials_provider.dart';

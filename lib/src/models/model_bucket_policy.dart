@@ -107,7 +107,7 @@ class GetBucketPolicyResult extends ResultModel {
   /// Shared result properties such as response headers and status metadata.
   ResultModelProp commonProp;
 
-  /// The policy body content.
+  /// Bucket policy configuration, as a JSON string.
   String? body;
 
   /// Creates a GetBucketPolicyResult instance.

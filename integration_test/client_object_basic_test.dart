@@ -9,6 +9,8 @@ import 'package:alibabacloud_oss_sdk_dart/alibabacloud_oss_sdk_dart.dart';
 import 'base_test_case.dart';
 
 void main() {
+  final sealAppendSupported =
+      Platform.environment['OSS_TEST_SEAL_APPEND_SUPPORTED'] == 'true';
   group('ClientObjectBasicTests', () {
     late BaseTestCase testCase;
     late Client client;
@@ -365,37 +367,76 @@ void main() {
       expect(String.fromCharCodes(bodyData!), equals(content1 + content2));
     });
 
-    test('testSealAppendObject', () async {
-      final objectKey = testCase.randomObjectName();
-      final data = Uint8List.fromList('hello oss'.codeUnits);
+    test(
+      'testSealAppendObjectNotSupported',
+      () async {
+        final key = testCase.randomObjectName();
+        final data = Uint8List.fromList('hello oss'.codeUnits);
+        await client.appendObject(
+          AppendObjectRequest(
+            bucket: bucketName,
+            key: key,
+            position: 0,
+            body: ByteStream.fromData(data),
+          ),
+        );
+        await expectLater(
+          client.sealAppendObject(
+            SealAppendObjectRequest(
+              bucket: bucketName,
+              key: key,
+              position: data.length,
+            ),
+          ),
+          throwsA(
+            isA<ServerError>()
+                .having((e) => e.statusCode, 'status', 400)
+                .having((e) => e.code, 'code', 'OperationNotSupported'),
+          ),
+        );
+      },
+      skip: sealAppendSupported
+          ? 'Current environment declares support for SealAppendObject'
+          : false,
+    );
 
-      // Append data first
-      final appendResult = await client.appendObject(
-        AppendObjectRequest(
-          bucket: bucketName,
-          key: objectKey,
-          position: 0,
-          body: ByteStream.fromData(data),
-        ),
-      );
-      expect(appendResult.statusCode, equals(200));
-      expect(appendResult.nextAppendPosition, isNotNull);
+    test(
+      'testSealAppendObject',
+      () async {
+        final objectKey = testCase.randomObjectName();
+        final data = Uint8List.fromList('hello oss'.codeUnits);
 
-      // Seal the appendable object using the current length as position
-      final sealResult = await client.sealAppendObject(
-        SealAppendObjectRequest(
-          bucket: bucketName,
-          key: objectKey,
-          position: data.length,
-        ),
-      );
-      expect(sealResult.statusCode, equals(200));
+        // Append data first
+        final appendResult = await client.appendObject(
+          AppendObjectRequest(
+            bucket: bucketName,
+            key: objectKey,
+            position: 0,
+            body: ByteStream.fromData(data),
+          ),
+        );
+        expect(appendResult.statusCode, equals(200));
+        expect(appendResult.nextAppendPosition, isNotNull);
 
-      // Cleanup
-      await client.deleteObject(
-        DeleteObjectRequest(bucket: bucketName, key: objectKey),
-      );
-    });
+        // Seal the appendable object using the current length as position
+        final sealResult = await client.sealAppendObject(
+          SealAppendObjectRequest(
+            bucket: bucketName,
+            key: objectKey,
+            position: data.length,
+          ),
+        );
+        expect(sealResult.statusCode, equals(200));
+
+        // Cleanup
+        await client.deleteObject(
+          DeleteObjectRequest(bucket: bucketName, key: objectKey),
+        );
+      },
+      skip: sealAppendSupported
+          ? false
+          : 'Requires OSS_TEST_SEAL_APPEND_SUPPORTED=true',
+    );
 
     test('testSealAppendObjectWithError', () async {
       // Missing bucket

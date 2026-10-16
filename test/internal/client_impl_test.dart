@@ -1,4 +1,7 @@
 import 'package:test/test.dart';
+import 'package:alibabacloud_oss_sdk_dart/alibabacloud_oss_sdk_dart.dart'
+    as oss;
+import '../client_mock_test.dart' show MockProcessRequest;
 import 'package:alibabacloud_oss_sdk_dart/src/internal/client_impl.dart';
 import 'package:alibabacloud_oss_sdk_dart/src/configuration.dart';
 import 'package:alibabacloud_oss_sdk_dart/src/credentials/anonymous_credentials_provider.dart';
@@ -13,6 +16,190 @@ import 'package:alibabacloud_oss_sdk_dart/src/errors/client_errors.dart';
 
 void main() {
   group('ClientImpl Tests', () {
+    for (final account in ['abc', ' 137', '137\n', '１２３', '١٣٧']) {
+      test(
+        'Account format deferred error without credential fetch: ${account.codeUnits}',
+        () async {
+          var credentialCalls = 0;
+          var sent = 0;
+          final client = ClientImpl(
+            Configuration(
+              accountId: account,
+              credentialsProvider: oss.ClosureCredentialsProvider(() async {
+                credentialCalls++;
+                return oss.Credentials(
+                  accessKeyId: 'ak',
+                  accessKeySecret: 'sk',
+                );
+              }),
+            ),
+            [
+              (o) => o.executeMW = MockProcessRequest(
+                process: (r, c) async {
+                  sent++;
+                  return oss.ResponseMessage(statusCode: 200, headers: {});
+                },
+              ),
+            ],
+          );
+          addTearDown(client.dispose);
+          final input = OperationInput(bucket: '-invalid');
+          final matcher = isA<ClientError>().having(
+            (e) => e.message,
+            'message',
+            contains('Account id'),
+          );
+          await expectLater(client.execute(input), throwsA(matcher));
+          await expectLater(client.presignInner(input), throwsA(matcher));
+          expect(credentialCalls, 0);
+          expect(sent, 0);
+        },
+      );
+    }
+
+    test('Endpoint error takes precedence over bucket validation', () async {
+      final client = ClientImpl(Configuration());
+      addTearDown(client.dispose);
+      await expectLater(
+        client.execute(OperationInput(bucket: '-invalid')),
+        throwsA(
+          isA<ClientError>().having(
+            (e) => e.message,
+            'message',
+            'Endpoint is invalid.',
+          ),
+        ),
+      );
+    });
+
+    for (final account in <String?>[null, '', '00137']) {
+      test('Regular client allows account ${account ?? 'null'}', () async {
+        final client = ClientImpl(
+          Configuration(region: 'cn-hangzhou', accountId: account),
+        );
+        addTearDown(client.dispose);
+        expect(
+          (await client.presignInner(
+            OperationInput(method: 'GET', bucket: 'bucket'),
+          )).url,
+          'https://bucket.oss-cn-hangzhou.aliyuncs.com/',
+        );
+      });
+    }
+
+    test('Addressing priority and plain alias fallback', () async {
+      final cases = [
+        (
+          Configuration(region: 'cn-hangzhou', useVirtualHostedAlias: true),
+          AddressStyleType.virtualHostedAlias,
+        ),
+        (
+          Configuration(
+            region: 'cn-hangzhou',
+            useVirtualHostedAlias: true,
+            usePathStyle: true,
+          ),
+          AddressStyleType.path,
+        ),
+        (
+          Configuration(
+            region: 'cn-hangzhou',
+            useVirtualHostedAlias: true,
+            usePathStyle: true,
+            useCname: true,
+          ),
+          AddressStyleType.cname,
+        ),
+        (
+          Configuration(
+            endpoint: 'http://127.0.0.1:8080',
+            useCname: true,
+            useVirtualHostedAlias: true,
+          ),
+          AddressStyleType.path,
+        ),
+        (
+          Configuration(
+            endpoint: 'http://[::1]:8080',
+            useVirtualHostedAlias: true,
+          ),
+          AddressStyleType.path,
+        ),
+      ];
+      for (final entry in cases) {
+        final client = ClientImpl(entry.$1);
+        addTearDown(client.dispose);
+        expect(client.options.addressStyle, entry.$2);
+      }
+      final client = ClientImpl(cases.first.$1);
+      addTearDown(client.dispose);
+      expect(
+        (await client.presignInner(
+          OperationInput(method: 'GET', bucket: 'bucket', key: 'key'),
+        )).url,
+        'https://bucket.oss-cn-hangzhou.aliyuncs.com/key',
+      );
+    });
+
+    test(
+      'Independent hooks override execute and presign without mutating input; copy preserves callbacks',
+      () async {
+        final signingBuckets = <String?>[];
+        var resolverCalls = 0;
+        String resolver(OperationInput input) {
+          resolverCalls++;
+          return '${input.bucket}-physical';
+        }
+
+        String provider(OperationInput input) =>
+            'https://alias.example:8443/base/key';
+        final client = ClientImpl(
+          Configuration(
+            region: 'cn-hangzhou',
+            credentialsProvider: AnonymousCredentialsProvider(),
+          ),
+          [
+            (o) {
+              o.bucketNameResolver = resolver;
+              o.endpointProvider = provider;
+              o.executeMW = MockProcessRequest(
+                process: (r, c) async {
+                  signingBuckets.add(c.signingContext!.bucket);
+                  expect(
+                    r.requestUri.toString(),
+                    'https://alias.example:8443/base/key?q=a%2Bb%20c',
+                  );
+                  return oss.ResponseMessage(statusCode: 200, headers: {});
+                },
+              );
+            },
+          ],
+        );
+        addTearDown(client.dispose);
+        final copied = client.options.copyWith();
+        expect(copied.bucketNameResolver, same(resolver));
+        expect(copied.endpointProvider, same(provider));
+        final input = OperationInput(
+          method: 'GET',
+          bucket: 'bucket',
+          key: 'key',
+          parameters: {'q': 'a+b c'},
+          headers: {'X-Test': 'value'},
+        );
+        await client.execute(input);
+        final signed = await client.presignInner(input);
+        expect(signed.url, 'https://alias.example:8443/base/key?q=a%2Bb%20c');
+        expect(signingBuckets, ['bucket-physical']);
+        expect(resolverCalls, 2);
+        expect(input.bucket, 'bucket');
+        expect(input.key, 'key');
+        expect(input.headers, {'X-Test': 'value'});
+        expect(input.parameters, {'q': 'a+b c'});
+        await client.presignInner(OperationInput(method: 'GET'));
+        expect(resolverCalls, 2);
+      },
+    );
+
     test('testClientImplConstructor', () {
       final credentialsProvider = AnonymousCredentialsProvider();
       const endpoint = 'oss-cn-hangzhou.aliyuncs.com';

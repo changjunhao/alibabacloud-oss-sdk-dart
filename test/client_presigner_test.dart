@@ -3,6 +3,21 @@ import 'package:alibabacloud_oss_sdk_dart/alibabacloud_oss_sdk_dart.dart';
 
 void main() {
   group('ClientPresigner Tests', () {
+    test('Public presign entry uses custom endpointProvider', () async {
+      final scoped = Client(Configuration(region: 'cn-hangzhou'), [
+        (o) {
+          o.bucketNameResolver = (_) => 'physical';
+          o.endpointProvider = (_) => 'https://alias.example/path';
+        },
+      ]);
+      addTearDown(scoped.dispose);
+      final request = GetObjectRequest(bucket: 'logical', key: 'key');
+      final result = await scoped.presignGetObject(request);
+      expect(result.url, 'https://alias.example/path');
+      expect(request.bucket, 'logical');
+      expect(request.key, 'key');
+    });
+
     late Client client;
 
     setUp(() {

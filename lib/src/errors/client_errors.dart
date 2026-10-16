@@ -89,6 +89,14 @@ extension ParameterErrors on ClientError {
 
 /// Validation error.
 extension ValidationErrors on ClientError {
+  /// Creates a validation error for non-ASCII-digit account UID.
+  static ClientError accountIdInvalidError(String value) {
+    return ClientError(
+      code: 'ValidationError',
+      message: 'Account id is invalid, got $value.',
+    );
+  }
+
   /// Creates an error for an invalid bucket name.
   static ClientError bucketInvalidError(String value) {
     return ClientError(

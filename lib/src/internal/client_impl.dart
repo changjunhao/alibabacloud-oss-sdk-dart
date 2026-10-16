@@ -45,12 +45,16 @@ class InnerOptions {
   /// The `dioOwner` value.
   final bool dioOwner;
 
+  /// Initialization error deferred to the first operation or presign call.
+  final ClientError? initError;
+
   /// Creates an InnerOptions instance.
   const InnerOptions({
     required this.userAgent,
     this.logger,
     required this.dio,
     required this.dioOwner,
+    this.initError,
   });
 }
 
@@ -246,7 +250,17 @@ class ClientImpl {
       logger: config.logger,
       dio: dio,
       dioOwner: dioOwner,
+      initError: _resolveInitError(config),
     );
+  }
+
+  static ClientError? _resolveInitError(Configuration config) {
+    final accountId = config.accountId;
+    if (accountId != null &&
+        accountId.codeUnits.any((unit) => unit < 0x30 || unit > 0x39)) {
+      return ValidationErrors.accountIdInvalidError(accountId);
+    }
+    return null;
   }
 
   /// Resolves Dio instance from configuration
@@ -310,6 +324,8 @@ class ClientImpl {
       style = AddressStyleType.cname;
     } else if (config.usePathStyle == true) {
       style = AddressStyleType.path;
+    } else if (config.useVirtualHostedAlias == true) {
+      style = AddressStyleType.virtualHostedAlias;
     } else {
       style = AddressStyleType.virtualHosted;
     }
@@ -378,13 +394,22 @@ class ClientImpl {
     }
   }
 
+  Future<void> _preflight(OperationInput input) async {
+    final error = innerOptions.initError;
+    if (error != null) throw error;
+    if (options.endpoint == null) {
+      throw ValidationErrors.endpointInvalidError();
+    }
+    await verifyOperation(input);
+  }
+
   /// Executes an operation with the given input
   Future<OperationOutput> execute(
     OperationInput input, {
     OperationOptions? operationOptions,
   }) async {
     // Verify input
-    await verifyOperation(input);
+    await _preflight(input);
 
     // Build request context
     final (request, context) = await _buildRequestContext(
@@ -414,7 +439,7 @@ class ClientImpl {
     OperationOptions? operationOptions,
   }) async {
     // Verify input
-    await verifyOperation(input);
+    await _preflight(input);
 
     // Build request context
     final (request, context) = await _buildRequestContext(
@@ -493,8 +518,12 @@ class ClientImpl {
     }
 
     // Signing context
+    final resolver = options.bucketNameResolver;
+    final signingBucket = input.bucket != null && resolver != null
+        ? resolver(input)
+        : input.bucket;
     var signingContext = SigningContext(
-      bucket: input.bucket,
+      bucket: signingBucket,
       key: input.key,
       region: options.region,
       product: options.product,
@@ -515,13 +544,10 @@ class ClientImpl {
       throw ValidationErrors.endpointInvalidError();
     }
 
-    final baseUrl = _buildHostPath(
-      input,
-      host: _hostPort(endpoint),
-      addressStyle: options.addressStyle,
-    );
-
-    var url = '${endpoint.scheme}://$baseUrl';
+    final provider = options.endpointProvider;
+    var url = provider != null
+        ? provider(input)
+        : '${endpoint.scheme}://${_buildHostPath(input, host: _hostPort(endpoint), addressStyle: options.addressStyle)}';
     final query = _queryString(input);
     if (query.isNotEmpty) {
       url = '$url?$query';

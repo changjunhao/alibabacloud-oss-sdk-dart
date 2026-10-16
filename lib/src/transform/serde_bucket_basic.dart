@@ -32,6 +32,13 @@ extension SerdeBucketBasic on Serde {
       input.headers['x-oss-bucket-tagging'] = request.bucketTagging!;
     }
 
+    if (request.agenticBucket != null) {
+      input.headers['x-oss-agentic-bucket'] = request.agenticBucket!;
+    }
+
+    // BucketSpace creation does not allow a configuration body; an explicit empty configuration still requires XML generation.
+    if (request.createBucketConfiguration == null) return;
+
     // Build XML body for CreateBucketConfiguration
     var xmlBody = '<?xml version="1.0" encoding="UTF-8"?>';
     xmlBody += '<CreateBucketConfiguration>';
@@ -538,6 +545,8 @@ extension SerdeBucketBasic on Serde {
         dataRedundancyType: bucketContent['DataRedundancyType'] as String?,
         name: bucketContent['Name'] as String?,
         comment: bucketContent['Comment'] as String?,
+        bucketResourceType: bucketContent['BucketResourceType'] as String?,
+        agenticBucketName: bucketContent['AgenticBucketName'] as String?,
         creationDate: (bucketContent['CreationDate'] as String?)?.toDate(),
         blockPublicAccess: (bucketContent['BlockPublicAccess'] as String?)
             ?.toBool(),

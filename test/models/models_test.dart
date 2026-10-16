@@ -1,4 +1,5 @@
 import 'package:test/test.dart';
+import 'package:alibabacloud_oss_sdk_dart/src/models/model_bucket_basic.dart';
 import 'package:alibabacloud_oss_sdk_dart/src/models/model_types.dart';
 import 'package:alibabacloud_oss_sdk_dart/src/transform/serde_extensions.dart';
 
@@ -28,6 +29,27 @@ class SubResult extends ResultModel {
 
 void main() {
   group('Models Tests', () {
+    test(
+      'Bucket and PutBucket preserve new fields and remain backward-compatible with old JSON',
+      () {
+        final bucket = Bucket(
+          bucketResourceType: 'AgenticBucketSpace',
+          agenticBucketName: 'parent-137-cn-hangzhou-ab-apsr',
+        );
+        expect(Bucket.fromJson(bucket.toJson()).toJson(), bucket.toJson());
+        expect(Bucket.fromJson({}).agenticBucketName, isNull);
+        final request = PutBucketRequest(
+          bucket: 'space',
+          agenticBucket: bucket.agenticBucketName,
+        );
+        expect(
+          PutBucketRequest.fromJson(request.toJson()).toJson(),
+          request.toJson(),
+        );
+        expect(PutBucketRequest.fromJson({}).agenticBucket, isNull);
+      },
+    );
+
     test('testRequestModel', () {
       var request = SubRequest();
       expect(request.bucket, isNull);

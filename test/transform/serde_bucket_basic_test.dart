@@ -23,8 +23,60 @@ void main() {
 
       expect(input.headers['x-oss-acl'], isNull);
       expect(input.headers['x-oss-resource-group-id'], isNull);
-      // Body should still contain CreateBucketConfiguration (empty)
-      expect(input.body, isNotNull);
+      // No XML is sent when no configuration is provided.
+      expect(input.body, isNull);
+      expect(input.headers['x-oss-agentic-bucket'], isNull);
+    });
+
+    test(
+      'Explicit empty configuration still generates XML; parent AgenticBucket header is passed through as-is',
+      () async {
+        final input = OperationInput();
+        final request = PutBucketRequest(
+          agenticBucket: 'parent-137-cn-hangzhou-ab-apsr',
+          createBucketConfiguration: CreateBucketConfiguration(),
+        );
+        await SerdeBucketBasic.serializePutBucket(request, input);
+        await Serde.addContentMd5(request, input);
+        expect(
+          utf8.decode((await input.body!.readData())!),
+          '<?xml version="1.0" encoding="UTF-8"?><CreateBucketConfiguration></CreateBucketConfiguration>',
+        );
+        expect(input.headers['x-oss-agentic-bucket'], request.agenticBucket);
+        expect(input.headers['Content-MD5'], isNotNull);
+      },
+    );
+
+    test(
+      'BucketSpace request without configuration has no body and no default MD5',
+      () async {
+        final input = OperationInput();
+        final request = PutBucketRequest(agenticBucket: 'parent');
+        await SerdeBucketBasic.serializePutBucket(request, input);
+        await Serde.addContentMd5(request, input);
+        expect(input.body, isNull);
+        expect(input.headers['Content-MD5'], isNull);
+        expect(input.headers['x-oss-agentic-bucket'], 'parent');
+      },
+    );
+
+    test('GetBucketInfo parses resource type and parent AgenticBucket', () async {
+      final result = GetBucketInfoResult();
+      final xml =
+          '<BucketInfo><Bucket><Name>space</Name><BucketResourceType>AgenticBucketSpace</BucketResourceType><AgenticBucketName>parent</AgenticBucketName></Bucket></BucketInfo>';
+      await SerdeBucketBasic.deserializeGetBucketInfo(
+        result,
+        OperationOutput(
+          statusCode: 200,
+          headers: {},
+          body: ByteStream.fromData(Uint8List.fromList(utf8.encode(xml))),
+        ),
+      );
+      expect(
+        result.bucketInfo!.bucket!.bucketResourceType,
+        'AgenticBucketSpace',
+      );
+      expect(result.bucketInfo!.bucket!.agenticBucketName, 'parent');
     });
 
     test('testSerializePutBucket - with ACL and resourceGroupId', () async {

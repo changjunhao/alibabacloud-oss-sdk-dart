@@ -67,7 +67,7 @@ dart pub get
 
 ## Library Entry Points
 
-The SDK provides two library entry points for on-demand importing:
+The SDK provides three library entry points for on-demand importing:
 
 ```dart
 // Core library - bucket basic APIs, object APIs, and high-level APIs (paginator, presigner)
@@ -75,11 +75,15 @@ import 'package:alibabacloud_oss_sdk_dart/alibabacloud_oss_sdk_dart.dart';
 
 // Extension library - bucket configuration APIs (CORS, encryption, logging, etc.)
 import 'package:alibabacloud_oss_sdk_dart/alibabacloud_oss_sdk_extension.dart';
+
+// Agentic library - AgenticBucket management and BucketSpace (re-exports the core library)
+import 'package:alibabacloud_oss_sdk_dart/alibabacloud_oss_sdk_agentic.dart';
 ```
 
 > **Note:**
 > - `alibabacloud_oss_sdk_dart` provides bucket basic APIs, all object APIs, and high-level APIs (such as paginator, presigner).
 > - `alibabacloud_oss_sdk_extension` provides other bucket configuration APIs, such as CORS, encryption, logging, policy, etc.
+> - `alibabacloud_oss_sdk_agentic` provides AgenticBucket management (`AgenticBucketClient`) and a `BucketSpaceClient.make` factory that returns an ordinary `Client` transparently rewriting each bucket to its physical `{prefix}-{accountId}-{region}-bs-apsr` name. Requires `accountId` and `region` in `Configuration`. Agentic APIs are validated against the default V4 signer.
 
 ## Getting Started
 
