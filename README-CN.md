@@ -56,7 +56,7 @@ alibabacloud-oss-sdk-dart 是 OSS 在 Dart 编程语言下的 SDK。
 
 ```yaml
 dependencies:
-  alibabacloud_oss_sdk_dart: ^1.1.0
+  alibabacloud_oss_sdk_dart: ^1.2.0
 ```
 
 然后执行：
@@ -414,8 +414,8 @@ SDK 具有完善的测试覆盖：
 
 | 类别 | 数量 | 说明 |
 |------|------|------|
-| 单元测试 | 537 | 序列化、凭证、签名、客户端逻辑 |
-| 集成测试 | 227 | 全面覆盖所有 OSS 操作 |
+| 单元测试 | 663 | 序列化、凭证、签名、客户端逻辑 |
+| 集成测试 | 240 | 全面覆盖所有 OSS 操作 |
 
 ### 运行测试
 

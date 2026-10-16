@@ -56,7 +56,7 @@ Add the dependency to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  alibabacloud_oss_sdk_dart: ^1.1.0
+  alibabacloud_oss_sdk_dart: ^1.2.0
 ```
 
 Then run:
@@ -414,8 +414,8 @@ The SDK has comprehensive test coverage:
 
 | Category | Count | Description |
 |----------|-------|-------------|
-| Unit Tests | 537 | Serialization, credentials, signing, client logic |
-| Integration Tests | 227 | Comprehensive coverage of all OSS operations |
+| Unit Tests | 663 | Serialization, credentials, signing, client logic |
+| Integration Tests | 240 | Comprehensive coverage of all OSS operations |
 
 ### Running Tests
 
